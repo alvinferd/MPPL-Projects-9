@@ -91,7 +91,7 @@ __Tech Stack__
         <tr>
             <td>5</td>
             <td>Fadil Risdian Ansori</td>
-            <tG64180111</td>
+            <td>G64180111</td>
             <td>Project Manager, Frontend</td>
         </tr>
     </tbody>
