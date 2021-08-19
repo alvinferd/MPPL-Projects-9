@@ -1,7 +1,5 @@
 # MPPL-Projects-9
 ---
- 
-![SIMALAB_logo](lampiran/logo.png)
 
 ---
 [Deskripsi Aplikasi]
