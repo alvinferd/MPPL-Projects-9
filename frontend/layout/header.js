@@ -1,55 +1,13 @@
-import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
-import SearchIcon from '@mui/icons-material/Search';
-import { Link as MUILink, InputBase, Typography, Toolbar, Box, AppBar } from '@mui/material';
-import Image from 'next/image';
-import Link from 'next/link';
-import LogoPoncolapak from '../public/PoncolapakLogo.svg';
-import LocationLogo from '../public/LocationLogo.svg';
-import ChatLogo from '../public/ChatLogo.svg';
-import ShoppingCartLogo from '../public/ShoppingCartLogo.svg';
-
-const Search = styled('div')(({ theme }) => ({
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.black, 0.15),
-    '&:hover': {
-        backgroundColor: alpha(theme.palette.common.black, 0.20),
-    },
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-        marginLeft: theme.spacing(1),
-        width: 'auto',
-    },
-}));
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: 'inherit',
-    '& .MuiInputBase-input': {
-        padding: theme.spacing(1, 1, 1, 0),
-        // vertical padding + font size from searchIcon
-        paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-        transition: theme.transitions.create('width'),
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-            width: '12ch',
-            '&:focus': {
-                width: '20ch',
-            },
-        },
-    },
-}));
+import * as React from 'react'
+import SearchIcon from '@mui/icons-material/Search'
+import { Link as MUILink, InputBase, Typography, Toolbar, Box, AppBar, TextField, IconButton } from '@mui/material'
+import Image from 'next/image'
+import Link from 'next/link'
+import LogoPoncolapak from '../public/PoncolapakLogo.svg'
+import LocationLogo from '../public/LocationLogo.svg'
+import ChatLogo from '../public/ChatLogo.svg'
+import ShoppingCartLogo from '../public/ShoppingCartLogo.svg'
+import theme from '../themes/default'
 
 export default function Header() {
     return (
@@ -63,7 +21,7 @@ export default function Header() {
                                     <Image
                                         src={LogoPoncolapak}
                                         alt="Logo Poncolapak"
-                                        height={35}
+                                        height={30}
                                     />
                                     <Typography
                                         fontFamily="Poppins"
@@ -76,32 +34,35 @@ export default function Header() {
                             </MUILink>
                         </Link>
                     </Box>
-                    <Search
-                        sx={{ flexGrow: 3, display: { xs: 'none', sm: 'block' } }}>
-                        <SearchIconWrapper>
-                            <SearchIcon />
-                        </SearchIconWrapper>
-                        <StyledInputBase
-                            placeholder="Search…"
-                            inputProps={{ 'aria-label': 'search' }}
+                    <Box sx={{ flexGrow: 3, justifyContent: 'center', display: { xs: 'none', sm: 'flex' }, flexDirection: 'row', padding: theme.spacing(1, 1, 1, 1) }}>
+                        <Box sx={{ flexGrow: 2.5, padding: theme.spacing(1,0,1,0)}}>
+                        <TextField
+                            id="search" label="Search" variant="outlined" fullWidth color="common" size="small"
+                            InputLabelProps={{
+                                style: { color: '#000000' },
+                              }}
                         />
-                    </Search>
+                        </Box>
+                        <IconButton aria-label="search" size="large" >
+                            <SearchIcon />
+                        </IconButton>
+                    </Box>
                     <Box sx={{ flexGrow: 2, justifyContent: 'space-evenly', alignItems: 'center', display: { xs: 'none', sm: 'flex' }, flexDirection: 'row' }}>
-                        <Link href="/keranjang" passHref>
+                        <Link href="/cart" passHref>
                             <MUILink variant="body1" underline="none" color="inherit">
                                 <Image
                                     src={ShoppingCartLogo}
                                     alt="Keranjang Belanja"
-                                    height={30}
+                                    height={25}
                                 />
                             </MUILink>
                         </Link>
-                        <Link href="/lokasi" passHref>
+                        <Link href="/location" passHref>
                             <MUILink variant="body1" underline="none" color="inherit">
                                 <Image
                                     src={LocationLogo}
                                     alt="Lokasi Kamu"
-                                    height={30}
+                                    height={25}
                                 />
                             </MUILink>
                         </Link>
@@ -110,7 +71,7 @@ export default function Header() {
                                 <Image
                                     src={ChatLogo}
                                     alt="Chat Penjual"
-                                    height={30}
+                                    height={25}
                                 />
                             </MUILink>
                         </Link>
