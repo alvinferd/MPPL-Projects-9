@@ -11,7 +11,7 @@ import theme from '../themes/default'
 
 export default function Header() {
     return (
-        <Box sx={{ flexGrow: 6 }}>
+        <Box sx={{ flexGrow: 6}}>
             <AppBar position="static">
                 <Toolbar>
                     <Box sx={{ flexGrow: 1 }}>
