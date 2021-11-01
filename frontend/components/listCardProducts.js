@@ -4,7 +4,7 @@ import { ListProducts } from '../utils/dummy/ListProduct';
 
 export default function ListCardProduct() {
     return (
-        <Grid container spacing={4} alignItems="stretch">
+        <Grid container spacing={4} alignItems="stretch" sx={{ p: 1 }}>
             {ListProducts.map(product => {
                 return (
                     <Grid item key={product.id} style={{ display: 'flex'}}>

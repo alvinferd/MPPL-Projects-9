@@ -1,5 +1,5 @@
 import { ThemeProvider } from '@emotion/react'
-import { Container, Typography } from '@mui/material'
+import { Container, Typography, Link } from '@mui/material'
 import Head from 'next/head'
 import ListCardProduct from '../components/listCardProducts'
 import Layout from '../layout/default'
@@ -19,6 +19,11 @@ export default function Home({ dataProduct }) {
             Produk
           </Typography>
           <ListCardProduct />
+          <Link href="/products" passHref >
+            <Typography variant="h6" color="text.tertiary" textAlign="right">
+              Lihat lebih banyak
+            </Typography>
+          </Link>
         </Container>
       </Layout>
     </ThemeProvider>
