@@ -1,6 +1,6 @@
 import * as React from 'react'
 import SearchIcon from '@mui/icons-material/Search'
-import { Link as MUILink, InputBase, Typography, Toolbar, Box, AppBar, TextField, IconButton } from '@mui/material'
+import { Link as MUILink, Typography, Toolbar, Box, AppBar, TextField, IconButton } from '@mui/material'
 import Image from 'next/image'
 import Link from 'next/link'
 import LogoPoncolapak from '../public/PoncolapakLogo.svg'
