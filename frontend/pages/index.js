@@ -1,30 +1,19 @@
 import { ThemeProvider } from '@emotion/react'
-import { Container, Typography, Link as MUILink, Box, Paper, Button } from '@mui/material'
+import { Container, Typography, Link as MUILink, Box } from '@mui/material'
 import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
-import Carousel from 'react-material-ui-carousel'
 import GridCategory from '../components/gridCategory'
 import ListCardProduct from '../components/listCardProducts'
 import ListCardWisata from '../components/listCardWisata'
 import Layout from '../layout/default'
 import theme from '../themes/default'
-import { CarouselItems } from '../utils/dummy/Carousel';
+import { CarouselItems } from '../utils/dummy/Carousel'
+import "react-responsive-carousel/lib/styles/carousel.min.css"
+import { Carousel } from 'react-responsive-carousel'
+import styles from '../styles/Home.module.css'
 
 export default function Home() {
-  function Item(props) {
-    return (
-      <Image src={props.item.img}
-        alt={props.item.name}
-        height={668}
-        width={1788}
-        // layout="fill"
-        // objectFit="cover"
-        styles={{ borderRadius: '50px' }}
-        />
-    )
-  }
-
   return (
     <ThemeProvider theme={theme}>
       <Layout>
@@ -33,14 +22,30 @@ export default function Home() {
           <meta name="viewport" content="initial-scale=1, width=device-width" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <Container maxWidth="1920" id="carousel-images" sx={{ width: { xl: "1788" }, height: { xl: "668" }, marginY: 4 }} style={{borderRadius: '50px', overflow: 'hidden'}}>
-          <Carousel sx={{display: 'flex', justifyContent:'center', flexDirection: 'row'}}>
-            {
-              CarouselItems.map((item, i) => <Item key={i} item={item} />)
-            }
+        <Container maxWidth="1788px" id="carousel-images" sx={{ height: { xl: "668px" }, width: { xl: "1788px" }, marginY: 4 }}>
+          <Carousel autoPlay infiniteLoop interval={3000} showStatus={false} showThumbs={false} >
+            {CarouselItems.map(item => {
+              return (
+                <div key={item.id} style={{ position: 'relative', borderRadius: '50px', overflow: 'hidden' }}>
+                  <Image src={item.img}
+                    alt={item.name}
+                    height={668}
+                    width={1788}
+                  />
+                  <div className={styles.legend}>
+                    <Typography fontSize="36px" fontFamily="Poppins" color="#FFFFFF">
+                      {item.name}
+                    </Typography>
+                    <Typography fontSize="28px" fontFamily="Poppins" color="#FFFFFF">
+                      {item.desc}
+                    </Typography>
+                  </div>
+                </div>
+              )
+            })}
           </Carousel>
         </Container>
-        <Container maxWidth="1920" id="list-product" sx={{ width: "fit-content", marginX: 0, marginY: 4 }}>
+        <Container maxWidth="1920" id="list-product" sx={{ width: "fit-content", marginX: 4, marginY: 4 }}>
           <Typography variant="h5" color="text.primary" gutterBottom>
             Produk
           </Typography>
@@ -53,13 +58,13 @@ export default function Home() {
             </Link>
           </Box>
         </Container>
-        <Container maxWidth="1920" id="list-kategori" sx={{ width: "fit-content", marginX: 0, marginY: 4 }}>
+        <Container maxWidth="1920" id="list-kategori" sx={{ width: "fit-content", marginX: 4, marginTop: 4, marginBottom: 8 }}>
           <Typography variant="h5" color="text.primary" gutterBottom>
             Kategori
           </Typography>
           <GridCategory />
         </Container>
-        <Container maxWidth="1920" id="list-wisata" sx={{ width: "fit-content", marginX: 0, marginY: 4 }}>
+        <Container maxWidth="1920" id="list-wisata" sx={{ width: "fit-content", marginX: 4, marginY: 4 }}>
           <Typography variant="h5" color="text.primary" gutterBottom>
             Wisata
           </Typography>
