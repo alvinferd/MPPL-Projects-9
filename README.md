@@ -2,9 +2,6 @@
 ---
 
 ---
-[Deskripsi Aplikasi]
-
----
 
 ## 💡 Deskripsi Aplikasi
 
