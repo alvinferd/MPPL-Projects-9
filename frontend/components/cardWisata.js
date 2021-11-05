@@ -1,10 +1,20 @@
 import * as React from 'react'
 import { Card, CardContent, CardMedia, Typography, CardActionArea, Box } from '@mui/material'
-import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
+import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined'
+import { useRouter } from "next/dist/client/router"
+import { makeStyles } from '@mui/styles'
+
+const useStyles = makeStyles({
+    root: {
+      boxShadow: "2px 4px rgba(0,0,0,0.4)"
+    }
+});
 
 export default function CardWisata({ images, name, description, price, rating }) {
+    const classes = useStyles();
+    const router = useRouter();
     return (
-        <Card sx={{ maxWidth: 554 }} style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column' }}>
+        <Card className={classes.root} sx={{ maxWidth: 554 }} style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column' }} onClick={() => router.push(`/wisata/${name}`)}>
             <CardActionArea sx={{ height: "inherit" }}>
                 <CardMedia
                     component="img"

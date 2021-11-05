@@ -1,10 +1,20 @@
 import * as React from 'react'
 import { Card, CardContent, CardMedia, Typography, CardActionArea, Box } from '@mui/material'
-import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
+import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined'
+import { useRouter } from "next/dist/client/router"
+import { makeStyles } from '@mui/styles'
+
+const useStyles = makeStyles({
+    root: {
+      boxShadow: "2px 4px rgba(0,0,0,0.4)"
+    }
+});
 
 export default function CardProduct({ images, name, description, price, rating }) {
+    const router = useRouter();
+    const classes = useStyles();
     return (
-        <Card sx={{ maxWidth: 291 }} style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column' }}>
+        <Card className={classes.root} sx={{ maxWidth: 291 }} style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column', boxShadow: 3    }} onClick={() => router.push(`/products/${name}`)}>
             <CardActionArea sx={{ height: "inherit" }}>
                 <CardMedia
                     component="img"
