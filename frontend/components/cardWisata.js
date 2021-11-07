@@ -14,36 +14,37 @@ export default function CardWisata({ images, name, description, price, rating })
     const classes = useStyles();
     const router = useRouter();
     return (
-        <Card className={classes.root} sx={{ maxWidth: 554 }} style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column' }} onClick={() => router.push(`/wisata/${name}`)}>
-            <CardActionArea sx={{ height: "inherit" }}>
-                <CardMedia
-                    component="img"
-                    height="228"
-                    image={images}
-                    alt={name}
-                />
-                <CardContent >
+        <Card className={classes.root} sx={{ maxWidth: 554 }} style={{ height: '100%', boxShadow: 3 }} onClick={() => router.push(`/products/${name}`)}>
+        <CardActionArea sx={{ height: "inherit", display: 'flex', justifyContent: 'flex-start', flexDirection: 'column', }}>
+            <CardMedia
+                component="img"
+                image={images}
+                alt={name}
+            />
+            <CardContent style={{height:'inherit', display:"flex", flexDirection:"column", justifyContent:"space-between"}}>
+                <Box>
                     <Typography gutterBottom variant="body1" component="div" fontWeight="500">
                         {name}
                     </Typography>
-                    <Box sx={{ height: 74 }}>
+                    <Box sx={{ height: "fit-content" }}>
                         <Typography variant="body2" color="text.primary" gutterBottom>
                             {description}
                         </Typography>
                     </Box>
-                    <Box display="flex" justifyContent="space-between" flexDirection="row">
-                        <Typography variant="body2" color="text.secondary" gutterBottom>
-                            RP {price}
+                </Box>
+                <Box>
+                    <Typography variant="body2" color="text.secondary" gutterBottom>
+                        RP {price}
+                    </Typography>
+                    <Box display="flex" justifyContent="flex-start" flexDirection="row">
+                        <StarBorderOutlinedIcon fontSize="small" sx={{ color: "#FFF626" }} />
+                        <Typography variant="body2" color="text.primary" sx={{ paddingInline: 0.5 }}>
+                            {rating} / 5.0
                         </Typography>
-                        <Box display="flex" justifyContent="flex-start" flexDirection="row">
-                            <StarBorderOutlinedIcon fontSize="small" sx={{color:"#FFF626"}}/>
-                            <Typography variant="body2" color="text.primary" sx={{paddingInline: 0.5}}>
-                                {rating} / 5.0
-                            </Typography>
-                        </Box>
                     </Box>
-                </CardContent>
-            </CardActionArea>
-        </Card>
+                </Box>
+            </CardContent>
+        </CardActionArea>
+    </Card>
     );
 }

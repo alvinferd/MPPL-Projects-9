@@ -45,12 +45,12 @@ export default function Home() {
             })}
           </Carousel>
         </Container>
-        <Container maxWidth="1920" id="list-product" sx={{ width: "fit-content", marginX: 4, marginY: 4 }}>
+        <Container maxWidth="1920" id="list-product" sx={{ width: "fit-content", marginX: {xs:1, md:4}, marginY: 4 }}>
           <Typography variant="h5" color="text.primary" gutterBottom>
             Produk
           </Typography>
           <ListCardProduct />
-          <Box display="flex" flexDirection="row" justifyContent="right">
+          <Box display="flex" flexDirection="row" justifyContent="right" sx={{paddingTop: 1}}>
             <Link href="/products" passHref >
               <MUILink variant="h6" underline="none" color="text.tertiary">
                 Lihat lebih banyak
@@ -58,18 +58,18 @@ export default function Home() {
             </Link>
           </Box>
         </Container>
-        <Container maxWidth="1920" id="list-kategori" sx={{ width: "fit-content", marginX: 4, marginTop: 4, marginBottom: 8 }}>
+        <Container maxWidth="1920" id="list-kategori" sx={{ width: "fit-content", marginX: {xs:1, md:4}, marginTop: 4, marginBottom: 8 }}>
           <Typography variant="h5" color="text.primary" gutterBottom>
             Kategori
           </Typography>
           <GridCategory />
         </Container>
-        <Container maxWidth="1920" id="list-wisata" sx={{ width: "fit-content", marginX: 4, marginY: 4 }}>
+        <Container maxWidth="1920" id="list-wisata" sx={{ width: "fit-content", marginX: {xs:1, md:4}, marginY: 4 }}>
           <Typography variant="h5" color="text.primary" gutterBottom>
             Wisata
           </Typography>
           <ListCardWisata />
-          <Box display="flex" flexDirection="row" justifyContent="right">
+          <Box display="flex" flexDirection="row" justifyContent="right" sx={{paddingTop: 1}}>
             <Link href="/wisata" passHref >
               <MUILink variant="h6" underline="none" color="text.tertiary">
                 Lihat lebih banyak

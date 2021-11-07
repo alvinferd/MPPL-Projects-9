@@ -25,12 +25,12 @@ export default function ProductDetail() {
                         </Grid>
                     </Grid>
                 </Container>
-                <Container maxWidth="1920" id="list-product" sx={{ width: "fit-content", marginX: 4, marginY: 4 }}>
+                <Container maxWidth="1920" id="list-product" sx={{ width: "fit-content", marginX: { xs: 1, md: 4 }, marginY: 4 }}>
                     <Typography variant="h5" color="text.primary" gutterBottom>
                         Produk
                     </Typography>
                     <ListCardProduct />
-                    <Box display="flex" flexDirection="row" justifyContent="right">
+                    <Box display="flex" flexDirection="row" justifyContent="right" sx={{ paddingTop: 1 }}>
                         <Link href="/products" passHref >
                             <MUILink variant="h6" underline="none" color="text.tertiary">
                                 Lihat lebih banyak
