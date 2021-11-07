@@ -33,10 +33,10 @@ export default function Home() {
                     width={1788}
                   />
                   <div className={styles.legend}>
-                    <Typography fontSize="36px" fontFamily="Poppins" color="#FFFFFF">
+                    <Typography variant="h4" fontFamily="Poppins" color="#FFFFFF">
                       {item.name}
                     </Typography>
-                    <Typography fontSize="28px" fontFamily="Poppins" color="#FFFFFF">
+                    <Typography variant="h5" fontFamily="Poppins" color="#FFFFFF">
                       {item.desc}
                     </Typography>
                   </div>
