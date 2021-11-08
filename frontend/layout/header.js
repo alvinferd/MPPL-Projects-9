@@ -12,7 +12,7 @@ import theme from '../themes/default'
 export default function Header() {
     return (
         <Box sx={{ flexGrow: 6}}>
-            <AppBar position="static">
+            <AppBar position="fixed">
                 <Toolbar>
                     <Box sx={{ flexGrow: 1 }}>
                         <Link href="/" passHref >
@@ -81,6 +81,7 @@ export default function Header() {
                     </Box>
                 </Toolbar>
             </AppBar>
+            <Toolbar />
         </Box>
     );
 }

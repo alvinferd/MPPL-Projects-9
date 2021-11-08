@@ -21,7 +21,7 @@ export default function ListCardWisata() {
             {ListWisata.slice(0, count).map(wisata => {
                 return (
                     <Grid item key={wisata.id} style={{ display: 'flex'}} columns={6} xs={6} md={3} xl={2}>
-                        <CardWisata images={wisata.images} name={wisata.name} description={wisata.description} price={wisata.price} rating={wisata.rating} />
+                        <CardWisata id={wisata.id} images={wisata.images} name={wisata.name} description={wisata.description} price={wisata.price} rating={wisata.rating} />
                     </Grid>
                 )
             })}

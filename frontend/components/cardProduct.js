@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Card, CardContent, CardMedia, Typography, CardActionArea, Box } from '@mui/material'
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined'
-import { useRouter } from "next/dist/client/router"
+import { useRouter } from "next/router"
 import { makeStyles } from '@mui/styles'
 
 const useStyles = makeStyles({
@@ -10,7 +10,7 @@ const useStyles = makeStyles({
     }
 });
 
-export default function CardProduct({ images, name, description, price, rating }) {
+export default function CardProduct({ id, images, name, description, price, rating }) {
     const router = useRouter();
     const classes = useStyles();
     return (

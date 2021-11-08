@@ -10,7 +10,7 @@ const useStyles = makeStyles({
     }
 });
 
-export default function CardWisata({ images, name, description, price, rating }) {
+export default function CardWisata({ id, images, name, description, price, rating }) {
     const classes = useStyles();
     const router = useRouter();
     return (

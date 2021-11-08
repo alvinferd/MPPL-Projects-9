@@ -18,13 +18,13 @@ export default function ListCardProduct() {
     if (useMediaQuery('(min-width:1536px)')) {
         count = 5;
     }
-
+    // console.log(ListProducts[0].images[0]);
     return (
         <Grid container spacing={{ md: 4, xs: 3 }} alignItems="stretch" sx={{ xs: {margin: 0}, md: { p: 1 } }}>
             {ListProducts.slice(0, count).map(product => {
                 return (
                     <Grid item key={product.id} style={{ display: 'flex' }} columns={60} xs={30} md={20} lg={15} xl={12}>
-                        <CardProduct images={product.images} name={product.name} description={product.description} price={product.price} rating={product.rating} />
+                        <CardProduct id={product.id} images={product.images[0].image} name={product.name} description={product.description.short} price={product.price} rating={product.rating} />
                     </Grid>
                 )
             })}
