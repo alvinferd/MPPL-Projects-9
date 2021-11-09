@@ -18,7 +18,7 @@ export default function ProductDetail({ product }) {
         <ThemeProvider theme={theme}>
             <Layout>
                 <Head>
-                    <title>Produk Detail | Poncolapak</title>
+                    <title>{product.name} | Poncolapak</title>
                     <meta name="viewport" content="initial-scale=1, width=device-width" />
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
