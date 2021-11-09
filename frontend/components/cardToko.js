@@ -1,4 +1,3 @@
-import Toko from "../utils/dummy/Toko"
 import { Box, Card, CardActionArea, CardMedia, CardContent, Grid, Typography, Button } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import Image from 'next/image'
@@ -10,9 +9,7 @@ const useStyles = makeStyles({
     }
 });
 
-export default function CardToko() {
-    // const dp = {Toko.}
-    // console.log(Toko.displayPicture);
+export default function CardToko({ id, nama, lokasi, displayPicture, terjual, rating, contact }) {
     const classes = useStyles();
     return (
         <Card className={classes.root} sx={{ maxWidth: 488, maxHeight: 541 }} style={{ height: '100%', boxShadow: 3 }} >
@@ -20,21 +17,21 @@ export default function CardToko() {
                 <Grid container spacing={2} direction="row" alignItems="center" paddingY={2}>
                     <Grid item xs={4}>
                         <Image
-                            src={Toko.displayPicture}
-                            alt={Toko.nama}
+                            src={displayPicture}
+                            alt={nama}
                             // layout="fill"
                             height={110}
                             width={110}
                         />
                     </Grid>
                     <Grid item xs={8}>
-                        <Typography>
-                            <b>{Toko.nama}</b>
+                        <Typography variant="h6">
+                            <b>{nama}</b>
                         </Typography>
                     </Grid>
                 </Grid>
                 <Typography variant="body1" gutterBottom>
-                    Lokasi: {Toko.lokasi}
+                    Lokasi: {lokasi}
                 </Typography>
                 <Grid container spacing={2} direction="row" alignItems="center" paddingTop={2} paddingBottom={4}>
                     <Grid item xs={6}>
@@ -44,7 +41,7 @@ export default function CardToko() {
                     </Grid>
                     <Grid item xs={6}>
                         <Typography variant="body1">
-                            {Toko.terjual}
+                            {terjual}
                         </Typography>
                     </Grid>
                     <Grid item xs={6}>
@@ -56,7 +53,7 @@ export default function CardToko() {
                         <Box display="flex" justifyContent="flex-start" flexDirection="row">
                             <StarBorderOutlinedIcon fontSize="small" sx={{ color: "#FFF626" }} />
                             <Typography variant="body2" color="text.primary" sx={{ paddingInline: 0.5 }}>
-                                {Toko.rating} / 5.0
+                                {rating} / 5.0
                             </Typography>
                         </Box>
                     </Grid>
