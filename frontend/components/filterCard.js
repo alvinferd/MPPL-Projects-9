@@ -6,7 +6,7 @@ import { green, pink } from '@mui/material/colors';
 
 const useStyles = makeStyles({
     root: {
-        boxShadow: "2px 4px rgba(0,0,0,0.4)"
+        boxShadow: "1px 2px 4px 1px rgba(0,0,0,0.4)"
     }
 });
 

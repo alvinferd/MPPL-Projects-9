@@ -5,7 +5,7 @@ import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined'
 
 const useStyles = makeStyles({
     root: {
-        boxShadow: "2px 4px rgba(0,0,0,0.4)"
+        boxShadow: "1px 2px 4px 1px rgba(0,0,0,0.4)"
     }
 });
 

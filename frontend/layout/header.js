@@ -57,7 +57,7 @@ export default function Header() {
                                 />
                             </MUILink>
                         </Link>
-                        <Link href="/location" passHref>
+                        <Link href="/tracking" passHref>
                             <MUILink variant="body1" underline="none" color="inherit">
                                 <Image
                                     src={LocationLogo}
