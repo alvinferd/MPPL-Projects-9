@@ -52,7 +52,7 @@ export default function TrackingCard() {
                 </Card>
             </Grid>
             <Grid item xs={4}>
-                <Card className={classes.root} sx={{ maxWidth: 453, maxHeight: 391 }} style={{ height: 'fit-content', boxShadow: 3 }} >
+                <Card className={classes.root} sx={{ maxWidth: 453, maxHeight: 629 }} style={{ height: 'fit-content', boxShadow: 3 }} >
                     <CardContent style={{ height: 'fit-content', display: "flex", flexDirection: "column", justifyContent: "space-between", alignContent: "center" }}>
                         <Grid container rowSpacing={2} direction="column" justifyContent="space-around">
                             <Grid item>
@@ -112,13 +112,82 @@ export default function TrackingCard() {
                             </Grid>
                             <Grid item>
                                 <Box display="flex" flexDirection="row" justifyContent="right">
-                                    <Link href={`/shop/${TrackingResult.seller.nama}`} passHref >
+                                    <Link href='/#' passHref >
                                         <MUILink variant="body1" underline="none" color="text.tertiary">
                                             Lihat detail pembelian
                                         </MUILink>
                                     </Link>
                                 </Box>
                             </Grid>
+                            <Grid item>
+                                <Grid container spacing={1} direction="row">
+                                    <Grid item xs={12}>
+                                        <Typography variant="body1" gutterBottom>
+                                            <b> Detail Pembelian</b>
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={7}>
+                                        <Typography variant="body1" gutterBottom>
+                                            {TrackingResult.product.name} {TrackingResult.quantity}
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={5}>
+                                        <Typography variant="body1" gutterBottom>
+                                            RP 1.000.000
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={7}>
+                                        <Typography variant="body1" gutterBottom>
+                                            {TrackingResult.quantity} untuk packing
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={5}>
+                                        <Typography variant="body1" gutterBottom>
+                                            RP 75.000
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={7}>
+                                        <Typography variant="body1" gutterBottom>
+                                            Ongkos Kirim
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={5}>
+                                        <Typography variant="body1" gutterBottom>
+                                            RP 50.000
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={7}>
+                                        <Typography variant="body1" gutterBottom>
+                                            Biaya Admin
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={5}>
+                                        <Typography variant="body1" gutterBottom>
+                                            RP 10.000
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={7} marginTop={1}>
+                                        <Typography variant="body1" gutterBottom>
+                                            TOTAL
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={5} marginTop={1}>
+                                        <Typography variant="h6" color="text.secondary" gutterBottom>
+                                            RP {TrackingResult.totalPrice}
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <Box display="flex" flexDirection="row" justifyContent="right">
+                                            <Link href='/#' passHref >
+                                                <MUILink variant="body1" underline="none" color="text.tertiary">
+                                                    Lihat lebih sedikit
+                                                </MUILink>
+                                            </Link>
+                                        </Box>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+
                         </Grid>
                     </CardContent>
                 </Card>
