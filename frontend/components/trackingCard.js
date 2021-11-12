@@ -18,8 +18,8 @@ export default function TrackingCard() {
     const classes = useStyles();
     return (
         <Grid container spacing={2}>
-            <Grid item xs={8}>
-                <Card className={classes.root} sx={{ maxWidth: 1040, maxHeight: 777 }} style={{ height: '100%', boxShadow: 3 }} >
+            <Grid item xs={12} md={7} lg={8}>
+                <Card className={classes.root} sx={{ maxWidth: 1040, maxHeight: 777 }} style={{ height: '100%', bolghadow: 3 }} >
                     <CardContent style={{ height: 'inherit', display: "flex", flexDirection: "column", justifyContent: "space-between", alignContent: "center" }}>
                         <Grid container rowSpacing={6} direction="column">
                             {chronological.map(item => {
@@ -51,8 +51,8 @@ export default function TrackingCard() {
                     </CardContent>
                 </Card>
             </Grid>
-            <Grid item xs={4}>
-                <Card className={classes.root} sx={{ maxWidth: 453, maxHeight: 629 }} style={{ height: 'fit-content', boxShadow: 3 }} >
+            <Grid item xs={12} md={5} lg={4}>
+                <Card className={classes.root} sx={{ maxWidth: 453 }} style={{ height: 'fit-content', boxShadow: 3 }} >
                     <CardContent style={{ height: 'fit-content', display: "flex", flexDirection: "column", justifyContent: "space-between", alignContent: "center" }}>
                         <Grid container rowSpacing={2} direction="column" justifyContent="space-around">
                             <Grid item>

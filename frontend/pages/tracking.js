@@ -14,7 +14,7 @@ export default function TrackingPage() {
                     <meta name="viewport" content="initial-scale=1, width=device-width" />
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
-                <Container maxWidth="1920" id="list-product-terlaris" sx={{ marginX: { xs: 1, md: 2, lg: 4 }, marginY: 4 }}>
+                <Container maxWidth="1920" id="lacak-produk" sx={{ marginX: { xs: 1, md: 2, lg: 4 }, marginY: 4 }}>
                     <Typography variant="h6" marginY={3}>
                         <b>Lacak</b>
                     </Typography>

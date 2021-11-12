@@ -2,7 +2,7 @@ import { Card, CardContent, Checkbox, Grid, Typography, Button, TextField } from
 import { makeStyles } from '@mui/styles'
 import Image from 'next/image'
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined'
-import { green, pink } from '@mui/material/colors';
+import { green } from '@mui/material/colors';
 
 const useStyles = makeStyles({
     root: {
