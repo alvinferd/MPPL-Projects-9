@@ -5,7 +5,7 @@ import Link from 'next/link'
 import MyCart from '../utils/dummy/MyCart'
 import { green } from '@mui/material/colors';
 import ItemCart from './itemCart'
-
+import { useRouter } from "next/router"
 
 const useStyles = makeStyles({
     root: {
@@ -16,15 +16,15 @@ const useStyles = makeStyles({
 const label = { inputProps: { 'aria-label': 'Checkbox Keranjang' } };
 
 export default function CartCard() {
-
+    const router = useRouter();
     const classes = useStyles();
     return (
         <Grid container spacing={2} sx={{ width: '100%' }}>
             <Grid item xs={12} md={8} lg={8}>
                 <Card className={classes.root} sx={{ maxWidth: 1151 }} style={{ height: '100%', boxShadow: 3 }} >
                     <CardContent style={{ height: '100%' }}>
-                        <Grid container rowSpacing={{xs: 4, xl: 5}} columnSpacing={2} direction="column">
-                            <Grid item>
+                        <Grid container rowSpacing={{xs: 4, xl: 5}} columnSpacing={2}>
+                            <Grid item xs={12}>
                                 <Grid container spacing={0} direction="row" alignItems="center">
                                     <Grid item xs={1}>
                                         <Checkbox
@@ -46,7 +46,7 @@ export default function CartCard() {
                             </Grid>
                             {MyCart.map(product => {
                                 return (
-                                    <Grid item key={product.id}>
+                                    <Grid item xs={12} key={product.id}>
                                         <ItemCart id={product.id} images={product.images[0]} name={product.name} price={product.price} seller={product.seller} />
                                     </Grid>
                                 )
@@ -94,7 +94,7 @@ export default function CartCard() {
                             </Grid>
                             <Grid item>
                                 <Grid container justifyContent="center">
-                                    <Button variant="contained" color="secondary" size="large">
+                                    <Button variant="contained" color="secondary" size="large" onClick={() => router.push(`/cart/pay`)}>
                                         Bayar
                                     </Button>
                                 </Grid>

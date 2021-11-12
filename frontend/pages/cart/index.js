@@ -1,9 +1,9 @@
 import { ThemeProvider } from "@emotion/react"
-import { Box, Button, Container, Grid, Link as MUILink, Typography } from '@mui/material'
-import Layout from "../layout/default"
-import theme from "../themes/default"
+import { Container, Typography } from '@mui/material'
+import Layout from "../../layout/default"
+import theme from "../../themes/default"
 import Head from 'next/head'
-import CartCard from "../components/cardCart"
+import CartCard from "../../components/cardCart"
 
 export default function SellerDetail() {
     return (

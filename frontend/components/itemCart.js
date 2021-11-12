@@ -8,7 +8,7 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 const label = { inputProps: { 'aria-label': 'Checkbox Keranjang' } };
 
 export default function ItemCart({id, name, images, price, seller}) {
-    console.log(images);
+    // console.log(images);
     return (
         <Grid container columnSpacing={2} direction="row">
             <Grid item xs={1} >
@@ -24,14 +24,14 @@ export default function ItemCart({id, name, images, price, seller}) {
                     />
                 </Grid>
             </Grid>
-            <Grid item xs={3} lg={2.5} xl={1.75}>
+            <Grid item xs={3} lg={2.5} xl={1.75} sx={{position: 'relative'}}>
                 <Image
                     src={images.image}
                     alt={name}
-                    height={175}
-                    width={175}
-                    // layout='fill'
-                    // objectFit='fill'
+                    // height={175}
+                    // width={175}
+                    layout='fill'
+                    objectFit='fill'
                 />
             </Grid>
             <Grid item xs={6.75} lg={7} xl={8.25}>
