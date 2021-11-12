@@ -5,7 +5,7 @@ import theme from "../../themes/default"
 import Head from 'next/head'
 import CartCard from "../../components/cardCart"
 
-export default function SellerDetail() {
+export default function Cart() {
     return (
         <ThemeProvider theme={theme}>
             <Layout>
