@@ -1,3 +1,4 @@
+import * as React from 'react'
 import Head from 'next/head'
 import { ThemeProvider } from '@emotion/react'
 import theme from '../../themes/default'
@@ -12,8 +13,61 @@ import Image from 'next/image'
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined'
 
 export default function ProductDetail({ product }) {
+    const [jumlahBarang, setJumlahBarang] = React.useState(1);
+    const [longDisplay, setLongDisplay] = React.useState(false);
+
+    const inc = () => {
+        setJumlahBarang(jumlahBarang + 1);
+    }
+
+    const dec = () => {
+        if (jumlahBarang > 0) {
+            setJumlahBarang(jumlahBarang - 1);
+        }
+    }
+
+    const handleChange = (event) => {
+        setJumlahBarang(Number(event.target.value));
+    }
+
+    const addToCart = () => {
+        console.log(product, jumlahBarang);
+    }
+
+    const LongDesc = () => {
+        return (
+            <Typography variant="body2">
+                {product.description.long}
+            </Typography>
+        )
+    }
+
+    const ShortDesc = () => {
+        return (
+            <Typography variant="body2">
+                {product.description.short}
+            </Typography>
+        )
+    }
+
+    const Collapse = () => {
+        return (
+            <MUILink variant="body2" color="text.tertiary" onClick={() => setLongDisplay(false)} sx={{cursor: 'pointer'}}>
+                Lihat lebih sedikit
+            </MUILink>
+        )
+    }
+
+    const Expand = () => {
+        return (
+            <MUILink variant="body2" color="text.tertiary" onClick={() => setLongDisplay(true)} sx={{cursor: 'pointer'}}>
+                Lihat lebih banyak
+            </MUILink>
+        )
+    }
+
     const ListImages = product.images;
-    // console.log(ListImages);
+    // console.log(jumlahBarang);
     return (
         <ThemeProvider theme={theme}>
             <Layout>
@@ -61,13 +115,13 @@ export default function ProductDetail({ product }) {
                                         <Grid item>
                                             <Grid container columnSpacing={2} direction="row" alignItems="center">
                                                 <Grid item>
-                                                    <Button variant="contained" color="tertiary" size="small">
+                                                    <Button variant="contained" color="tertiary" size="small" onClick={dec} disabled={jumlahBarang == 0}>
                                                         <b>-</b>
                                                     </Button>
                                                 </Grid>
                                                 <Grid item>
                                                     <Box sx={{ width: 90, maxWidth: '100%' }}>
-                                                        <TextField id="product-count" variant="outlined" size="small" color="secondary" fullWidth defaultValue="1"
+                                                        <TextField id="product-count" variant="outlined" type="number" size="small" color="secondary" fullWidth value={jumlahBarang} onChange={handleChange}
                                                             // inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
                                                             InputLabelProps={{
                                                                 style: { color: '#000000' },
@@ -75,14 +129,15 @@ export default function ProductDetail({ product }) {
                                                     </Box>
                                                 </Grid>
                                                 <Grid item>
-                                                    <Button variant="contained" color="tertiary" size="small">
+                                                    <Button variant="contained" color="tertiary" size="small" onClick={inc}>
                                                         <b>+</b>
                                                     </Button>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
                                         <Grid item>
-                                            <Button variant="contained" color="secondary" sx={{ width: { xs: '50%', lg: '70%', xl: '50%' }, }}>
+                                            <Button variant="contained" color="secondary" sx={{ width: { xs: '50%', lg: '70%', xl: '50%' }, }}
+                                                onClick={addToCart}>
                                                 Add to Cart
                                             </Button>
                                         </Grid>
@@ -227,14 +282,10 @@ export default function ProductDetail({ product }) {
                                     </Typography>
                                 </Grid>
                                 <Grid item>
-                                    <Typography variant="body2">
-                                        {product.description.long}
-                                    </Typography>
+                                    {longDisplay ? <LongDesc /> : <ShortDesc />}
                                 </Grid>
                                 <Grid item>
-                                    <Typography variant="body2" color="text.tertiary">
-                                        Lihat lebih sedikit
-                                    </Typography>
+                                    {longDisplay ? <Collapse /> : <Expand />}
                                 </Grid>
                             </Grid>
                         </Grid>
