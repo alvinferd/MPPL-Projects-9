@@ -1,4 +1,5 @@
-import { Box, Card, CardContent, Checkbox, Grid, Typography, Link as MUILink, Button } from '@mui/material'
+import * as React from 'react'
+import { Box, Card, CardContent, Checkbox, Grid, IconButton, Typography, Link as MUILink, Button, TextField } from '@mui/material'
 import Image from 'next/image'
 import { makeStyles } from '@mui/styles'
 import Link from 'next/link'
@@ -6,6 +7,9 @@ import MyCart from '../utils/dummy/MyCart'
 import { green } from '@mui/material/colors';
 import ItemCart from './itemCart'
 import { useRouter } from "next/router"
+import CancelIcon from '@mui/icons-material/Cancel';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 
 const useStyles = makeStyles({
     root: {
@@ -16,6 +20,13 @@ const useStyles = makeStyles({
 const label = { inputProps: { 'aria-label': 'Checkbox Keranjang' } };
 
 export default function CartCard() {
+    const [isAllChecked, setIsAllChecked] = React.useState(false);
+
+    const handleAllChecked = () => {
+        isAllChecked ? setIsAllChecked(false) : setIsAllChecked(true);
+    }
+
+
     const router = useRouter();
     const classes = useStyles();
     return (
@@ -23,12 +34,13 @@ export default function CartCard() {
             <Grid item xs={12} md={8} lg={8}>
                 <Card className={classes.root} sx={{ maxWidth: 1151 }} style={{ height: '100%', boxShadow: 3 }} >
                     <CardContent style={{ height: '100%' }}>
-                        <Grid container rowSpacing={{xs: 4, xl: 5}} columnSpacing={2}>
+                        <Grid container rowSpacing={{ xs: 4, xl: 5 }} columnSpacing={2}>
                             <Grid item xs={12}>
                                 <Grid container spacing={0} direction="row" alignItems="center">
                                     <Grid item xs={1}>
                                         <Checkbox
                                             {...label}
+                                            onClick={handleAllChecked}
                                             sx={{
                                                 color: "text.primary",
                                                 '&.Mui-checked': {
@@ -47,10 +59,11 @@ export default function CartCard() {
                             {MyCart.map(product => {
                                 return (
                                     <Grid item xs={12} key={product.id}>
-                                        <ItemCart id={product.id} images={product.images[0]} name={product.name} price={product.price} seller={product.seller} />
+                                        <ItemCart id={product.id} images={product.images[0]} name={product.name} price={product.price} seller={product.seller} isAll={isAllChecked} />
                                     </Grid>
                                 )
                             })}
+
                         </Grid>
                     </CardContent>
                 </Card>

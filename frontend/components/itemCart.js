@@ -1,4 +1,5 @@
-import { Box, Button, Checkbox, Grid, IconButton, TextField, Typography } from "@mui/material";
+import * as React from 'react'
+import { Box, Checkbox, Grid, IconButton, TextField, Typography } from "@mui/material";
 import { green } from '@mui/material/colors';
 import Image from 'next/image'
 import CancelIcon from '@mui/icons-material/Cancel';
@@ -7,18 +8,48 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 
 const label = { inputProps: { 'aria-label': 'Checkbox Keranjang' } };
 
-export default function ItemCart({id, name, images, price, seller}) {
+export default function ItemCart({id, name, images, price, seller, isAll}) {
     // console.log(images);
+    const [jumlahBarang, setJumlahBarang] = React.useState(1);
+
+    const inc = () => {
+        setJumlahBarang(jumlahBarang + 1);
+    }
+
+    const dec = () => {
+        if (jumlahBarang > 0) {
+            setJumlahBarang(jumlahBarang - 1);
+        }
+    }
+
+    const handleChange = (event) => {
+        setJumlahBarang(Number(event.target.value));
+    }
+
+    // const handleClick = () => {
+    //     if (isAll == true) {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
+
     return (
         <Grid container columnSpacing={2} direction="row">
             <Grid item xs={1} >
                 <Grid container spacing={0} alignItems="center" justifyContent="center" sx={{ height: '100%' }}>
                     <Checkbox
                         {...label}
+                        // checked={handleClick}
+                        disabled={jumlahBarang == 0}
+                        
                         sx={{
                             color: "text.primary",
                             '&.Mui-checked': {
                                 color: green[600],
+                            },
+                            '&.Mui-disabled': {
+                                color: "text.disabled",
                             },
                         }}
                     />
@@ -54,13 +85,13 @@ export default function ItemCart({id, name, images, price, seller}) {
                     <Grid item>
                         <Grid container spacing={0} direction="row" alignItems="center">
                             <Grid item>
-                                <IconButton aria-label="add" color="success" disabled>
+                                <IconButton aria-label="add" color="success" onClick={dec} disabled={jumlahBarang == 0}>
                                     <RemoveCircleIcon />
                                 </IconButton>
                             </Grid>
                             <Grid item>
                                 <Box sx={{ width: 70, maxWidth: '100%' }}>
-                                    <TextField id="product-count" variant="outlined" size="small" color="secondary" fullWidth defaultValue="1"
+                                    <TextField id="product-count" type="number" variant="outlined" size="small" color="secondary" fullWidth value={jumlahBarang} onChange={handleChange}
                                         // inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
                                         InputLabelProps={{
                                             style: { color: '#000000' },
@@ -68,7 +99,7 @@ export default function ItemCart({id, name, images, price, seller}) {
                                 </Box>
                             </Grid>
                             <Grid item>
-                                <IconButton aria-label="add" color="success">
+                                <IconButton aria-label="add" color="success" onClick={inc}>
                                     <AddCircleIcon />
                                 </IconButton>
                             </Grid>
