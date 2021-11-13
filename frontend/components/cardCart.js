@@ -1,15 +1,11 @@
 import * as React from 'react'
-import { Box, Card, CardContent, Checkbox, Grid, IconButton, Typography, Link as MUILink, Button, TextField } from '@mui/material'
-import Image from 'next/image'
+import { Box, Card, CardContent, Grid, Typography, Link as MUILink, Button, TextField } from '@mui/material'
 import { makeStyles } from '@mui/styles'
-import Link from 'next/link'
 import MyCart from '../utils/dummy/MyCart'
-import { green } from '@mui/material/colors';
 import ItemCart from './itemCart'
 import { useRouter } from "next/router"
-import CancelIcon from '@mui/icons-material/Cancel';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import { AllCheckerCheckbox, CheckboxGroup } from '@createnl/grouped-checkboxes';
+import styles from '../styles/cart.module.css'
 
 const useStyles = makeStyles({
     root: {
@@ -35,35 +31,29 @@ export default function CartCard() {
                 <Card className={classes.root} sx={{ maxWidth: 1151 }} style={{ height: '100%', boxShadow: 3 }} >
                     <CardContent style={{ height: '100%' }}>
                         <Grid container rowSpacing={{ xs: 4, xl: 5 }} columnSpacing={2}>
-                            <Grid item xs={12}>
-                                <Grid container spacing={0} direction="row" alignItems="center">
-                                    <Grid item xs={1}>
-                                        <Checkbox
-                                            {...label}
-                                            onClick={handleAllChecked}
-                                            sx={{
-                                                color: "text.primary",
-                                                '&.Mui-checked': {
-                                                    color: green[600],
-                                                },
-                                            }}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={11}>
-                                        <Typography variant="h6">
-                                            Semua barang
-                                        </Typography>
+                            <CheckboxGroup>
+                                <Grid item xs={12}>
+                                    <Grid container spacing={0} direction="row" alignItems="center">
+                                        <Grid item xs={0.75}>
+                                            <Grid container spacing={0} justifyContent="center">
+                                                <AllCheckerCheckbox className={styles.cb} />
+                                            </Grid>
+                                        </Grid>
+                                        <Grid item xs={11}>
+                                            <Typography variant="h6">
+                                                Semua barang
+                                            </Typography>
+                                        </Grid>
                                     </Grid>
                                 </Grid>
-                            </Grid>
-                            {MyCart.map(product => {
-                                return (
-                                    <Grid item xs={12} key={product.id}>
-                                        <ItemCart id={product.id} images={product.images[0]} name={product.name} price={product.price} seller={product.seller} isAll={isAllChecked} />
-                                    </Grid>
-                                )
-                            })}
-
+                                {MyCart.map(product => {
+                                    return (
+                                        <Grid item xs={12} key={product.id}>
+                                            <ItemCart id={product.id} images={product.images[0]} name={product.name} price={product.price} seller={product.seller} isAll={isAllChecked} />
+                                        </Grid>
+                                    )
+                                })}
+                            </CheckboxGroup>
                         </Grid>
                     </CardContent>
                 </Card>

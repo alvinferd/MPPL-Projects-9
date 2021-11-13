@@ -1,10 +1,11 @@
 import * as React from 'react'
-import { Box, Checkbox, Grid, IconButton, TextField, Typography } from "@mui/material";
-import { green } from '@mui/material/colors';
+import { Box, Grid, IconButton, TextField, Typography } from "@mui/material";
 import Image from 'next/image'
 import CancelIcon from '@mui/icons-material/Cancel';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import { Checkbox as GRCheckBox } from '@createnl/grouped-checkboxes';
+import styles from '../styles/cart.module.css'
 
 const label = { inputProps: { 'aria-label': 'Checkbox Keranjang' } };
 
@@ -26,32 +27,14 @@ export default function ItemCart({id, name, images, price, seller, isAll}) {
         setJumlahBarang(Number(event.target.value));
     }
 
-    // const handleClick = () => {
-    //     if (isAll == true) {
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // }
-
     return (
         <Grid container columnSpacing={2} direction="row">
             <Grid item xs={1} >
                 <Grid container spacing={0} alignItems="center" justifyContent="center" sx={{ height: '100%' }}>
-                    <Checkbox
-                        {...label}
+                    <GRCheckBox
                         // checked={handleClick}
                         disabled={jumlahBarang == 0}
-                        
-                        sx={{
-                            color: "text.primary",
-                            '&.Mui-checked': {
-                                color: green[600],
-                            },
-                            '&.Mui-disabled': {
-                                color: "text.disabled",
-                            },
-                        }}
+                        className={styles.cb}
                     />
                 </Grid>
             </Grid>
