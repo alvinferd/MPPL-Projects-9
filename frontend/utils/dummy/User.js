@@ -1,6 +1,6 @@
 const User = {
     nama: 'John Doe',
-    tanggal_lahir: '01/01/2000',
+    tanggal_lahir: '2000-01-01',
     jenis_kelamin: 'Laki-Laki',
     email: 'poncolapak@gmail.com',
     no_hp:  '08123456789',
