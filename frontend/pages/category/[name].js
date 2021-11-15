@@ -20,7 +20,7 @@ export default function ProductInCategoryPage() {
                         <MUILink underline="hover" href="/" color="text.primary">
                             Home
                         </MUILink>
-                        <Typography color="text.secondary">Nama Kategori</Typography>
+                        <Typography color="text.quaternary">Nama Kategori</Typography>
                     </Breadcrumbs>
                 </Container>
                 <Container maxWidth="1920" id="list-product" sx={{ width: "fit-content", marginX: { xs: 1, md: 2, xl: 4 }, marginY: 4 }}>

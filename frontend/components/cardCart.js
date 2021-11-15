@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Box, Card, CardContent, Checkbox, Grid, IconButton, Typography, Link as MUILink, Button, TextField, fabClasses } from '@mui/material'
+import { Box, Card, CardContent, Checkbox, Grid, IconButton, Typography, Link as MUILink, Button, TextField } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import MyCart from '../utils/dummy/MyCart'
 import { useRouter } from "next/router"
@@ -80,8 +80,10 @@ export default function CartCard() {
                 let newCheckedArray = { ...checkedArray };
                 let newTotalHarga = totalHarga;
                 MyCart.map(item => {
-                    newCheckedArray[item.id] = true;
-                    newTotalHarga += item.price * jumlahBarang[item.id];
+                    if (newCheckedArray[item.id] != true) {
+                        newTotalHarga += item.price * jumlahBarang[item.id];
+                        newCheckedArray[item.id] = true;
+                    }
                 });
                 setCheckedArray(newCheckedArray);
                 setTotalHarga(newTotalHarga);
@@ -181,7 +183,7 @@ export default function CartCard() {
                                                             </Typography>
                                                         </Grid>
                                                         <Grid item>
-                                                            <Typography variant="body1" color="text.secondary" gutterBottom>
+                                                            <Typography variant="body1" color="text.quaternary" gutterBottom>
                                                                 RP {product.price}
                                                             </Typography>
                                                         </Grid>
@@ -264,7 +266,7 @@ export default function CartCard() {
                                         </Typography>
                                     </Grid>
                                     <Grid item>
-                                        <Typography color="text.secondary">
+                                        <Typography color="text.quaternary">
                                             <b>RP {totalHarga}</b>
                                         </Typography>
                                     </Grid>

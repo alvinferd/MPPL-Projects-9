@@ -33,7 +33,7 @@ export default function CardWisata({ id, images, name, description, price, ratin
                     </Box>
                 </Box>
                 <Box>
-                    <Typography variant="body2" color="text.secondary" gutterBottom>
+                    <Typography variant="body2" color="text.quaternary" gutterBottom>
                         RP {price}
                     </Typography>
                     <Box display="flex" justifyContent="flex-start" flexDirection="row">

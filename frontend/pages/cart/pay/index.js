@@ -269,7 +269,7 @@ export default function PayForm() {
                                                     <Grid item xs={5}>
                                                         <Grid container rowSpacing={0} direction="column" alignItems="end">
                                                             <Grid item>
-                                                                <Typography color="text.secondary">
+                                                                <Typography color="text.quaternary">
                                                                     <b>RP 1.050.000</b>
                                                                 </Typography>
                                                             </Grid>

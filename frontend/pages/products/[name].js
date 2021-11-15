@@ -88,7 +88,7 @@ export default function ProductDetail({ product }) {
                         >
                             Category
                         </MUILink>
-                        <Typography color="text.secondary">{product.name}</Typography>
+                        <Typography color="text.quaternary">{product.name}</Typography>
                     </Breadcrumbs>
                 </Container>
 
@@ -272,7 +272,7 @@ export default function ProductDetail({ product }) {
                                     </Grid>
                                 </Grid>
                                 <Grid item>
-                                    <Typography variant="h5" color="text.secondary">
+                                    <Typography variant="h5" color="text.quaternary">
                                         <b> RP {product.price} </b>
                                     </Typography>
                                 </Grid>

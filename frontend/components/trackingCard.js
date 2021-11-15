@@ -70,7 +70,7 @@ export default function TrackingCard() {
                     </Typography>
                 </Grid>
                 <Grid item xs={5} marginTop={1}>
-                    <Typography variant="h6" color="text.secondary" gutterBottom>
+                    <Typography variant="h6" color="text.quaternary" gutterBottom>
                         RP {TrackingResult.totalPrice}
                     </Typography>
                 </Grid>
@@ -183,7 +183,7 @@ export default function TrackingCard() {
                                                 </Typography>
                                             </Grid>
                                             <Grid item>
-                                                <Typography variant="h6" color="text.secondary" gutterBottom>
+                                                <Typography variant="h6" color="text.quaternary" gutterBottom>
                                                     RP {TrackingResult.totalPrice}
                                                 </Typography>
                                             </Grid>
