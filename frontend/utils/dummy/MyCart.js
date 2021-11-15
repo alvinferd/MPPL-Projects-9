@@ -8,7 +8,7 @@ const MyCart = [
                 image: "/images/wafer.png",
             },
         ],
-        price: "1.000.000",
+        price: 1000000,
         seller: "Toko Pak Makmur",
     },
     {
@@ -20,11 +20,11 @@ const MyCart = [
                 image: "/images/keranjang.png",
             },
         ],
-        price: "1.000.000",
+        price: 1000000,
         seller: "Toko Pak Makmur",
     },
     {
-        id: 2,
+        id: 2313,
         name: "Apel Poncokusumo",
         images: [
             {
@@ -32,7 +32,7 @@ const MyCart = [
                 image: "/images/apel.png",
             },
         ],
-        price: "1.000.000",
+        price: 1000000,
         seller: "Toko Pak Kardi",
     },
 ]
