@@ -6,6 +6,8 @@ import Image from 'next/image'
 import User from '../utils/dummy/User'
 import { useForm, Controller } from "react-hook-form"
 import theme from '../themes/default'
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
+import Link from 'next/link'
 
 const useStyles = makeStyles({
     root: {
@@ -335,7 +337,80 @@ export default function CardProfile() {
                         </Grid>
                     </TabPanel>
                     <TabPanel value={value} index={1}>
-                        <Typography>Item Three</Typography>
+                        <Grid container spacing={4} >
+                            <Grid item xs={12}>
+                                <Button variant="contained" color="secondary">
+                                    Tambah Daftar Alamat
+                                </Button>
+                            </Grid>
+                            {User.alamat_tersimpan.map(alamat => {
+                                return (
+                                    <Grid item xs={12} key={alamat.id}>
+                                        <Card className={classes.root} style={{ width: '100%', boxShadow: 3 }} >
+                                            <CardContent style={{ height: '100%' }}>
+                                                <Grid container spacing={2} >
+                                                    <Grid item xs={11}>
+                                                        <Grid container columnSpacing={2} alignItems="center">
+                                                            <Grid item>
+                                                                <Typography variant="body1">
+                                                                    <b>{alamat.nama_penerima}</b>
+                                                                </Typography>
+                                                            </Grid>
+                                                            <Grid item>
+                                                                <Typography variant="body2" color="text.disabled" display={alamat.isPrimary ? 'block' : 'none'}>
+                                                                    Alamat Utama
+                                                                </Typography>
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Grid>
+                                                    <Grid item xs={1} alignContent="end" display={alamat.isPrimary ? 'none' : 'block'}>
+                                                        <DeleteOutlineIcon color="error" />
+                                                    </Grid>
+                                                    <Grid item xs={12}>
+                                                        <Grid container columnSpacing={4} alignItems="center">
+                                                            <Grid item>
+                                                                <Typography variant="body1">
+                                                                    {alamat.no_hp}
+                                                                </Typography>
+                                                            </Grid>
+                                                            <Grid item>
+                                                                <Typography variant="body1">
+                                                                    {alamat.email}
+                                                                </Typography>
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Grid>
+                                                    <Grid item xs={12}>
+                                                        <Typography variant="body1">
+                                                            {alamat.alamat}
+                                                        </Typography>
+                                                    </Grid>
+                                                    <Grid item xs={12}>
+                                                        <Grid container columnSpacing={4} alignItems="center">
+                                                            <Grid item>
+                                                                <Link href={`/#`} passHref >
+                                                                    <MUILink variant="body2" underline="none" color="text.tertiary">
+                                                                        Edit alamat
+                                                                    </MUILink>
+                                                                </Link>
+                                                            </Grid>
+                                                            <Grid item display={alamat.isPrimary ? 'none' : 'block'}>
+                                                                <Link href={`/#`} passHref >
+                                                                    <MUILink variant="body2" underline="none" color="text.tertiary">
+                                                                        Jadikan alamat utama
+                                                                    </MUILink>
+                                                                </Link>
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
+                                            </CardContent>
+                                        </Card>
+                                    </Grid>
+                                )
+                            })}
+
+                        </Grid>
                     </TabPanel>
                     <TabPanel value={value} index={2}>
                         <Typography>Item Three</Typography>
