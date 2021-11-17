@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Box, Button, Card, CardContent, Grid, Link as MUILink, MenuItem, Select, Tab, Tabs, TextField, Typography } from '@mui/material'
+import { Box, Button, Card, CardContent, Grid, Input, Link as MUILink, MenuItem, Select, Tab, Tabs, TextField, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import PropTypes from 'prop-types'
 import Image from 'next/image'
@@ -8,6 +8,7 @@ import { useForm, Controller } from "react-hook-form"
 import theme from '../themes/default'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 import Link from 'next/link'
+import { red } from "@mui/material/colors"
 
 const useStyles = makeStyles({
     root: {
@@ -413,7 +414,124 @@ export default function CardProfile() {
                         </Grid>
                     </TabPanel>
                     <TabPanel value={value} index={2}>
-                        <Typography>Item Three</Typography>
+                        <Grid container spacing={2} direction="column">
+                            <Grid item>
+                                <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%", alignItems: "center" }}>
+                                    <Card className={classes.root} sx={{ maxWidth: 1546 }} style={{ height: 'fit-content', boxShadow: 3 }} >
+                                        <CardContent style={{ height: 'fit-content', display: "flex", flexDirection: "column", justifyContent: "space-between", alignContent: "center" }}>
+                                            <Grid container spacing={2} direction="row">
+                                                <Grid item xs={3.5} md={2} lg={1} sx={{ position: 'relative' }}>
+                                                    <Image
+                                                        src="/images/apel.png"
+                                                        alt="Apel"
+                                                        height={138}
+                                                        width={156}
+                                                    // layout='fill'
+                                                    // objectFit='fill'
+                                                    />
+                                                </Grid>
+                                                <Grid item xs={8.5} md={5} lg={5.5}>
+                                                    <Grid container spacing={1}>
+                                                        <Grid item xs={12}>
+                                                            <Typography>
+                                                                Apel Poncokusumo Toko Abdi Makmur Super Manis
+                                                            </Typography>
+                                                        </Grid>
+                                                        <Grid item xs={12}>
+                                                            <Typography>
+                                                                Total Pembayaran : RP 1.050.000
+                                                            </Typography>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
+                                                <Grid item xs={12} md={5} lg={5.5}>
+                                                    <Grid container>
+                                                        <Grid item xs={12}>
+                                                            <label htmlFor="contained-button-file">
+                                                                <Input accept="image/*" id="contained-button-file" multiple type="file" />
+                                                                {/* <Button variant="contained" component="span">
+                                                    Upload
+                                                </Button> */}
+                                                            </label>
+                                                        </Grid>
+                                                        <Grid item xs={12}>
+                                                            <Typography variant="body2" color={red[500]}>
+                                                                Ukuran maksimum file : 2MB, Format file : PDF, JPG, JPEG, PNG.
+                                                            </Typography>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                            <Grid container justifyContent="center" paddingTop={4}>
+                                                <Button type="submit" variant="contained" color="secondary" size="large"
+                                                // onClick={() => router.push(`/cart/pay/confirm`)}
+                                                >
+                                                    Konfirmasi
+                                                </Button>
+                                            </Grid>
+                                        </CardContent>
+                                    </Card>
+                                </form>
+                            </Grid>
+                            <Grid item>
+                                <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%", alignItems: "center" }}>
+                                    <Card className={classes.root} sx={{ maxWidth: 1546 }} style={{ height: 'fit-content', boxShadow: 3 }} >
+                                        <CardContent style={{ height: 'fit-content', display: "flex", flexDirection: "column", justifyContent: "space-between", alignContent: "center" }}>
+                                            <Grid container spacing={2} direction="row">
+                                                <Grid item xs={3.5} md={2} lg={1} sx={{ position: 'relative' }}>
+                                                    <Image
+                                                        src="/images/apel.png"
+                                                        alt="Apel"
+                                                        height={138}
+                                                        width={156}
+                                                    // layout='fill'
+                                                    // objectFit='fill'
+                                                    />
+                                                </Grid>
+                                                <Grid item xs={8.5} md={5} lg={5.5}>
+                                                    <Grid container spacing={1}>
+                                                        <Grid item xs={12}>
+                                                            <Typography>
+                                                                Apel Poncokusumo Toko Abdi Makmur Super Manis
+                                                            </Typography>
+                                                        </Grid>
+                                                        <Grid item xs={12}>
+                                                            <Typography>
+                                                                Total Pembayaran : RP 1.050.000
+                                                            </Typography>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
+                                                <Grid item xs={12} md={5} lg={5.5}>
+                                                    <Grid container>
+                                                        <Grid item xs={12}>
+                                                            <label htmlFor="contained-button-file">
+                                                                <Input accept="image/*" id="contained-button-file" multiple type="file" />
+                                                                {/* <Button variant="contained" component="span">
+                                                    Upload
+                                                </Button> */}
+                                                            </label>
+                                                        </Grid>
+                                                        <Grid item xs={12}>
+                                                            <Typography variant="body2" color={red[500]}>
+                                                                Ukuran maksimum file : 2MB, Format file : PDF, JPG, JPEG, PNG.
+                                                            </Typography>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                            <Grid container justifyContent="center" paddingTop={4}>
+                                                <Button type="submit" variant="contained" color="secondary" size="large" disabled
+                                                // onClick={() => router.push(`/cart/pay/confirm`)}
+                                                >
+                                                    Konfirmasi
+                                                </Button>
+                                            </Grid>
+                                        </CardContent>
+                                    </Card>
+                                </form>
+                            </Grid>
+                        </Grid>
                     </TabPanel>
                     <TabPanel value={value} index={3}>
                         <Typography>Item Four</Typography>
