@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import LogoPoncolapak from '../public/PoncolapakLogo.svg'
 import LocationLogo from '../public/LocationLogo.svg'
-import ChatLogo from '../public/ChatLogo.svg'
+import OrderLogo from '../public/Receipt.svg'
 import ShoppingCartLogo from '../public/ShoppingCartLogo.svg'
 import theme from '../themes/default'
 
@@ -66,11 +66,11 @@ export default function Header() {
                                 />
                             </MUILink>
                         </Link>
-                        <Link href="/chat" passHref>
+                        <Link href="/my-order" passHref>
                             <MUILink variant="body1" underline="none" color="inherit">
                                 <Image
-                                    src={ChatLogo}
-                                    alt="Chat Penjual"
+                                    src={OrderLogo}
+                                    alt="Pesanan Saya"
                                     height={25}
                                 />
                             </MUILink>
