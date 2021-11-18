@@ -12,18 +12,14 @@ const User = {
             no_hp: '08123456789',
             email: 'johndoe@gmail.com',
             alamat: ' Jl. Veteran, Kec. Bekasi Sel., Kota Bks, Jawa Barat, 17141 [Tokopedia Note: No. 86 RT03, RW02] Jl. Veteran, Kec. Bekasi Sel., Kota Bks, Jawa Barat, 17141 [Tokopedia Note: No. 86 RT03, RW02]',
-            kota_kecamatan: 'Jawa Barat, Kota Bekasi, Bekasi Selatan',
-            kodepos: '17141',
             isPrimary: true,
         },
         {
             id: 2,
             nama_penerima: 'John Thor',
-            no_hp: '08123456789',
-            email: 'johndoe@gmail.com',
-            alamat: 'Jl. Veteran, Kec. Bekasi Sel., Kota Bks, Jawa Barat, 17141 [Tokopedia Note: No. 86 RT03, RW02] Jl. Veteran, Kec. Bekasi Sel., Kota Bks, Jawa Barat, 17141 [Tokopedia Note: No. 86 RT03, RW02]',
-            kota_kecamatan: 'Jawa Barat, Kota Bekasi, Bekasi Selatan',
-            kodepos: '17141',
+            no_hp: '089598765432',
+            email: 'johnthor@gmail.com',
+            alamat: 'Ini alamat palsu Ini alamat palsu Ini alamat palsu Ini alamat palsu Ini alamat palsu Ini alamat palsu Ini alamat palsu Ini alamat palsuIni alamat palsu',
             isPrimary: false,
         }
     ]

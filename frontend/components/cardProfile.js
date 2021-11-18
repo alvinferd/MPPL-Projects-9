@@ -58,34 +58,54 @@ const onSubmit = (data) => {
     // dispatch(userLogin(data));
 };
 
+const onSubmitAlamat = (data) => {
+    console.log(data);
+    // dispatch(userLogin(data));
+};
+
 export default function CardProfile() {
     const [value, setValue] = React.useState(0);
     const [isEdited, setIsEdited] = React.useState(false);
+    const [openNewAddress, setOpenNewAddress] = React.useState(false);
+    const [openEditAddress, setOpenEditAddress] = React.useState(false);
+    const jk = User.jenis_kelamin;
+    const [jenisKelamin, setJenisPengiriman] = React.useState(jk);
+    const [id, setId] = React.useState(0);
+    const [nama, setNama] = React.useState('');
+    const [noHp, setNoHp] = React.useState('');
+    const [email, setEmail] = React.useState('');
+    const [alamat, setAlamat] = React.useState('');
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-
-    const jk = User.jenis_kelamin;
-    const [jenisKelamin, setJenisPengiriman] = React.useState(jk);
-
     const handleChangeSelector = (event) => {
         setJenisPengiriman(event.target.value);
     };
     const edited = () => {
         setIsEdited(!isEdited);
     }
-    const { control, handleSubmit } = useForm();
-    const [openNewAddress, setOpenNewAddress] = React.useState(false);
-
     const handleOpenNewAddress = () => {
         setOpenNewAddress(true);
     };
-
     const handleCloseNewAddress = () => {
         setOpenNewAddress(false);
     };
+    const handleOpenEditAddress = (event, id, nama, noHp, email, alamat) => {
+        setId(id);
+        setNama(nama);
+        setNoHp(noHp);
+        setEmail(email);
+        setAlamat(alamat);
+        // console.log(id, nama, noHp, email, alamat);
+        setOpenEditAddress(true);
+    };
+    const handleCloseEditAddress = () => {
 
+        setOpenEditAddress(false);
+    };
+
+    const { control, handleSubmit, reset } = useForm();
     const classes = useStyles();
     return (
         <Card className={classes.root} sx={{ maxWidth: 1512 }} style={{ height: '100%', boxShadow: 3 }} >
@@ -118,7 +138,7 @@ export default function CardProfile() {
                                 </Typography>
                                 <Grid style={{ marginTop: theme.spacing(1) }}>
                                     <Controller
-                                        name="nama-pembeli"
+                                        name="newNamaPembeli"
                                         control={control}
                                         defaultValue=""
                                         render={({ field: { onChange, value } }) => (
@@ -141,7 +161,7 @@ export default function CardProfile() {
                                 </Typography>
                                 <Grid style={{ marginTop: theme.spacing(1) }}>
                                     <Controller
-                                        name="nohp-pembeli"
+                                        name="newNoHPPembeli"
                                         control={control}
                                         defaultValue=""
                                         render={({ field: { onChange, value } }) => (
@@ -164,7 +184,7 @@ export default function CardProfile() {
                                 </Typography>
                                 <Grid style={{ marginTop: theme.spacing(1) }}>
                                     <Controller
-                                        name="email-pembeli"
+                                        name="newEmailPembeli"
                                         control={control}
                                         defaultValue=""
                                         render={({ field: { onChange, value } }) => (
@@ -187,7 +207,7 @@ export default function CardProfile() {
                                 </Typography>
                                 <Grid style={{ marginTop: theme.spacing(1) }}>
                                     <Controller
-                                        name="alamat-lengkap-pembeli"
+                                        name="newAlamatLengkapPembeli"
                                         control={control}
                                         defaultValue=""
                                         render={({ field: { onChange, value } }) => (
@@ -208,13 +228,141 @@ export default function CardProfile() {
                             </Grid>
                         </Grid>
                     </form>
-
                 </DialogContent>
                 <DialogActions>
-                    <Grid container direction="row" justifyContent="center" alignItems="center" sx={{ width: '100%'}}>
+                    <Grid container direction="row" justifyContent="center" alignItems="center" sx={{ width: '100%' }}>
                         <Button variant='contained' color='secondary' onClick={handleCloseNewAddress}>Simpan</Button>
                     </Grid>
                 </DialogActions>
+            </Dialog>
+
+            {/* DIALOG (MODAL) EDIT ALAMAT */}
+            <Dialog
+                open={openEditAddress}
+                onClose={handleCloseEditAddress}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <form onSubmit={handleSubmit(onSubmitAlamat)} style={{ width: "100%", alignItems: "center" }}>
+                    <DialogTitle id="alert-dialog-title">
+                        <Grid container justifyContent='space-between' alignItems='baseline'>
+                            <Grid item>
+                                {"Edit Alamat"}
+                            </Grid>
+                            <Grid item>
+                                <IconButton aria-label="close-edit" color='error' sx={{ padding: 0 }}
+                                    onClick={handleCloseEditAddress}
+                                >
+                                    <CloseIcon />
+                                </IconButton>
+                            </Grid>
+                        </Grid>
+                    </DialogTitle>
+                    <DialogContent>
+                        <Grid container rowSpacing={2} direction="row" alignItems='start' width='100%'>
+                            <Grid item xs={12}>
+                                <Typography variant="body1" color="text.primary" paddingTop={2}>
+                                    Nama Pembeli *
+                                </Typography>
+                                <Grid style={{ marginTop: theme.spacing(1) }}>
+                                    <Controller
+                                        name="namaPembeli"
+                                        control={control}
+                                        // defaultValue={nama}
+                                        render={({ field: { onChange } }) => (
+                                            <TextField
+                                                fullWidth
+                                                required
+                                                defaultValue={nama}
+                                                color="secondary"
+                                                type="text"
+                                                placeholder="Cth: Berly Setiawan"
+                                                // value={value}
+                                                onChange={onChange}
+                                            />
+                                        )}
+                                    />
+                                </Grid>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Typography variant="body1" color="text.primary" >
+                                    Nama Handphone Pembeli *
+                                </Typography>
+                                <Grid style={{ marginTop: theme.spacing(1) }}>
+                                    <Controller
+                                        name="noHPPembeli"
+                                        control={control}
+                                        render={({ field: { onChange } }) => (
+                                            <TextField
+                                                fullWidth
+                                                required
+                                                defaultValue={noHp}
+                                                color="secondary"
+                                                type="text"
+                                                placeholder="Cth: 089512345678"
+                                                // value={value}
+                                                onChange={onChange}
+                                            />
+                                        )}
+                                    />
+                                </Grid>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Typography variant="body1" color="text.primary" >
+                                    Email Pembeli *
+                                </Typography>
+                                <Grid style={{ marginTop: theme.spacing(1) }}>
+                                    <Controller
+                                        name="emailPembeli"
+                                        control={control}
+                                        render={({ field: { onChange } }) => (
+                                            <TextField
+                                                fullWidth
+                                                required
+                                                defaultValue={email}
+                                                color="secondary"
+                                                type="text"
+                                                placeholder="Cth: berly@gmail.com"
+                                                // value={value}
+                                                onChange={onChange}
+                                            />
+                                        )}
+                                    />
+                                </Grid>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Typography variant="body1" color="text.primary">
+                                    Alamat Lengkap Pembeli *
+                                </Typography>
+                                <Grid style={{ marginTop: theme.spacing(1) }}>
+                                    <Controller
+                                        name="alamatLengkapPembeli"
+                                        control={control}
+                                        render={({ field: { onChange } }) => (
+                                            <TextField
+                                                fullWidth
+                                                multiline
+                                                rows={4}
+                                                required
+                                                defaultValue={alamat}
+                                                color="secondary"
+                                                type="text"
+                                                placeholder="Cth: Jalan Nangka, no 21, RT03 RW03, Margajaya, Bekasi Selatan, Kota Bekasi, Jawa Barat, 17141"
+                                                // value={value}
+                                                onChange={onChange}
+                                            />
+                                        )}
+                                    />
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </DialogContent>
+                    <DialogActions>
+                        <Grid container direction="row" justifyContent="center" alignItems="center" sx={{ width: '100%' }}>
+                            <Button type='submit' variant='contained' color='secondary' >Simpan</Button>
+                        </Grid>
+                    </DialogActions>
+                </form>
             </Dialog>
 
             <CardContent style={{ height: '100%' }}>
@@ -527,18 +675,17 @@ export default function CardProfile() {
                                                     <Grid item xs={12}>
                                                         <Grid container columnSpacing={4} alignItems="center">
                                                             <Grid item>
-                                                                <Link href={`/#`} passHref >
-                                                                    <MUILink variant="body2" underline="none" color="text.tertiary">
-                                                                        Edit alamat
-                                                                    </MUILink>
-                                                                </Link>
+                                                                <MUILink component='button' variant="body2" underline="none" color="text.tertiary"
+                                                                    onClick={(e) => {
+                                                                        handleOpenEditAddress(e, alamat.id, alamat.nama_penerima, alamat.no_hp, alamat.email, alamat.alamat);
+                                                                    }}>
+                                                                    Edit alamat
+                                                                </MUILink>
                                                             </Grid>
                                                             <Grid item display={alamat.isPrimary ? 'none' : 'block'}>
-                                                                <Link href={`/#`} passHref >
-                                                                    <MUILink variant="body2" underline="none" color="text.tertiary">
-                                                                        Jadikan alamat utama
-                                                                    </MUILink>
-                                                                </Link>
+                                                                <MUILink component='button' variant="body2" underline="none" color="text.tertiary">
+                                                                    Jadikan alamat utama
+                                                                </MUILink>
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
