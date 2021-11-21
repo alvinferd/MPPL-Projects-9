@@ -1,6 +1,6 @@
 import * as React from 'react'
 import SearchIcon from '@mui/icons-material/Search'
-import { Link as MUILink, Typography, Toolbar, Box, AppBar, TextField, IconButton } from '@mui/material'
+import { Link as MUILink, Typography, Toolbar, Box, AppBar, TextField, IconButton, Button } from '@mui/material'
 import Image from 'next/image'
 import Link from 'next/link'
 import LogoPoncolapak from '../public/PoncolapakLogo.svg'
@@ -8,10 +8,20 @@ import LocationLogo from '../public/LocationLogo.svg'
 import OrderLogo from '../public/Receipt.svg'
 import ShoppingCartLogo from '../public/ShoppingCartLogo.svg'
 import theme from '../themes/default'
+import { makeStyles } from '@mui/styles'
+
+const useStyles = makeStyles({
+    root: {
+       [`& fieldset`]: {
+             borderRadius: '5px 0px 0px 5px',
+       },
+    },
+ });
 
 export default function Header() {
+    const classes = useStyles();
     return (
-        <Box sx={{ flexGrow: 6}}>
+        <Box sx={{ flexGrow: 6 }}>
             <AppBar position="fixed">
                 <Toolbar>
                     <Box sx={{ flexGrow: 1 }}>
@@ -35,17 +45,20 @@ export default function Header() {
                         </Link>
                     </Box>
                     <Box sx={{ flexGrow: 3, justifyContent: 'center', display: { xs: 'none', sm: 'flex' }, flexDirection: 'row', padding: theme.spacing(1, 1, 1, 1) }}>
-                        <Box sx={{ flexGrow: 2.5, padding: theme.spacing(1,0,1,0)}}>
-                        <TextField
-                            id="search" label="Search" variant="outlined" fullWidth color="common" size="small"
-                            InputLabelProps={{
-                                style: { color: '#000000' },
-                              }}
-                        />
+                        <Box sx={{ flexGrow: 2.5, padding: theme.spacing(1, 0, 1, 0) }}>
+                            <TextField
+                                id="search" className={classes.root} label="Search" variant="outlined" fullWidth color="common" size="small"
+                                InputLabelProps={{
+                                    style: { color: '#000000' },
+                                }}
+                            />
                         </Box>
-                        <IconButton aria-label="search" size="large" >
-                            <SearchIcon />
-                        </IconButton>
+                        <Box sx={{padding: theme.spacing(1, 0, 1, 0) }}>
+                            <Button aria-label='search' color='secondary' variant='contained' size='large' sx={{borderRadius: "0px 5px 5px 0px"}}>
+                                <SearchIcon />
+                            </Button>
+                        </Box>
+                        
                     </Box>
                     <Box sx={{ flexGrow: 2, justifyContent: 'space-evenly', alignItems: 'center', display: { xs: 'none', sm: 'flex' }, flexDirection: 'row' }}>
                         <Link href="/cart" passHref>

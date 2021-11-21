@@ -21,13 +21,17 @@ export default function ProductDetail({ product }) {
     }
 
     const dec = () => {
-        if (jumlahBarang > 0) {
+        if (jumlahBarang > 1) {
             setJumlahBarang(jumlahBarang - 1);
         }
     }
 
     const handleChange = (event) => {
-        setJumlahBarang(Number(event.target.value));
+        if (Number(event.target.value) < 1) {
+            setJumlahBarang(1);
+        } else {
+            setJumlahBarang(Number(event.target.value));
+        }
     }
 
     const addToCart = () => {
@@ -115,7 +119,7 @@ export default function ProductDetail({ product }) {
                                         <Grid item>
                                             <Grid container columnSpacing={2} direction="row" alignItems="center">
                                                 <Grid item>
-                                                    <Button variant="contained" color="tertiary" size="small" onClick={dec} disabled={jumlahBarang == 0}>
+                                                    <Button variant="contained" color="tertiary" size="small" onClick={dec} disabled={jumlahBarang == 1}>
                                                         <b>-</b>
                                                     </Button>
                                                 </Grid>
