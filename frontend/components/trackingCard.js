@@ -5,6 +5,7 @@ import CircleIcon from '@mui/icons-material/Circle'
 import TrackingResult from '../utils/dummy/Tracking'
 import { makeStyles } from '@mui/styles'
 import Link from 'next/link'
+import { Timeline, TimelineConnector, TimelineContent, TimelineDot, TimelineItem, TimelineOppositeContent, TimelineSeparator } from '@mui/lab'
 
 const useStyles = makeStyles({
     root: {
@@ -102,33 +103,35 @@ export default function TrackingCard() {
             <Grid item xs={12} md={7} lg={8}>
                 <Card className={classes.root} sx={{ maxWidth: 1040, maxHeight: 777 }} style={{ height: '100%', bolghadow: 3 }} >
                     <CardContent style={{ height: 'inherit', display: "flex", flexDirection: "column", justifyContent: "space-between", alignContent: "center" }}>
-                        <Grid container rowSpacing={6} direction="column">
-                            {chronological.map(item => {
+                        <Timeline sx={{margin: 0}}>
+                            {chronological.map((item, index) => {
                                 return (
-                                    <Grid item key={item.id}>
-                                        <Grid container spacing={2} direction="row">
-                                            <Grid item xs={1}>
-                                                <CircleIcon color='secondary' />
-                                            </Grid>
+                                    <TimelineItem key={item.id}>
+                                        <TimelineOppositeContent style={{ maxWidth: "1px", paddingLeft: '0px', paddingRight: '0px' }} />
+                                        <TimelineSeparator>
+                                            <TimelineDot color='secondary' />
+                                            {index === chronological.length - 1 ? null : <TimelineConnector color='secondary' />}
+                                        </TimelineSeparator>
+                                        <TimelineContent>
                                             <Grid item xs={11}>
                                                 <Grid container columnSpacing={2}>
-                                                    <Grid item xs={1.75}>
+                                                    <Grid item xs={1.1}>
                                                         <Typography variant="body1" gutterBottom>
                                                             {item.time}
                                                         </Typography>
                                                     </Grid>
-                                                    <Grid item xs={10.25}>
+                                                    <Grid item xs={10.9}>
                                                         <Typography variant="body1" gutterBottom>
                                                             {item.detail}
                                                         </Typography>
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
-                                        </Grid>
-                                    </Grid>
+                                        </TimelineContent>
+                                    </TimelineItem>
                                 )
                             })}
-                        </Grid>
+                        </Timeline>
                     </CardContent>
                 </Card>
             </Grid>

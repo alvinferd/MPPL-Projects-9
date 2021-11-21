@@ -34,7 +34,7 @@ export default function TrackingPage() {
                     </Grid>
 
                 </Container>
-                <Container maxWidth="1920" id="list-product" sx={{ width: "fit-content", marginX: { xs: 1, md: 4 }, marginY: 4 }}>
+                <Container maxWidth="1920" id="tracking-product" sx={{ width:'85vw', marginX: { xs: 1, md: 2, lg: 4 }, marginY: 4 }}>
                     <TrackingCard />
                 </Container>
             </Layout>
