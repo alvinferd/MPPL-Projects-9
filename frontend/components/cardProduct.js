@@ -20,14 +20,22 @@ export default function CardProduct({ id, images, name, description, price, rati
                     component="img"
                     image={images}
                     alt={name}
+                    height={182}
                 />
-                <CardContent style={{height:'inherit', display:"flex", flexDirection:"column", justifyContent:"space-between"}}>
+                <CardContent style={{height:'inherit', width:'inherit', display:"flex", flexDirection:"column", justifyContent:"space-between"}}>
                     <Box>
                         <Typography gutterBottom variant="body1" component="div" fontWeight="500">
                             {name}
                         </Typography>
                         <Box sx={{ height: "fit-content" }}>
-                            <Typography variant="body2" color="text.primary" gutterBottom>
+                            <Typography 
+                            sx={{
+                                display: '-webkit-box',
+                                overflow: 'hidden',
+                                WebkitBoxOrient: 'vertical',
+                                WebkitLineClamp: 3,
+                            }}
+                            variant="body2" color="text.primary" gutterBottom >
                                 {description}
                             </Typography>
                         </Box>
