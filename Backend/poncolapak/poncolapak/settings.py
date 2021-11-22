@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-d!qkkvgc2uciit+bjra26*fi2&wj)%*8%b&mpojrx+s4w1*7a)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 MEDIA_URL = "/products/"
 MEDIA_ROOT = BASE_DIR / 'products'
@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'rest_auth.registration',
+    'django_filters',
 ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -58,6 +59,10 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
         #'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_FILTER_BACKENDS' : (
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.SearchFilter',
     ),
     # Permission Policies
     'DEFAULT_PERMISSION_CLASSES': [
