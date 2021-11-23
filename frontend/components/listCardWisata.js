@@ -5,7 +5,7 @@ import ApiURL from "../utils/constant"
 
 export default function ListCardWisata({ dataWisata }) {
     var count = 0;
-    console.log(dataWisata);
+    // console.log(dataWisata);
     if (useMediaQuery('(min-width:0px)')) {
         count = 1;
     }

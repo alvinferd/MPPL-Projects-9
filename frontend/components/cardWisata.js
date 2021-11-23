@@ -48,7 +48,7 @@ export default function CardWisata({ id, images, name, description, price, ratin
                         <Box display="flex" justifyContent="flex-start" flexDirection="row">
                             <StarBorderOutlinedIcon fontSize="small" sx={{ color: "#FFF626" }} />
                             <Typography variant="body2" color="text.primary" sx={{ paddingInline: 0.5 }}>
-                                {rating} / 5.0
+                                {rating.toFixed(1)} / 5.0
                             </Typography>
                         </Box>
                     </Box>

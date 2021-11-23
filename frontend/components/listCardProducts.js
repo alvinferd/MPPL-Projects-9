@@ -18,7 +18,7 @@ export default function ListCardProduct({ dataProducts }) {
     if (useMediaQuery('(min-width:1536px)')) {
         count = 5;
     }
-    console.log(dataProducts);
+    // console.log(dataProducts);
     return (
         <Grid container spacing={{ md: 4, xs: 3 }} alignItems="stretch" sx={{ xs: { margin: 0 }, md: { p: 1 } }}>
             {dataProducts.Products.slice(0, count).map(product => {
