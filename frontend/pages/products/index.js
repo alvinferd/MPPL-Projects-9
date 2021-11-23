@@ -4,8 +4,11 @@ import Layout from "../../layout/default"
 import theme from "../../themes/default"
 import Head from 'next/head'
 import ListCardProduct from "../../components/listCardProducts"
+import CardProduct from "../../components/cardProduct"
+import ApiURL from "../../utils/constant"
 
-export default function AllProductPage() {
+export default function AllProductPage({ dataProducts }) {
+    // console.log(dataProducts);
     return (
         <ThemeProvider theme={theme}>
             <Layout>
@@ -24,26 +27,34 @@ export default function AllProductPage() {
                                 <Typography color="text.quaternary">Produk Poncolapak</Typography>
                             </Breadcrumbs>
                         </Grid>
-                        
-                        <Grid item xs={12}>
-                            <ListCardProduct />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <ListCardProduct />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <ListCardProduct />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Grid container direction="row" justifyContent="center" alignItems="center" sx={{ width: '100%', paddingTop: 4 }}>
-                                <Button variant="outlined" color="secondary" size="large">
-                                    Muat Lebih Banyak
-                                </Button>
-                            </Grid>
+                        {dataProducts.Products.map(product => {
+                            return (
+                                <Grid item key={product.id} columns={60} xs={30} md={20} lg={15} xl={12}>
+                                    <CardProduct id={product.id} images={ApiURL + product.image} name={product.title} description={product.description} price={product.harga} rating={product.rating} />
+                                </Grid>
+                            )
+                        })}
+                    <Grid item xs={12}>
+                        <Grid container direction="row" justifyContent="center" alignItems="center" sx={{ width: '100%', paddingTop: 4 }}>
+                            <Button variant="outlined" color="secondary" size="large">
+                                Muat Lebih Banyak
+                            </Button>
                         </Grid>
                     </Grid>
-                </Container>
-            </Layout>
-        </ThemeProvider>
+                </Grid>
+            </Container>
+        </Layout>
+        </ThemeProvider >
     )
+}
+
+export async function getServerSideProps() {
+    const response = await fetch(`http://103.41.205.191:10001/api/v1/product/allProducts`);
+    const dataProducts = await response.json();
+
+    return {
+        props: {
+            dataProducts,
+        },
+    };
 }
