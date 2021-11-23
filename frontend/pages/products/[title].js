@@ -78,7 +78,7 @@ export default function ProductDetail({ product, listImages, productLainToko, pr
         )
     }
 
-    // console.log(listImages.length);
+    console.log(productLainToko);
     return (
         <ThemeProvider theme={theme}>
             <Layout>
@@ -87,7 +87,7 @@ export default function ProductDetail({ product, listImages, productLainToko, pr
                     <meta name="viewport" content="initial-scale=1, width=device-width" />
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
-                <Container maxWidth="1920" id="list-product" sx={{ width: "85vw", marginX: { xs: 1, md: 4 }, marginY: 4}}>
+                <Container maxWidth="1920" id="list-product" sx={{ width: "85vw", marginX: { xs: 1, md: 4 }, marginY: 4 }}>
                     <Breadcrumbs separator="›" color="text.primary" aria-label="breadcrumb">
                         <MUILink underline="hover" href="/" color="text.primary">
                             Home
@@ -103,7 +103,7 @@ export default function ProductDetail({ product, listImages, productLainToko, pr
                     </Breadcrumbs>
                 </Container>
 
-                <Container maxWidth="1920" id="list-product" sx={{ width: "85vw", marginX: { xs: 1, md: 2 }, marginY: 4}}>
+                <Container maxWidth="1920" id="list-product" sx={{ width: "85vw", marginX: { xs: 1, md: 2 }, marginY: 4 }}>
                     <Grid container columnSpacing={{ xs: 2, md: 4, lg: 8 }} direction="row">
 
                         {/* KOLOM PERTAMA */}
@@ -291,7 +291,7 @@ export default function ProductDetail({ product, listImages, productLainToko, pr
                                         </Grid>
                                         <Grid item>
                                             <Typography variant="body2">
-                                            {product.pemilik}
+                                                {product.pemilik}
                                             </Typography>
                                         </Grid>
                                     </Grid>
@@ -420,11 +420,13 @@ export default function ProductDetail({ product, listImages, productLainToko, pr
                                         <b>Produk lain dari toko ini</b>
                                     </Typography>
                                 </Grid>
-                                {/* {productLainToko.map(productToko => {
+                                {productLainToko.map(productToko => {
                                     return (
-                                        <ProductLainDiToko key={productToko.id} productToko={productToko}/>
+                                        <Grid item key={productToko.id}  >
+                                            <ProductLainDiToko productToko={productToko} />
+                                        </Grid>
                                     )
-                                })} */}
+                                })}
                             </Grid>
                         </Grid>
                     </Grid>
