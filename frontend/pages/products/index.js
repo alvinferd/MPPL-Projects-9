@@ -8,7 +8,7 @@ import CardProduct from "../../components/cardProduct"
 import ApiURL from "../../utils/constant"
 
 export default function AllProductPage({ dataProducts }) {
-    // console.log(dataProducts);
+    console.log(dataProducts);
     return (
         <ThemeProvider theme={theme}>
             <Layout>
@@ -49,7 +49,7 @@ export default function AllProductPage({ dataProducts }) {
 }
 
 export async function getServerSideProps() {
-    const response = await fetch(`http://103.41.205.191:10001/api/v1/product/allProducts`);
+    const response = await fetch(`http://103.41.205.191:10001/api/v1/product/allNoWisata`);
     const dataProducts = await response.json();
 
     return {

@@ -1,11 +1,11 @@
 import { Grid } from '@mui/material'
-import { ListWisata } from '../utils/dummy/ListWisata';
 import CardWisata from './cardWisata';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import ApiURL from "../utils/constant"
 
-export default function ListCardWisata() {
+export default function ListCardWisata({ dataWisata }) {
     var count = 0;
-
+    console.log(dataWisata);
     if (useMediaQuery('(min-width:0px)')) {
         count = 1;
     }
@@ -17,11 +17,11 @@ export default function ListCardWisata() {
     }
 
     return (
-        <Grid container spacing={{ md: 4, xs: 3 }} alignItems="stretch" sx={{ xs: {margin: 0}, md: { p: 1 } }}>
-            {ListWisata.slice(0, count).map(wisata => {
+        <Grid container spacing={{ md: 4, xs: 3 }} alignItems="stretch" sx={{ xs: { margin: 0 }, md: { p: 1 } }}>
+            {dataWisata.Products.slice(0, count).map(wisata => {
                 return (
                     <Grid item key={wisata.id} style={{ display: 'flex'}} columns={6} xs={6} md={3} xl={2}>
-                        <CardWisata id={wisata.id} images={wisata.images} name={wisata.name} description={wisata.description} price={wisata.price} rating={wisata.rating} />
+                        <CardWisata id={wisata.id} images={ApiURL + wisata.image} name={wisata.title} description={wisata.description} price={wisata.harga} rating={wisata.rating} />
                     </Grid>
                 )
             })}
