@@ -2,9 +2,10 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.utils import timezone
+import random, os, string
 
 def productFile(instance, filename):
-    return '/'.join( ['products', str(instance.id), filename] )
+    return '/'.join( ['products', ('').join(random.choices(string.ascii_uppercase + string.digits, k=5)) , filename] )
 
 class UMKM(models.Model):
   user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -41,7 +42,11 @@ class Product(models.Model):
   terjual = models.IntegerField(blank=True, null=True)
   rating = models.FloatField(blank=True, null=True)
   category = models.ForeignKey(Category,  on_delete=models.CASCADE, blank=True, null=True)
-  image = models.ImageField( upload_to=productFile, blank=True, null=True)
+  image = models.ImageField( upload_to=productFile)
+  image2 = models.ImageField( upload_to=productFile, blank=True, null=True)
+  image3 = models.ImageField( upload_to=productFile, blank=True, null=True)
+  image4 = models.ImageField( upload_to=productFile, blank=True, null=True)
+  image5 = models.ImageField( upload_to=productFile, blank=True, null=True)
   created_date = models.DateTimeField(default=timezone.now)
 
   def __str__(self):

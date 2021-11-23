@@ -11,6 +11,9 @@ urlpatterns = [
   path('product/addProduct', viewsProduct.add_Product),
   path('product/updateProduct/<int:Product_id>', viewsProduct.update_Product),
   path('product/deleteProduct/<int:Product_id>', viewsProduct.delete_Product),
+  path('product/categoryProduct/<int:Product_id>', viewsProduct.category_Product),
+  path('product/allNoWisata', viewsProduct.noWisata_Product),
+
 
   path('category/allCategorys', viewsCategory.all_Categorys),
   path('category/searchCategorys', viewsCategory.searchCategorys),  

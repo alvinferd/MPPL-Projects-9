@@ -45,6 +45,17 @@ def detail_Product(request, Product_id):
     serializer = ProductSerializer(Products, many=True)
     return JsonResponse({'Products': serializer.data}, safe=False, status=status.HTTP_200_OK)
 
+def category_Product(request, Product_id):
+    Products = Product.objects.filter(category=Product_id)
+    serializer = ProductSerializer(Products, many=True)
+    return JsonResponse({'Products': serializer.data}, safe=False, status=status.HTTP_200_OK)
+
+def noWisata_Product(request):
+    Products = Product.objects.exclude(category=1)
+    serializer = ProductSerializer(Products, many=True)
+    return JsonResponse({'Products': serializer.data}, safe=False, status=status.HTTP_200_OK)
+
+
 
 @api_view(["GET"])
 @csrf_exempt
