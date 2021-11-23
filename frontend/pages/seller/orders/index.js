@@ -1,17 +1,17 @@
 import { ThemeProvider } from "@emotion/react"
 import { Breadcrumbs, Button, Container, Grid, Link as MUILink, Typography } from '@mui/material'
-import LayoutSeller from "../../layout/defaultSeller"
-import theme from "../../themes/default"
+import LayoutSeller from "../../../layout/defaultSeller"
+import theme from "../../../themes/default"
 import Head from 'next/head'
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
-import MyProductsTable from "../../components/seller/myProductsTable"
+import MyOrdersTable from "../../../components/seller/myOrdersTable"
 
-export default function MyProducts() {
+export default function MyOrder() {
     return (
         <ThemeProvider theme={theme}>
             <LayoutSeller>
                 <Head>
-                    <title>Produk Saya | Poncolapak</title>
+                    <title>Pesanan Masuk | Poncolapak</title>
                     <meta name="viewport" content="initial-scale=1, width=device-width" />
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
@@ -20,30 +20,25 @@ export default function MyProducts() {
                         <MUILink underline="hover" href="/seller" color="text.primary">
                             Home
                         </MUILink>
-                        <Typography color="text.quaternary">Produk</Typography>
+                        <Typography color="text.quaternary">Pesanan</Typography>
                     </Breadcrumbs>
                 </Container>
                 <Container maxWidth="1920" id="br-product-seller" sx={{ width: '95vw', marginX: { xs: 1, md: 2, lg: 4 }, marginY: 4 }}>
                     <Grid container spacing={2} alignItems='center'>
                         <Grid item>
                             <Typography>
-                                5 Produk
+                                5 Pesanan Aktif
                             </Typography>
                         </Grid>
                         <Grid item>
-                            <Button variant="outlined" color='secondary'>
-                                5 / 50
-                            </Button>
-                        </Grid>
-                        <Grid item>
-                            <Button variant="contained" color='secondary' startIcon={<ControlPointIcon />}>
-                                Tambah produk baru
-                            </Button>
+                            <Typography variant='body2' color='secondary'>
+                                / 15 Total Pesanan
+                            </Typography>
                         </Grid>
                     </Grid>
                 </Container>
                 <Container maxWidth="1920" id="br-product-seller" sx={{ width: '95vw', marginX: { xs: 1, md: 2, lg: 4 }, marginY: 4 }}>
-                    <MyProductsTable />
+                    <MyOrdersTable />
                 </Container>
             </LayoutSeller>
         </ThemeProvider>
