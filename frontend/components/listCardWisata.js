@@ -18,7 +18,7 @@ export default function ListCardWisata({ dataWisata }) {
 
     return (
         <Grid container spacing={{ md: 4, xs: 3 }} alignItems="stretch" sx={{ xs: { margin: 0 }, md: { p: 1 } }}>
-            {dataWisata.Products.slice(0, count).map(wisata => {
+            {dataWisata.slice(0, count).map(wisata => {
                 return (
                     <Grid item key={wisata.id} style={{ display: 'flex'}} columns={6} xs={6} md={3} xl={2}>
                         <CardWisata id={wisata.id} images={ApiURL + wisata.image} name={wisata.title} description={wisata.description} price={wisata.harga} rating={wisata.rating} />

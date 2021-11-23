@@ -21,7 +21,7 @@ export default function ListCardProduct({ dataProducts }) {
     // console.log(dataProducts);
     return (
         <Grid container spacing={{ md: 4, xs: 3 }} alignItems="stretch" sx={{ xs: { margin: 0 }, md: { p: 1 } }}>
-            {dataProducts.Products.slice(0, count).map(product => {
+            {dataProducts.slice(0, count).map(product => {
                 return (
                     <Grid item key={product.id} columns={60} xs={30} md={20} lg={15} xl={12}>
                         <CardProduct id={product.id} images={ApiURL + product.image} name={product.title} description={product.description} price={product.harga} rating={product.rating} />

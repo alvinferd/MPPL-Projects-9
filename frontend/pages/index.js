@@ -90,8 +90,8 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      dataProducts: jsonProducts,
-      dataWisata: jsonWisata,
+      dataProducts: jsonProducts.Products,
+      dataWisata: jsonWisata.Products,
     },
   };
 }
