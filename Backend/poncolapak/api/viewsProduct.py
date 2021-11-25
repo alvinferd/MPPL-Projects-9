@@ -43,7 +43,22 @@ def all_Products(request):
 def detail_Product(request, Product_id):
     Products = Product.objects.filter(id=Product_id)
     serializer = ProductSerializer(Products, many=True)
-    return JsonResponse({'Products': serializer.data}, safe=False, status=status.HTTP_200_OK)
+    pemilik = serializer.data[0]['added_by']
+    category = serializer.data[0]['category']
+    # only for parsing the category name, pardon my uneffective way
+    Categorys = Category.objects.filter(id=category)
+    serializerCategorys = CategorySerializer(Categorys, many=True)
+    pemiliknya = Seller.objects.filter(user=pemilik)    
+    serializerUser = SellerSerializer(pemiliknya, many=True)    
+    #print(User.objects.filter(id=pemilik)[0], Category.objects.filter(id=category)[0])
+    serializer.data[0]['category_name'] = serializerCategorys.data[0]['title']
+    serializer.data[0]['pemilik'] = serializerUser.data[0]['namaToko']
+    Productlain = Product.objects.exclude(category=1).filter(added_by=pemilik).exclude(id=Product_id)
+    serializerlain = ProductSerializer(Productlain, many=True)
+    ProductGlobal = Product.objects.exclude(added_by=pemilik).exclude(category=1)
+    serializerGlobal = ProductSerializer(ProductGlobal, many=True)
+    return JsonResponse({'ProductsDetail': serializer.data, 'ProductsLain': serializerlain.data, 'ProductsGlobal': serializerGlobal.data}, safe=False, status=status.HTTP_200_OK)
+
 
 def category_Product(request, Product_id):
     Products = Product.objects.filter(category=Product_id)

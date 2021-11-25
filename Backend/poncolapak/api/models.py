@@ -7,24 +7,25 @@ import random, os, string
 def productFile(instance, filename):
     return '/'.join( ['products', ('').join(random.choices(string.ascii_uppercase + string.digits, k=5)) , filename] )
 
-class UMKM(models.Model):
-  user = models.OneToOneField(User, on_delete=models.CASCADE)
-  namaToko = models.CharField(max_length=100)
-  fotoProfile = models.ImageField( upload_to=productFile, blank=True, null=True)
+class Customer(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    namaLengkap = models.CharField(max_length=100)
+    ttl = models.DateField( blank=True, null=True)
+    gender = models.CharField(max_length=20, blank=True, null=True)
+    handphone = models.IntegerField( blank=True, null=True)
+    fotoProfile = models.ImageField( upload_to=productFile, blank=True, null=True)
 
-  def __str__(self):
-    return self.user.username
+    def __str__(self):
+      return self.namaLengkap
 
-class customer(models.Model):
-  user = models.OneToOneField(User, on_delete=models.CASCADE)
-  namaLengkap = models.CharField(max_length=100)
-  ttl = models.DateField()
-  gender = models.CharField(max_length=20)
-  handphone = models.IntegerField()
-  fotoProfile = models.ImageField( upload_to=productFile, blank=True, null=True)
+class Seller(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    namaToko = models.CharField(max_length=100)
+    DeskripsiToko = models.CharField(max_length=100, blank=True, null=True)
+    fotoProfile = models.ImageField( upload_to=productFile, blank=True, null=True)
 
-  def __str__(self):
-    return self.user.username
+    def __str__(self):
+     return self.namaToko
 
 class Category(models.Model):
     title = models.CharField(max_length=255)
@@ -51,3 +52,18 @@ class Product(models.Model):
 
   def __str__(self):
     return self.title
+
+class Cart(models.Model):
+    user = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    item = models.ForeignKey(Product, on_delete=models.CASCADE)
+    userid = models.IntegerField(null=True)
+    quantity = models.IntegerField(null=False)
+    totalPrice = models.IntegerField( blank=True, null=True)
+    checkout = models.BooleanField(default = 0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return "{} - {} - {}".format(self.user,
+                                               self.item,
+                                               self.quantity)

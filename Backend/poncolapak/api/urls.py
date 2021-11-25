@@ -1,6 +1,6 @@
 from django.conf.urls import include, url
 from django.urls import include, path
-from . import viewsProduct , viewsCategory
+from . import viewsProduct , viewsCategory, viewsUser
 
 urlpatterns = [
   #path('welcome', views.welcome),
@@ -21,4 +21,10 @@ urlpatterns = [
   path('category/addCategory', viewsCategory.add_Category),
   path('category/updateCategory/<int:Category_id>', viewsCategory.update_Category),
   path('category/deleteCategory/<int:Category_id>', viewsCategory.delete_Category),
+
+  path('addCustomer', viewsUser.add_Customer),
+  path('addSeller', viewsUser.add_Seller),
+  path('allUser', viewsUser.all_Users),
+  path('detailCustomer', viewsUser.detail_Customer),
+  path('detailSeller', viewsUser.detail_Seller),
 ]

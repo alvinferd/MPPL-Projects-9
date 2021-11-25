@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'allauth',
     'allauth.account',
+'allauth.socialaccount',
+'allauth.socialaccount.providers.openid',
     'rest_auth.registration',
     'django_filters',
 ]
@@ -65,9 +67,8 @@ REST_FRAMEWORK = {
         'rest_framework.filters.SearchFilter',
     ),
     # Permission Policies
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
-    ]
+    'DEFAULT_PERMISSION_CLASSES': [],
+#'rest_framework.permissions.IsAuthenticated'],
 }
 
 MIDDLEWARE = [
