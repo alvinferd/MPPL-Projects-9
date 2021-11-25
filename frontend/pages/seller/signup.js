@@ -2,17 +2,11 @@ import { Box, Container, Grid, Typography, ThemeProvider, TextField, Button, Lin
 import { useForm, Controller } from "react-hook-form";
 import Head from 'next/head'
 import Image from 'next/image'
-import imgLogin from '../public/images/bg login.png'
+import imgLogin from '../../public/images/bg login.png'
 import { makeStyles } from '@mui/styles'
-import theme from '../themes/default'
+import theme from '../../themes/default'
 import Link from 'next/link'
-import LogoPoncolapak from '../public/PoncolapakLogo.svg'
-
-import { useSelector } from "react-redux";
-import { dispatch } from '../utils/redux/store';
-import { userLogin } from '../utils/redux/slice/user';
-import axios from 'axios';
-import ApiURL from '../utils/constant';
+import LogoPoncolapak from '../../public/PoncolapakLogo.svg'
 
 const useStyles = makeStyles((theme) => ({
     dimensi: {
@@ -23,20 +17,16 @@ const useStyles = makeStyles((theme) => ({
 
 const onSubmit = (data) => {
     console.log(data);
-    // dispatch(userLogin({
-    //     username: 'admin',
-    //     password: 'admin',
-    // }));
-    dispatch(userLogin(data));
+    // dispatch(userLogin(data));
 };
 
-export default function Login() {
+export default function SignUpSeller() {
     const classes = useStyles();
     const { control, handleSubmit } = useForm();
     return (
         <ThemeProvider theme={theme}>
             <Head>
-                <title>Login | Poncolapak</title>
+                <title>Seller SignUp | Poncolapak</title>
                 <meta name="viewport" content="initial-scale=1, width=device-width" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
@@ -45,13 +35,12 @@ export default function Login() {
                     <Image
                         src={imgLogin}
                         alt="Banner Login"
-                    // layout="responsive"
                     />
                 </Grid>
                 <Grid item md={5} lg={4}>
-                    <Grid container spacing={3} alignItems="center" direction="column" style={{ marginBottom: theme.spacing(2) }} justifyContent="center">
+                    <Grid container alignItems="center" direction="column" style={{ marginBottom: theme.spacing(2) }} justifyContent="center">
                         {/* <Typography variant="h3" color="text.primary">
-                            <b>Login</b>
+                            <b>Sign Up</b>
                         </Typography> */}
                         <Grid item >
                             <Box sx={{ display: 'flex', flexDirection: 'row' }}>
@@ -65,13 +54,55 @@ export default function Login() {
                                     variant="h6"
                                     noWrap
                                     component="div">
-                                    Poncolapak
+                                    Poncolapak Seller
                                 </Typography>
                             </Box>
                         </Grid>
                         <Grid item >
                             <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%", alignItems: "center" }}>
                                 <Typography variant="body1" color="text.primary" style={{ marginTop: theme.spacing(4) }}>
+                                    Nama Toko
+                                </Typography>
+                                <Grid style={{ marginTop: theme.spacing(1) }}>
+                                    <Controller
+                                        name="nama_toko"
+                                        control={control}
+                                        defaultValue=""
+                                        render={({ field: { onChange, value } }) => (
+                                            <TextField
+                                                fullWidth
+                                                required
+                                                color="secondary"
+                                                type="text"
+                                                placeholder="Nama Toko"
+                                                value={value}
+                                                onChange={onChange}
+                                            />
+                                        )}
+                                    />
+                                </Grid>
+                                <Typography variant="body1" color="text.primary" style={{ marginTop: theme.spacing(2) }}>
+                                    Email
+                                </Typography>
+                                <Grid style={{ marginTop: theme.spacing(1) }}>
+                                    <Controller
+                                        name="email"
+                                        control={control}
+                                        defaultValue=""
+                                        render={({ field: { onChange, value } }) => (
+                                            <TextField
+                                                fullWidth
+                                                required
+                                                color="secondary"
+                                                type="text"
+                                                placeholder="Email"
+                                                value={value}
+                                                onChange={onChange}
+                                            />
+                                        )}
+                                    />
+                                </Grid>
+                                <Typography variant="body1" color="text.primary" style={{ marginTop: theme.spacing(2) }}>
                                     Username
                                 </Typography>
                                 <Grid style={{ marginTop: theme.spacing(1) }}>
@@ -113,9 +144,30 @@ export default function Login() {
                                         )}
                                     />
                                 </Grid>
+                                <Typography variant="body1" color="text.primary" style={{ marginTop: theme.spacing(2) }}>
+                                    Konfirmasi Password
+                                </Typography>
+                                <Grid style={{ marginTop: theme.spacing(1) }}>
+                                    <Controller
+                                        name="confirm_password"
+                                        control={control}
+                                        defaultValue=""
+                                        render={({ field: { onChange, value } }) => (
+                                            <TextField
+                                                fullWidth
+                                                required
+                                                color="secondary"
+                                                type="password"
+                                                placeholder="Konfirmasi Password"
+                                                value={value}
+                                                onChange={onChange}
+                                            />
+                                        )}
+                                    />
+                                </Grid>
                                 <Container style={{ marginTop: theme.spacing(2), marginBottom: theme.spacing(2), display: "flex", flexDirection: "row", justifyContent: 'center' }}>
-                                    <Button size="large" type="submit" variant="contained" color="secondary" style={{ width: "40%", marginTop: theme.spacing(2) }}>
-                                        Login
+                                    <Button size="large" type="submit" variant="contained" color="secondary" style={{ width: "70%", marginTop: theme.spacing(2) }}>
+                                        Sign Up
                                     </Button>
                                 </Container>
                             </form>
@@ -123,27 +175,20 @@ export default function Login() {
                         <Grid item >
                             <Container style={{ marginTop: theme.spacing(2), marginBottom: theme.spacing(2), display: "flex", flexDirection: "row", justifyContent: 'center' }}>
                                 <Typography variant="body1" style={{ marginRight: theme.spacing(1) }}>
-                                    Belum punya akun?
+                                    Sudah punya akun?
                                 </Typography>
-                                <Link href="/signup" passHref >
+                                <Link href="/seller/login" passHref >
                                     <MUILink variant="body1" color="text.tertiary" underline="none">
-                                        Daftar Disini!
-                                    </MUILink>
-                                </Link>
-                            </Container>
-                            <Container style={{ marginTop: theme.spacing(2), marginBottom: theme.spacing(2), display: "flex", justifyContent: 'center' }}>
-                                <Link href="/forget" passHref >
-                                    <MUILink variant="body1" color="text.tertiary" underline="none">
-                                        Lupa Password?
+                                        Masuk Disini!
                                     </MUILink>
                                 </Link>
                             </Container>
                         </Grid>
                         <Grid item >
                             <Container style={{ marginTop: theme.spacing(1), marginBottom: theme.spacing(2), display: "flex", justifyContent: 'center' }}>
-                                <Link href="/seller/login" passHref >
+                                <Link href="/login" passHref >
                                     <MUILink variant="body1" color="text.tertiary" underline="none">
-                                        Masuk sebagai penjual?
+                                        Masuk sebagai pembeli?
                                     </MUILink>
                                 </Link>
                             </Container>

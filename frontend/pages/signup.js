@@ -26,7 +26,7 @@ export default function SignUp() {
     return (
         <ThemeProvider theme={theme}>
             <Head>
-                <title>Login | Poncolapak</title>
+                <title>SignUp | Poncolapak</title>
                 <meta name="viewport" content="initial-scale=1, width=device-width" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
@@ -103,6 +103,27 @@ export default function SignUp() {
                                     />
                                 </Grid>
                                 <Typography variant="body1" color="text.primary" style={{ marginTop: theme.spacing(2) }}>
+                                    Username
+                                </Typography>
+                                <Grid style={{ marginTop: theme.spacing(1) }}>
+                                    <Controller
+                                        name="username"
+                                        control={control}
+                                        defaultValue=""
+                                        render={({ field: { onChange, value } }) => (
+                                            <TextField
+                                                fullWidth
+                                                required
+                                                color="secondary"
+                                                type="text"
+                                                placeholder="Username"
+                                                value={value}
+                                                onChange={onChange}
+                                            />
+                                        )}
+                                    />
+                                </Grid>
+                                <Typography variant="body1" color="text.primary" style={{ marginTop: theme.spacing(2) }}>
                                     Password
                                 </Typography>
                                 <Grid style={{ marginTop: theme.spacing(1) }}>
@@ -152,16 +173,25 @@ export default function SignUp() {
                             </form>
                         </Grid>
                         <Grid item >
-                        <Container style={{ marginTop: theme.spacing(2), marginBottom: theme.spacing(2), display: "flex", flexDirection: "row", justifyContent: 'center' }}>
-                            <Typography variant="body1" style={{ marginRight: theme.spacing(1) }}>
-                                Sudah punya akun?
-                            </Typography>
-                            <Link href="/login" passHref >
-                                <MUILink variant="body1" color="text.tertiary" underline="none">
-                                    Masuk Disini!
-                                </MUILink>
-                            </Link>
-                        </Container>
+                            <Container style={{ marginTop: theme.spacing(2), marginBottom: theme.spacing(2), display: "flex", flexDirection: "row", justifyContent: 'center' }}>
+                                <Typography variant="body1" style={{ marginRight: theme.spacing(1) }}>
+                                    Sudah punya akun?
+                                </Typography>
+                                <Link href="/login" passHref >
+                                    <MUILink variant="body1" color="text.tertiary" underline="none">
+                                        Masuk Disini!
+                                    </MUILink>
+                                </Link>
+                            </Container>
+                        </Grid>
+                        <Grid item >
+                            <Container style={{ marginTop: theme.spacing(1), marginBottom: theme.spacing(2), display: "flex", justifyContent: 'center' }}>
+                                <Link href="/seller/login" passHref >
+                                    <MUILink variant="body1" color="text.tertiary" underline="none">
+                                        Masuk sebagai penjual?
+                                    </MUILink>
+                                </Link>
+                            </Container>
                         </Grid>
                     </Grid>
                 </Grid>

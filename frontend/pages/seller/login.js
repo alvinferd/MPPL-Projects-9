@@ -2,17 +2,11 @@ import { Box, Container, Grid, Typography, ThemeProvider, TextField, Button, Lin
 import { useForm, Controller } from "react-hook-form";
 import Head from 'next/head'
 import Image from 'next/image'
-import imgLogin from '../public/images/bg login.png'
+import imgLogin from '../../public/images/bg login.png'
 import { makeStyles } from '@mui/styles'
-import theme from '../themes/default'
+import theme from '../../themes/default'
 import Link from 'next/link'
-import LogoPoncolapak from '../public/PoncolapakLogo.svg'
-
-import { useSelector } from "react-redux";
-import { dispatch } from '../utils/redux/store';
-import { userLogin } from '../utils/redux/slice/user';
-import axios from 'axios';
-import ApiURL from '../utils/constant';
+import LogoPoncolapak from '../../public/PoncolapakLogo.svg'
 
 const useStyles = makeStyles((theme) => ({
     dimensi: {
@@ -23,20 +17,16 @@ const useStyles = makeStyles((theme) => ({
 
 const onSubmit = (data) => {
     console.log(data);
-    // dispatch(userLogin({
-    //     username: 'admin',
-    //     password: 'admin',
-    // }));
-    dispatch(userLogin(data));
+    // dispatch(userLogin(data));
 };
 
-export default function Login() {
+export default function LoginSeller() {
     const classes = useStyles();
     const { control, handleSubmit } = useForm();
     return (
         <ThemeProvider theme={theme}>
             <Head>
-                <title>Login | Poncolapak</title>
+                <title>Seller Login | Poncolapak</title>
                 <meta name="viewport" content="initial-scale=1, width=device-width" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
@@ -65,7 +55,7 @@ export default function Login() {
                                     variant="h6"
                                     noWrap
                                     component="div">
-                                    Poncolapak
+                                    Poncolapak Seller
                                 </Typography>
                             </Box>
                         </Grid>
@@ -125,7 +115,7 @@ export default function Login() {
                                 <Typography variant="body1" style={{ marginRight: theme.spacing(1) }}>
                                     Belum punya akun?
                                 </Typography>
-                                <Link href="/signup" passHref >
+                                <Link href="/seller/signup" passHref >
                                     <MUILink variant="body1" color="text.tertiary" underline="none">
                                         Daftar Disini!
                                     </MUILink>
@@ -141,9 +131,9 @@ export default function Login() {
                         </Grid>
                         <Grid item >
                             <Container style={{ marginTop: theme.spacing(1), marginBottom: theme.spacing(2), display: "flex", justifyContent: 'center' }}>
-                                <Link href="/seller/login" passHref >
+                                <Link href="/login" passHref >
                                     <MUILink variant="body1" color="text.tertiary" underline="none">
-                                        Masuk sebagai penjual?
+                                        Masuk sebagai pembeli?
                                     </MUILink>
                                 </Link>
                             </Container>
