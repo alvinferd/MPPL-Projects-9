@@ -86,7 +86,9 @@ def get_Products(request):
 @permission_classes([IsAuthenticated])
 def add_Product(request, *args, **kwargs):
     parser_classes = (MultiPartParser, FormParser)
+    request.data._mutable = True
     request.data['added_by'] = request.user.id
+    request.data._mutable = False
     product_serializer = ProductSerializer(data=request.data)
     if product_serializer.is_valid():
       product_serializer.save()

@@ -26,7 +26,9 @@ def add_Customer(request, *args, **kwargs):
 
         Users = User.objects.filter(username=request.data["username"]) 
         serializer = UserSerializer(Users, many=True)
+        request.data._mutable = True
         request.data["user"] = serializer.data[0]["id"]
+        request.data._mutable = False
         cust_serializer = CustomerSerializer(data=request.data)
         if cust_serializer.is_valid():
             cust_serializer.save()
@@ -43,7 +45,9 @@ def add_Seller(request, *args, **kwargs):
 
         Users = User.objects.filter(username=request.data["username"]) 
         serializer = UserSerializer(Users, many=True)
+        request.data._mutable = True
         request.data["user"] = serializer.data[0]["id"]
+        request.data._mutable = False
         seller_serializer = SellerSerializer(data=request.data)
         if seller_serializer.is_valid():
             seller_serializer.save()

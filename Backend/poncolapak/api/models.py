@@ -56,7 +56,6 @@ class Product(models.Model):
 class Cart(models.Model):
     user = models.ForeignKey(Customer, on_delete=models.CASCADE)
     item = models.ForeignKey(Product, on_delete=models.CASCADE)
-    userid = models.IntegerField(null=True)
     quantity = models.IntegerField(null=False)
     totalPrice = models.IntegerField( blank=True, null=True)
     checkout = models.BooleanField(default = 0)
