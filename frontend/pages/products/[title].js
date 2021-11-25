@@ -6,13 +6,15 @@ import Layout from '../../layout/default'
 import { Container, Typography, Breadcrumbs, Box, Button, Link as MUILink, Grid, TextField } from '@mui/material'
 import Link from 'next/link'
 import ListCardProduct from '../../components/listCardProducts'
-import { ListProducts } from '../../utils/dummy/ListProduct'
 import "react-responsive-carousel/lib/styles/carousel.min.css"
 import { Carousel } from 'react-responsive-carousel'
 import Image from 'next/image'
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined'
+import ApiURL from "../../utils/constant"
+import ProductLainDiToko from '../../components/productLaindiToko'
 
-export default function ProductDetail({ product }) {
+export default function ProductDetail({ product, listImages, productLainToko, productLain }) {
+    // console.log(product);
     const [jumlahBarang, setJumlahBarang] = React.useState(1);
     const [longDisplay, setLongDisplay] = React.useState(false);
 
@@ -41,22 +43,28 @@ export default function ProductDetail({ product }) {
     const LongDesc = () => {
         return (
             <Typography variant="body2">
-                {product.description.long}
+                {product.description}
             </Typography>
         )
     }
 
     const ShortDesc = () => {
         return (
-            <Typography variant="body2">
-                {product.description.short}
+            <Typography variant="body2"
+                sx={{
+                    display: '-webkit-box',
+                    overflow: 'hidden',
+                    WebkitBoxOrient: 'vertical',
+                    WebkitLineClamp: 3,
+                }}>
+                {product.description}
             </Typography>
         )
     }
 
     const Collapse = () => {
         return (
-            <MUILink variant="body2" color="text.tertiary" onClick={() => setLongDisplay(false)} sx={{cursor: 'pointer'}}>
+            <MUILink variant="body2" color="text.tertiary" onClick={() => setLongDisplay(false)} sx={{ cursor: 'pointer' }}>
                 Lihat lebih sedikit
             </MUILink>
         )
@@ -64,23 +72,22 @@ export default function ProductDetail({ product }) {
 
     const Expand = () => {
         return (
-            <MUILink variant="body2" color="text.tertiary" onClick={() => setLongDisplay(true)} sx={{cursor: 'pointer'}}>
+            <MUILink variant="body2" color="text.tertiary" onClick={() => setLongDisplay(true)} sx={{ cursor: 'pointer' }}>
                 Lihat lebih banyak
             </MUILink>
         )
     }
 
-    const ListImages = product.images;
-    // console.log(jumlahBarang);
+    console.log(productLainToko);
     return (
         <ThemeProvider theme={theme}>
             <Layout>
                 <Head>
-                    <title>{product.name} | Poncolapak</title>
+                    <title>{product.title} | Poncolapak</title>
                     <meta name="viewport" content="initial-scale=1, width=device-width" />
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
-                <Container maxWidth="1920" id="list-product" sx={{ width: "fit-content", marginX: { xs: 1, md: 4 }, marginY: 4 }}>
+                <Container maxWidth="1920" id="list-product" sx={{ width: "85vw", marginX: { xs: 1, md: 4 }, marginY: 4 }}>
                     <Breadcrumbs separator="›" color="text.primary" aria-label="breadcrumb">
                         <MUILink underline="hover" href="/" color="text.primary">
                             Home
@@ -88,31 +95,45 @@ export default function ProductDetail({ product }) {
                         <MUILink
                             underline="hover"
                             color="text.primary"
-                            href="/category/nama-kategori/"
+                            href={`/category/${product.category_name}`}
                         >
-                            Category
+                            {product.category_name}
                         </MUILink>
-                        <Typography color="text.quaternary">{product.name}</Typography>
+                        <Typography color="text.quaternary">{product.title}</Typography>
                     </Breadcrumbs>
                 </Container>
 
-                <Container maxWidth="1920" id="list-product" sx={{ width: "fit-content", marginX: { xs: 1, md: 2 }, marginY: 4 }}>
-                    <Grid container spacing={{ xs: 2, md: 4, lg: 8 }} direction="row">
+                <Container maxWidth="1920" id="list-product" sx={{ width: "85vw", marginX: { xs: 1, md: 2 }, marginY: 4 }}>
+                    <Grid container columnSpacing={{ xs: 2, md: 4, lg: 8 }} direction="row">
 
                         {/* KOLOM PERTAMA */}
                         <Grid item xs={12} md={5} lg={4} xl={4}>
                             <Grid container spacing={2} direction="column">
                                 <Grid item width="100%">
-                                    <Carousel showStatus={false} showArrows={false} swipeable={true}>
-                                        {ListImages.map(item => {
-                                            return (
-                                                <div key={item.id}
-                                                    style={{ position: 'relative', borderRadius: '10px', overflow: 'hidden' }}>
-                                                    <img src={item.image} alt={product.name} />
-                                                </div>
-                                            )
-                                        })}
-                                    </Carousel>
+                                    {listImages.length == 1 ?
+                                        <Carousel showStatus={false} showArrows={false} swipeable={true} dynamicHeight showIndicators={false} showThumbs={false} >
+                                            {listImages.map(item => {
+                                                return (
+                                                    <div key={item.id}
+                                                        style={{ position: 'relative', borderRadius: '10px', overflow: 'hidden' }}>
+                                                        <img src={ApiURL + item.image} alt={product.name} />
+                                                    </div>
+                                                )
+                                            })}
+                                        </Carousel>
+                                        :
+                                        <Carousel showStatus={false} showArrows={false} swipeable={true} dynamicHeight >
+                                            {listImages.map(item => {
+                                                return (
+                                                    <div key={item.id}
+                                                        style={{ position: 'relative', borderRadius: '10px', overflow: 'hidden' }}>
+                                                        <img src={ApiURL + item.image} alt={product.name} />
+                                                    </div>
+                                                )
+                                            })}
+                                        </Carousel>
+                                    }
+
                                 </Grid>
                                 <Grid item>
                                     <Grid container rowSpacing={2} direction="column" >
@@ -160,13 +181,13 @@ export default function ProductDetail({ product }) {
                                                     <Box display="flex" justifyContent="flex-start" flexDirection="row">
                                                         <StarBorderOutlinedIcon fontSize="large" sx={{ color: "#FFF626" }} />
                                                         <Typography variant="h5" color="text.primary" sx={{ paddingInline: 0.5 }}>
-                                                            {product.rating} / 5.0
+                                                            {product.rating.toFixed(1)} / 5.0
                                                         </Typography>
                                                     </Box>
                                                 </Grid>
                                                 <Grid item>
                                                     <Typography variant="h6">
-                                                        ({product.reviews.total} Ulasan)
+                                                        (100 Ulasan)
                                                     </Typography>
                                                 </Grid>
                                             </Grid>
@@ -246,7 +267,7 @@ export default function ProductDetail({ product }) {
                             <Grid container spacing={2} direction="column">
                                 <Grid item>
                                     <Typography variant="h5">
-                                        <b>{product.name}</b>
+                                        <b>{product.title}</b>
                                     </Typography>
                                 </Grid>
                                 <Grid item>
@@ -262,7 +283,7 @@ export default function ProductDetail({ product }) {
                                                     <Box display="flex" justifyContent="flex-start" flexDirection="row">
                                                         <StarBorderOutlinedIcon fontSize="small" sx={{ color: "#FFF626" }} />
                                                         <Typography variant="body2" color="text.primary" sx={{ paddingInline: 0.5 }}>
-                                                            {product.rating} / 5.0
+                                                            {product.rating.toFixed(1)} / 5.0
                                                         </Typography>
                                                     </Box>
                                                 </Grid>
@@ -270,14 +291,14 @@ export default function ProductDetail({ product }) {
                                         </Grid>
                                         <Grid item>
                                             <Typography variant="body2">
-                                                Toko Pak Makmur
+                                                {product.pemilik}
                                             </Typography>
                                         </Grid>
                                     </Grid>
                                 </Grid>
                                 <Grid item>
                                     <Typography variant="h5" color="text.quaternary">
-                                        <b> RP {product.price} </b>
+                                        <b> {product.harga.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })} </b>
                                     </Typography>
                                 </Grid>
                                 <Grid item>
@@ -310,13 +331,13 @@ export default function ProductDetail({ product }) {
                                                     <Box display="flex" justifyContent="flex-start" flexDirection="row">
                                                         <StarBorderOutlinedIcon fontSize="large" sx={{ color: "#FFF626" }} />
                                                         <Typography variant="h5" color="text.primary" sx={{ paddingInline: 0.5 }}>
-                                                            {product.rating} / 5.0
+                                                            {product.rating.toFixed(1)} / 5.0
                                                         </Typography>
                                                     </Box>
                                                 </Grid>
                                                 <Grid item>
                                                     <Typography variant="h6">
-                                                        ({product.reviews.total} Ulasan)
+                                                        (100 Ulasan)
                                                     </Typography>
                                                 </Grid>
                                             </Grid>
@@ -399,27 +420,11 @@ export default function ProductDetail({ product }) {
                                         <b>Produk lain dari toko ini</b>
                                     </Typography>
                                 </Grid>
-                                {ListProducts.map(productToko => {
+                                {productLainToko.map(productToko => {
                                     return (
-                                        <Link key={productToko.id} href={`/products/${productToko.name}`} passHref >
-                                            <Grid item style={{ display: 'flex' }} xs={6} md={6} lg={4} xl={3}>
-                                                <Grid container style={{ cursor: 'pointer' }} spacing={4} direction="row" alignItems="center" justifyContent="flex-start">
-                                                    <Grid item>
-                                                        <Image
-                                                            src={productToko.images[0].image}
-                                                            alt={productToko.name}
-                                                            height={70}
-                                                            width={70}
-                                                        />
-                                                    </Grid>
-                                                    <Grid item>
-                                                        <Typography variant="body1" color="text.primary" textAlign="left" >
-                                                            <b> {productToko.name}</b>
-                                                        </Typography>
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                        </Link>
+                                        <Grid item key={productToko.id}  >
+                                            <ProductLainDiToko productToko={productToko} />
+                                        </Grid>
                                     )
                                 })}
                             </Grid>
@@ -427,11 +432,11 @@ export default function ProductDetail({ product }) {
                     </Grid>
                 </Container>
 
-                <Container maxWidth="1920" id="list-product" sx={{ width: "fit-content", marginX: { xs: 1, md: 4 }, marginY: 4 }}>
+                <Container maxWidth="1920" id="list-product" sx={{ width: "85vw", marginX: { xs: 1, md: 4 }, marginY: 4 }}>
                     <Typography variant="h5" color="text.primary" gutterBottom>
-                        Produk lain yang mirip
+                        Produk lainnya
                     </Typography>
-                    <ListCardProduct />
+                    <ListCardProduct dataProducts={productLain} />
                     <Box display="flex" flexDirection="row" justifyContent="right" sx={{ paddingTop: 1 }}>
                         <Link href="/products" passHref >
                             <MUILink variant="h6" underline="none" color="text.tertiary">
@@ -446,12 +451,11 @@ export default function ProductDetail({ product }) {
 }
 
 export async function getStaticPaths() {
-    // const response = await fetch(`https://jsonplaceholder.typicode.com/posts`);
-    // const dataPost = await response.json();
-    const dataProduct = ListProducts;
+    const response = await fetch(`http://103.41.205.191:10001/api/v1/product/allNoWisata`);
+    const dataProduct = await response.json();
 
-    const paths = dataProduct.map((product) => ({
-        params: { name: product.name + '' },
+    const paths = dataProduct.Products.map((product) => ({
+        params: { title: product.title + '' },
     }))
 
     return {
@@ -461,23 +465,44 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-    // const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${params.id}`);
-    // const post = await response.json();
-    const dataProduct = ListProducts;
+    const response = await fetch(`http://103.41.205.191:10001/api/v1/product/allNoWisata`);
+    const dataProduct = await response.json();
+
     var id = 0;
     {
-        dataProduct.map(product => {
-            if (product.name == params.name) {
+        dataProduct.Products.map(product => {
+            if (product.title == params.title) {
                 id = product.id;
             };
         })
     }
 
-    const product = ListProducts[id];
+    const response2 = await fetch(`http://103.41.205.191:10001/api/v1/product/detailProduct/${id}`);
+    const product = await response2.json();
+
+    const img = [];
+    if (product.ProductsDetail[0].image != null) {
+        img[0] = { image: product.ProductsDetail[0].image }
+    }
+    if (product.ProductsDetail[0].image2 != null) {
+        img[1] = { image: product.ProductsDetail[0].image2 }
+    }
+    if (product.ProductsDetail[0].image3 != null) {
+        img[2] = { image: product.ProductsDetail[0].image3 }
+    }
+    if (product.ProductsDetail[0].image4 != null) {
+        img[3] = { image: product.ProductsDetail[0].image4 }
+    }
+    if (product.ProductsDetail[0].image5 != null) {
+        img[4] = { image: product.ProductsDetail[0].image5 }
+    }
 
     return {
         props: {
-            product,
+            product: product.ProductsDetail[0],
+            listImages: img,
+            productLainToko: product.ProductsLain,
+            productLain: product.ProductsGlobal,
         }
     };
 }

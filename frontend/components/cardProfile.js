@@ -819,7 +819,49 @@ export default function CardProfile() {
                         </Grid>
                     </TabPanel>
                     <TabPanel value={value} index={3}>
-                        <Typography>Item Four</Typography>
+                        <Grid container spacing={2} direction="column">
+                            <Grid item>
+                                <Card className={classes.root} sx={{ maxWidth: 1546 }} style={{ height: 'fit-content', boxShadow: 3 }} >
+                                    <CardContent style={{ height: 'fit-content', display: "flex", flexDirection: "column", justifyContent: "space-between", alignContent: "center" }}>
+                                        <Grid container spacing={2} direction="row">
+                                            <Grid item xs={3.5} md={2} lg={1} sx={{ position: 'relative' }}>
+                                                <Image
+                                                    src="/images/apel.png"
+                                                    alt="Apel"
+                                                    height={138}
+                                                    width={156}
+                                                // layout='fill'
+                                                // objectFit='fill'
+                                                />
+                                            </Grid>
+                                            <Grid item xs={8.5} md={6} lg={6.5}>
+                                                <Grid container spacing={1}>
+                                                    <Grid item xs={12}>
+                                                        <Typography>
+                                                            Apel Poncokusumo Toko Abdi Makmur Super Manis
+                                                        </Typography>
+                                                    </Grid>
+                                                    <Grid item xs={12}>
+                                                        <Typography>
+                                                            Total Pembayaran : RP 1.050.000
+                                                        </Typography>
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                            <Grid item xs={12} md={4} lg={4.5}>
+                                                <Grid container justifyContent='end' alignItems='center' sx={{ height: '100%', paddingRight: 4 }}>
+                                                    <Grid item xs={6}>
+                                                        <Button variant='contained' color='secondary' fullWidth>
+                                                            Beli Lagi
+                                                        </Button>
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </CardContent>
+                                </Card>
+                            </Grid>
+                        </Grid>
                     </TabPanel>
                 </Box>
                 <Box sx={{ flexGrow: 1, display: { xs: 'flex', lg: 'none' } }}>
@@ -1279,7 +1321,49 @@ export default function CardProfile() {
                         </Grid>
                     </TabPanel>
                     <TabPanel value={value} index={3} >
-                        <Typography marginTop={1}>Item Four</Typography>
+                        <Grid container spacing={2} direction="column">
+                            <Grid item>
+                                <Card className={classes.root} sx={{ maxWidth: 1546 }} style={{ height: 'fit-content', boxShadow: 3 }} >
+                                    <CardContent style={{ height: 'fit-content', display: "flex", flexDirection: "column", justifyContent: "space-between", alignContent: "center" }}>
+                                        <Grid container spacing={2} direction="row">
+                                            <Grid item xs={3.5} md={2} lg={1} sx={{ position: 'relative' }}>
+                                                <Image
+                                                    src="/images/apel.png"
+                                                    alt="Apel"
+                                                    height={138}
+                                                    width={156}
+                                                // layout='fill'
+                                                // objectFit='fill'
+                                                />
+                                            </Grid>
+                                            <Grid item xs={8.5} md={6} lg={6.5}>
+                                                <Grid container spacing={1}>
+                                                    <Grid item xs={12}>
+                                                        <Typography>
+                                                            Apel Poncokusumo Toko Abdi Makmur Super Manis
+                                                        </Typography>
+                                                    </Grid>
+                                                    <Grid item xs={12}>
+                                                        <Typography>
+                                                            Total Pembayaran : RP 1.050.000
+                                                        </Typography>
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                            <Grid item xs={12} md={4} lg={4.5}>
+                                                <Grid container justifyContent='end' alignItems='center' sx={{ height: '100%', paddingRight: 4 }}>
+                                                    <Grid item xs={10}>
+                                                        <Button variant='contained' color='secondary' fullWidth>
+                                                            Beli Lagi
+                                                        </Button>
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </CardContent>
+                                </Card>
+                            </Grid>
+                        </Grid>
                     </TabPanel>
                 </Box>
             </CardContent>

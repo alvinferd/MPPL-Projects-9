@@ -42,12 +42,12 @@ export default function CardProduct({ id, images, name, description, price, rati
                     </Box>
                     <Box>
                         <Typography variant="body2" color="text.quaternary" gutterBottom>
-                            RP {price}
+                            {price.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}
                         </Typography>
                         <Box display="flex" justifyContent="flex-start" flexDirection="row">
                             <StarBorderOutlinedIcon fontSize="small" sx={{ color: "#FFF626" }} />
                             <Typography variant="body2" color="text.primary" sx={{ paddingInline: 0.5 }}>
-                                {rating} / 5.0
+                                {rating.toFixed(1)} / 5.0
                             </Typography>
                         </Box>
                     </Box>
