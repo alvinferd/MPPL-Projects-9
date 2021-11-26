@@ -8,6 +8,9 @@ import theme from '../themes/default'
 import Link from 'next/link'
 import LogoPoncolapak from '../public/PoncolapakLogo.svg'
 
+import { dispatch } from '../utils/redux/store'
+import { userRegister } from '../utils/redux/slice/user'
+
 const useStyles = makeStyles((theme) => ({
     dimensi: {
         width: "100%",
@@ -15,9 +18,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const onSubmit = (data) => {
+const onRegister = (data) => {
     console.log(data);
-    // dispatch(userLogin(data));
+    dispatch(userRegister(data));
 };
 
 export default function SignUp() {
@@ -59,13 +62,13 @@ export default function SignUp() {
                             </Box>
                         </Grid>
                         <Grid item >
-                            <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%", alignItems: "center" }}>
+                            <form onSubmit={handleSubmit(onRegister)} style={{ width: "100%", alignItems: "center" }}>
                                 <Typography variant="body1" color="text.primary" style={{ marginTop: theme.spacing(4) }}>
                                     Nama Lengkap
                                 </Typography>
                                 <Grid style={{ marginTop: theme.spacing(1) }}>
                                     <Controller
-                                        name="nama_lengkap"
+                                        name="namaLengkap"
                                         control={control}
                                         defaultValue=""
                                         render={({ field: { onChange, value } }) => (
@@ -149,7 +152,7 @@ export default function SignUp() {
                                 </Typography>
                                 <Grid style={{ marginTop: theme.spacing(1) }}>
                                     <Controller
-                                        name="confirm_password"
+                                        name="password2"
                                         control={control}
                                         defaultValue=""
                                         render={({ field: { onChange, value } }) => (

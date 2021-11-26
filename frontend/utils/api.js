@@ -13,7 +13,7 @@ function handleRequestSend(config) {
   // console.log(document.getElementById('cookies'))
   if (!!token) config.headers.Authorization = `Token ${token}`;
   // if (!!csrf || !!session) config.headers.Cookie = `csrftoken=${csrf}; sessionid=${session}`;
-  // console.dir(config);
+  console.dir(config);
   return config;
 }
 
@@ -35,6 +35,7 @@ function handleResponseError(error) {
 const baseApi = axios.create({
   baseURL: "http://103.41.205.191:10001",
   headers: {
+    // "Content-Type": "multipart/form-data",
     post: {
       "Content-Type": "multipart/form-data",
       // "Access-Control-Allow-Origin": "*",

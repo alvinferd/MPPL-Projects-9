@@ -43,10 +43,24 @@ const userSlice = createSlice({
             ...state,
             current: action.payload ?? {},
         }),
+        sellerLoggedIn: (state, action) => {
+            Cookies.set(TOKEN_KEY, action.payload);
+            // Cookies.set(csrftoken, action.payload);
+            // Cookies.set(sessionid, action.payload);
+            return {
+                ...state,
+                authenticated: true,
+                current: {
+                    id: null,
+                    is_user: false,
+                    is_seller: true,
+                },
+            };
+        },
     }
 });
 
-export const { userLoggedIn, userLoggedOut, userCurrent } = userSlice.actions;
+export const { userLoggedIn, userLoggedOut, userCurrent, sellerLoggedIn } = userSlice.actions;
 export default userSlice.reducer;
 
 export const userLogin = createAsyncThunk(
@@ -67,6 +81,29 @@ export const userLogin = createAsyncThunk(
         // .finally(() => {
         //     dispatch(loadingSet(false));
         //     dispatch(userGetData(data.username));
+        //     console.log('finnaly');
+        // });
+    }
+);
+
+export const sellerLogin = createAsyncThunk(
+    'seller/sellerLogin',
+    async (data, { dispatch }) => {
+        return baseApi
+            .post("/auth/login/", data)
+            .then((res) => {
+                // Cookies.set('csrftoken', 'OhR3NFty4ojSjPJdISK5c0SBiamxpQfUC9XHpAj0ExYUcdMyqIKUDEZXgluVTwR9');
+                // Cookies.set('sessionid', '0kdfsbf1vrom2bf3jvra1fz2dopx1p6z');
+                dispatch(sellerLoggedIn(res.key));
+                console.log(res);
+            })
+            .catch((err) => {
+                // dispatch(alertError(err.message));
+                console.log(err);
+            })
+        // .finally(() => {
+        //     dispatch(loadingSet(false));
+        //     dispatch(sellerGetData(data.sellername));
         //     console.log('finnaly');
         // });
     }
@@ -97,5 +134,26 @@ export const userGetData = createAsyncThunk(
                 // console.log(err.message);
             })
         // .finally(() => dispatch(loadingSet(false)));
+    }
+);
+
+export const userRegister = createAsyncThunk(
+    'user/userRegister',
+    async (data, { dispatch }) => {
+        return baseApi
+            .post("/rest-auth/addCustomer", data)
+            .then((res) => {
+                // dispatch(userLoggedIn(res.key));
+                console.log(res);
+            })
+            .catch((err) => {
+                // dispatch(alertError(err.message));
+                console.log(err);
+            })
+        // .finally(() => {
+        //     dispatch(loadingSet(false));
+        //     dispatch(userGetData(data.username));
+        //     console.log('finnaly');
+        // });
     }
 );

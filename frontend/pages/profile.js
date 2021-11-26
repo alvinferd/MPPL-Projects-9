@@ -23,7 +23,7 @@ export default function Profile() {
 
     useEffect(() => {
         if (authenticated) {
-            if (isSeller) router.replace("/seller");
+            // if (isSeller) router.replace("/seller");
         } else {
             router.replace('/login');
         }

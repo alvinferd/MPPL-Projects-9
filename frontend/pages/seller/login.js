@@ -8,6 +8,12 @@ import theme from '../../themes/default'
 import Link from 'next/link'
 import LogoPoncolapak from '../../public/PoncolapakLogo.svg'
 
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { dispatch } from '../../utils/redux/store';
+import { sellerLogin } from '../../utils/redux/slice/user';
+
 const useStyles = makeStyles((theme) => ({
     dimensi: {
         width: "100%",
@@ -17,12 +23,25 @@ const useStyles = makeStyles((theme) => ({
 
 const onSubmit = (data) => {
     console.log(data);
-    // dispatch(userLogin(data));
+    dispatch(sellerLogin(data));
 };
 
 export default function LoginSeller() {
     const classes = useStyles();
     const { control, handleSubmit } = useForm();
+    const router = useRouter();
+
+    const authenticated = useSelector((state) => state.user.authenticated)
+    const isUser = useSelector((state) => state.user.current.is_user)
+    const isSeller = useSelector((state) => state.user.current.is_seller)
+
+    useEffect(() => {
+        if (authenticated) {
+            if (isUser) router.replace("/");
+            if (isSeller) router.replace("/seller");
+        }
+    }, [authenticated, isUser, isSeller]);
+
     return (
         <ThemeProvider theme={theme}>
             <Head>
