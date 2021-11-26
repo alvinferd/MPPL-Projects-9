@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import baseApi, { TOKEN_KEY, csrftoken, sessionid} from '../../api';
+import baseApi, { TOKEN_KEY } from '../../api';
 import Cookies from 'js-cookie'
 
 const userSlice = createSlice({
@@ -20,9 +20,14 @@ const userSlice = createSlice({
             return {
                 ...state,
                 authenticated: true,
+                current: {
+                    id: null,
+                    is_user: true,
+                    is_seller: false,
+                },
             };
         },
-        userLoggedOut: (state, _action) => {
+        userLoggedOut: (state, action) => {
             Cookies.remove(TOKEN_KEY);
             return {
                 ...state,
@@ -50,6 +55,8 @@ export const userLogin = createAsyncThunk(
         return baseApi
             .post("/auth/login/", data)
             .then((res) => {
+                // Cookies.set('csrftoken', 'OhR3NFty4ojSjPJdISK5c0SBiamxpQfUC9XHpAj0ExYUcdMyqIKUDEZXgluVTwR9');
+                // Cookies.set('sessionid', '0kdfsbf1vrom2bf3jvra1fz2dopx1p6z');
                 dispatch(userLoggedIn(res.key));
                 console.log(res);
             })
@@ -57,11 +64,20 @@ export const userLogin = createAsyncThunk(
                 // dispatch(alertError(err.message));
                 console.log(err);
             })
-        .finally(() => {
-            // dispatch(loadingSet(false));
-            dispatch(userGetData(data.username));
-            console.log('finnaly');
-        });
+        // .finally(() => {
+        //     dispatch(loadingSet(false));
+        //     dispatch(userGetData(data.username));
+        //     console.log('finnaly');
+        // });
+    }
+);
+
+export const userLogout = createAsyncThunk(
+    "user/userLogout",
+    async (data, { dispatch }) => {
+        // dispatch(loadingSet(true));
+        dispatch(userLoggedOut());
+        // dispatch(loadingSet(false));
     }
 );
 
