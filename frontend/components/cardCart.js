@@ -28,6 +28,11 @@ const label = { inputProps: { 'aria-label': 'Checkbox Keranjang' } };
 
 
 export default function CartCard() {
+    const deleteProduct = (id) => {
+        // console.log(data);
+        dispatch(cartDeleteProduct(id));
+    };
+
     const dataCart = useSelector((state) => state.cart.data);
     const MyCart = useSelector((state) => state.cart.data.Carts);
     const MyCartCheckout = useSelector((state) => state.cart.dataCheck);
@@ -134,15 +139,8 @@ export default function CartCard() {
             }
         }
         dispatch(cartGetData());
-        
-    }
 
-    const onDelete = (id) => {
-        // console.log(data);
-        dispatch(cartDeleteProduct(id));
-        dispatch(cartGetDataCheck());
-        dispatch(cartGetData());
-    };
+    }
 
     // OBJEK TOTAL HARGA
     const [totalHarga, setTotalHarga] = React.useState(0);
@@ -253,7 +251,8 @@ export default function CartCard() {
                                                     </Grid>
                                                 </Grid>
                                                 <Grid item xs={1.25} lg={1}>
-                                                    <IconButton aria-label="remove from cart" color='error' sx={{ paddingTop: 0 }} onClick={() => {}}>
+                                                    <IconButton aria-label="remove from cart" color='error' sx={{ paddingTop: 0 }}
+                                                        onClick={() => deleteProduct(product.id)}>
                                                         <CancelIcon />
                                                     </IconButton>
                                                 </Grid>

@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import baseApi, { TOKEN_KEY } from '../../api';
 import Cookies from 'js-cookie'
 import { CastForEducationOutlined } from '@mui/icons-material';
+import router from 'next/router';
 
 const cartSlice = createSlice({
     name: 'cart',
@@ -142,8 +143,12 @@ export const cartDeleteProduct = createAsyncThunk(
         return baseApi
             .delete("/api/v1/cart/deleteCart/" + id)
             .then((res) => {
-                // dispatch(userLoggedIn(res.key));
                 console.log(res);
+                if (res.status == "Successfuly Deleted") {
+                    dispatch(cartGetData());
+                    dispatch(cartGetDataCheck());
+                    router.reload();
+                }
             })
             .catch((err) => {
                 // dispatch(alertError(err.message));
