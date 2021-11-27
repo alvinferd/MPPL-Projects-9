@@ -16,6 +16,9 @@ from rest_framework import status
 from .serializers import *
 from .models import *
 import json
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication, SessionAuthentication
+from rest_framework.decorators import authentication_classes
 
 @api_view(["POST"])
 def add_Customer(request, *args, **kwargs):
@@ -24,17 +27,17 @@ def add_Customer(request, *args, **kwargs):
     if user_serializer.is_valid() and request.data["namaLengkap"]:
         user_serializer.save()
 
-        Users = User.objects.filter(username=request.data["username"]) 
+        Users = User.objects.filter(username=request.data["username"])
         serializer = UserSerializer(Users, many=True)
-        request.data._mutable = True
+        #request.data._mutable = True
         request.data["user"] = serializer.data[0]["id"]
-        request.data._mutable = False
+        #request.data._mutable = False
         cust_serializer = CustomerSerializer(data=request.data)
         if cust_serializer.is_valid():
             cust_serializer.save()
             return Response(cust_serializer.data, status=status.HTTP_201_CREATED)
     else:
-      return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)    
+      return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(["POST"])
 def add_Seller(request, *args, **kwargs):
@@ -43,17 +46,17 @@ def add_Seller(request, *args, **kwargs):
     if user_serializer.is_valid() and request.data["namaToko"]:
         user_serializer.save()
 
-        Users = User.objects.filter(username=request.data["username"]) 
+        Users = User.objects.filter(username=request.data["username"])
         serializer = UserSerializer(Users, many=True)
-        request.data._mutable = True
+        #request.data._mutable = True
         request.data["user"] = serializer.data[0]["id"]
-        request.data._mutable = False
+        #request.data._mutable = False
         seller_serializer = SellerSerializer(data=request.data)
         if seller_serializer.is_valid():
             seller_serializer.save()
             return Response(seller_serializer.data, status=status.HTTP_201_CREATED)
     else:
-      return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)    
+      return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 def all_Users(request):
@@ -61,14 +64,46 @@ def all_Users(request):
     serializer = UserSerializer(Users, many=True)
     return JsonResponse({'Users': serializer.data}, safe=False, status=status.HTTP_200_OK)
 
+@api_view(["GET"])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def detail_Customer(request):
     userid = request.user.id
     Customers = Customer.objects.filter(user=userid)
     serializer = CustomerSerializer(Customers, many=True)
     return JsonResponse({'Profile': serializer.data}, safe=False, status=status.HTTP_200_OK)
 
+@api_view(["GET"])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def detail_Seller(request):
     userid = request.user.id
     Customers = Seller.objects.filter(user=userid)
     serializer = SellerSerializer(Customers, many=True)
     return JsonResponse({'Profile': serializer.data}, safe=False, status=status.HTTP_200_OK)
+
+@api_view(["PUT"])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def update_Customer(request):
+    Customer_id = request.user.id
+    datas = request.data
+    payload = {}
+    for i in datas:
+        payload[i] = request.data[i]
+    #print(payload)
+    Customer_item = Customer.objects.filter(user=Customer_id)
+    if(Customer_item):
+        try:
+            Customer_item = Customer.objects.filter(user=Customer_id)
+            # returns 1 or 0
+            Customer_item.update(**payload)
+            Customers = Customer.objects.get(user=Customer_id)
+            serializer = CustomerSerializer(Customers)
+            return JsonResponse({'Customer': serializer.data}, safe=False, status=status.HTTP_200_OK)
+        except ObjectDoesNotExist as e:
+            return JsonResponse({'error': str(e)}, safe=False, status=status.HTTP_404_NOT_FOUND)
+        except Exception:
+            return JsonResponse({'error': 'Something terrible went wrong'}, safe=False, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    else:
+        return JsonResponse({'error': 'You have no authority'}, safe=False, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

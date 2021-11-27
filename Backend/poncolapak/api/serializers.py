@@ -31,6 +31,27 @@ class CartSerializer(serializers.ModelSerializer):
         model = Cart
         fields = '__all__'
 
+
+class PengirimanSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Pengiriman
+        fields = '__all__'
+
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = '__all__'
+
+class OrderItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OrderItem
+        fields = '__all__'
+
+class StatusPembelianSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = StatusPembelian
+        fields = '__all__'
+
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category

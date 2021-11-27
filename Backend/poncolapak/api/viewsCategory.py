@@ -15,7 +15,9 @@ from rest_framework import status
 from .serializers import *
 from .models import *
 import json
-
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication, SessionAuthentication
+from rest_framework.decorators import authentication_classes
 
 def searchCategorys(request, *args, **kwargs):
     queryset = Category.objects.all()
@@ -38,7 +40,7 @@ def detail_Category(request, Category_id):
 
 
 @api_view(["POST"])
-@csrf_exempt
+@authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def add_Category(request, *args, **kwargs):
     user = request.user.id
@@ -54,7 +56,7 @@ def add_Category(request, *args, **kwargs):
           return Response(Category_serializer.errors, status=status.HTTP_400_BAD_REQUEST)    
     
 @api_view(["PUT"])
-@csrf_exempt
+@authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def update_Category(request, Category_id):
     datas = request.data
@@ -78,7 +80,7 @@ def update_Category(request, Category_id):
             return JsonResponse({'error': 'Something terrible went wrong'}, safe=False, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(["DELETE"])
-@csrf_exempt
+@authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def delete_Category(request, Category_id):
     user = request.user.id

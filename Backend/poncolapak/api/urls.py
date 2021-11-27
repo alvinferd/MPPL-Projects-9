@@ -1,6 +1,6 @@
 from django.conf.urls import include, url
 from django.urls import include, path
-from . import viewsProduct , viewsCategory, viewsUser, viewsCart
+from . import viewsProduct , viewsCategory, viewsUser, viewsCart, viewsOrder
 
 urlpatterns = [
   #path('welcome', views.welcome),
@@ -25,13 +25,19 @@ urlpatterns = [
   path('cart/allCart', viewsCart.all_Carts),
   path('cart/addCart', viewsCart.add_Cart),
   path('cart/userCart', viewsCart.user_Carts),
+  path('cart/userCartCentang', viewsCart.user_Carts_centang),
   path('cart/checkoutFalse/<int:cart_id>', viewsCart.checkout_false),
   path('cart/checkoutTrue/<int:cart_id>', viewsCart.checkout_true),
   path('cart/deleteCart/<int:Cart_id>', viewsCart.delete_Cart),
+
+  path('order/makeOrder', viewsOrder.makeOrder),
+  path('order/UserOrder', viewsOrder.allUserOrder),
+  path('order/UserOrderItem', viewsOrder.allUserOrderItem),
 
   path('addCustomer', viewsUser.add_Customer),
   path('addSeller', viewsUser.add_Seller),
   path('allUser', viewsUser.all_Users),
   path('detailCustomer', viewsUser.detail_Customer),
   path('detailSeller', viewsUser.detail_Seller),
+  path('updateCustomer', viewsUser.update_Customer),
 ]

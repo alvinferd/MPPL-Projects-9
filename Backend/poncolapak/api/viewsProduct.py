@@ -15,7 +15,9 @@ from rest_framework import status
 from .serializers import *
 from .models import *
 import json
-
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication, SessionAuthentication
+from rest_framework.decorators import authentication_classes
 
 def searchProducts(request, *args, **kwargs):
     queryset = Product.objects.all()
@@ -28,7 +30,7 @@ def searchProducts(request, *args, **kwargs):
 
 # Test endpoint for authentication
 @api_view(["GET"])
-@csrf_exempt
+@authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])  
 def welcome(request):
     content = {"message": "Welcome to the ProductStore!"}
@@ -73,7 +75,7 @@ def noWisata_Product(request):
 
 
 @api_view(["GET"])
-@csrf_exempt
+@authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def get_Products(request):
     user = request.user.id
@@ -82,13 +84,13 @@ def get_Products(request):
     return JsonResponse({'Products': serializer.data}, safe=False, status=status.HTTP_200_OK)
 
 @api_view(["POST"])
-@csrf_exempt
+@authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def add_Product(request, *args, **kwargs):
     parser_classes = (MultiPartParser, FormParser)
-    request.data._mutable = True
+    #request.data._mutable = True
     request.data['added_by'] = request.user.id
-    request.data._mutable = False
+    #request.data._mutable = False
     product_serializer = ProductSerializer(data=request.data)
     if product_serializer.is_valid():
       product_serializer.save()
@@ -97,7 +99,7 @@ def add_Product(request, *args, **kwargs):
       return Response(product_serializer.errors, status=status.HTTP_400_BAD_REQUEST)    
 
 @api_view(["PUT"])
-@csrf_exempt
+@authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def update_Product(request, Product_id):
     user = request.user.id
@@ -123,7 +125,7 @@ def update_Product(request, Product_id):
         return JsonResponse({'error': 'You have no authority'}, safe=False, status=status.HTTP_500_INTERNAL_SERVER_ERROR)        
 
 @api_view(["DELETE"])
-@csrf_exempt
+@authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def delete_Product(request, Product_id):
     user = request.user.id
