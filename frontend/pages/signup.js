@@ -131,7 +131,7 @@ export default function SignUp() {
                                 </Typography>
                                 <Grid style={{ marginTop: theme.spacing(1) }}>
                                     <Controller
-                                        name="password"
+                                        name="password1"
                                         control={control}
                                         defaultValue=""
                                         render={({ field: { onChange, value } }) => (

@@ -1,8 +1,7 @@
 import * as React from 'react'
 import { Box, Card, CardContent, Checkbox, Grid, IconButton, Typography, Link as MUILink, Button, TextField } from '@mui/material'
 import { makeStyles } from '@mui/styles'
-import MyCart from '../utils/dummy/MyCart'
-import { useRouter } from "next/router"
+// import MyCart from '../utils/dummy/MyCart'
 import { AllCheckerCheckbox, CheckboxGroup } from '@createnl/grouped-checkboxes';
 import styles from '../styles/cart.module.css'
 import { green } from '@mui/material/colors'
@@ -11,6 +10,12 @@ import Image from 'next/image'
 import CancelIcon from '@mui/icons-material/Cancel';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+
+import { useRouter } from "next/router"
+import { useSelector } from "react-redux";
+import ApiURL from '../utils/constant'
+import { dispatch } from '../utils/redux/store';
+import { cartCentangCheckout, cartGetData, cartGetDataCheck, cartSet, cartUnCentangCheckout } from '../utils/redux/slice/cart';
 
 const useStyles = makeStyles({
     root: {
@@ -21,6 +26,11 @@ const useStyles = makeStyles({
 const label = { inputProps: { 'aria-label': 'Checkbox Keranjang' } };
 
 export default function CartCard() {
+    const dataCart = useSelector((state) => state.cart.data);
+    const MyCart = useSelector((state) => state.cart.data.Carts);
+    const MyCartCheckout = useSelector((state) => state.cart.dataCheck);
+    console.log(MyCartCheckout);
+
     // OBJEK JUMLAH BARANG
     const firstJumlahBarang = {};
     MyCart.map(item => {
@@ -72,8 +82,9 @@ export default function CartCard() {
 
     // OBJEK CHECKBOX BARANG
     const [checkedArray, setCheckedArray] = React.useState({});
+    // const data = useSelector((state) => state.cart.data)
 
-    const toggleCheckbox = (e, id, price) => {
+    const toggleCheckbox = (e, id, price, index, data = { dataCart }) => {
         const ch = e.target.checked;
         if (id == 'allcheck') {
             if (ch) {
@@ -98,22 +109,30 @@ export default function CartCard() {
                 setCheckedArray(newCheckedArray);
                 setTotalHarga(newTotalHarga);
                 // console.log(checkedArray);
+
             }
         } else {
             if (ch) {
-                let newCheckedArray = { ...checkedArray };
-                newCheckedArray[id] = true;
-                setCheckedArray(newCheckedArray);
-                setTotalHarga(totalHarga + price * jumlahBarang[id]);
+                dispatch(cartCentangCheckout(id));
+                dispatch(cartGetDataCheck());
+                // let newCheckedArray = { ...checkedArray };
+                // newCheckedArray[id] = true;
+                // setCheckedArray(newCheckedArray);
+                // setTotalHarga(totalHarga + price * jumlahBarang[id]);
                 // console.log(checkedArray);
             } else {
-                let newCheckedArray = { ...checkedArray };
-                newCheckedArray[id] = false;
-                setCheckedArray(newCheckedArray);
-                setTotalHarga(totalHarga - price * jumlahBarang[id]);
+                dispatch(cartUnCentangCheckout(id));
+                dispatch(cartGetDataCheck());
+
+                // let newCheckedArray = { ...checkedArray };
+                // newCheckedArray[id] = false;
+                // setCheckedArray(newCheckedArray);
+                // setTotalHarga(totalHarga - price * jumlahBarang[id]);
                 // console.log(checkedArray);
             }
         }
+        dispatch(cartGetData());
+        
     }
 
     // OBJEK TOTAL HARGA
@@ -121,6 +140,7 @@ export default function CartCard() {
 
     const router = useRouter();
     const classes = useStyles();
+
     return (
         <Grid container spacing={2} sx={{ width: '100%' }}>
             <Grid item xs={12} md={8} lg={8}>
@@ -145,7 +165,7 @@ export default function CartCard() {
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                                {MyCart.map(product => {
+                                {MyCart.map((product, index) => {
                                     return (
                                         <Grid item xs={12} key={product.id}>
                                             {/* <ItemCart id={product.id} images={product.images[0]} name={product.name} price={product.price} seller={product.seller} /> */}
@@ -154,16 +174,17 @@ export default function CartCard() {
                                                     <Grid container spacing={0} alignItems="center" justifyContent="center" sx={{ height: '100%' }}>
                                                         <GRCheckBox
                                                             id={product.id}
+                                                            checked={product.checkout}
                                                             onChange={(e) => {
-                                                                toggleCheckbox(e, product.id, product.price);
+                                                                toggleCheckbox(e, product.id, product.totalPrice, index);
                                                             }}
                                                             className={styles.cb} />
                                                     </Grid>
                                                 </Grid>
                                                 <Grid item xs={3} lg={2.5} xl={1.75} sx={{ position: 'relative' }}>
                                                     <Image
-                                                        src={product.images[0].image}
-                                                        alt={product.name}
+                                                        src={ApiURL + product.imageUrl}
+                                                        alt={product.namaItem}
                                                         // height={175}
                                                         // width={175}
                                                         layout='fill'
@@ -174,17 +195,17 @@ export default function CartCard() {
                                                     <Grid container columnSpacing={2} direction="column" >
                                                         <Grid item>
                                                             <Typography variant="body1">
-                                                                <b>{product.name}</b>
+                                                                <b>{product.namaItem}</b>
                                                             </Typography>
                                                         </Grid>
                                                         <Grid item>
                                                             <Typography variant="body1" gutterBottom>
-                                                                {product.seller}
+                                                                {product.namaToko}
                                                             </Typography>
                                                         </Grid>
                                                         <Grid item>
                                                             <Typography variant="body1" color="text.quaternary" gutterBottom>
-                                                                RP {product.price}
+                                                                {product.totalPrice.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}
                                                             </Typography>
                                                         </Grid>
                                                         <Grid item>
@@ -192,7 +213,7 @@ export default function CartCard() {
                                                                 <Grid item>
                                                                     <IconButton aria-label="add" color="success"
                                                                         onClick={(e) => {
-                                                                            dec(e, product.id, product.price);
+                                                                            dec(e, product.id, product.totalPrice);
                                                                         }}
                                                                         disabled={jumlahBarang[product.id] <= 1}>
                                                                         <RemoveCircleIcon />
@@ -202,7 +223,7 @@ export default function CartCard() {
                                                                     <Box sx={{ width: 70, maxWidth: '100%' }}>
                                                                         <TextField id="product-count" type="number" variant="outlined" size="small" color="secondary" fullWidth value={jumlahBarang[product.id]}
                                                                             onChange={(e) => {
-                                                                                handleChange(e, product.id, product.price);
+                                                                                handleChange(e, product.id, product.totalPrice);
                                                                             }}
                                                                             // inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
                                                                             InputLabelProps={{
@@ -213,7 +234,7 @@ export default function CartCard() {
                                                                 <Grid item>
                                                                     <IconButton aria-label="add" color="success"
                                                                         onClick={(e) => {
-                                                                            inc(e, product.id, product.price);
+                                                                            inc(e, product.id, product.totalPrice);
                                                                         }}>
                                                                         <AddCircleIcon />
                                                                     </IconButton>
@@ -245,11 +266,11 @@ export default function CartCard() {
                                     <b> Checkout Barang</b>
                                 </Typography>
                             </Grid>
-                            {MyCart.map(item => {
+                            {MyCartCheckout.Carts.map(item => {
                                 return (
-                                    <Grid item key={item.id} display={checkedArray[item.id] ? 'block' : 'none'}>
+                                    <Grid item key={item.id} display={item.checkout}>
                                         <Typography>
-                                            {item.name} (x{jumlahBarang[item.id]})
+                                            {item.namaItem} (x{item.quantity})
                                         </Typography>
                                     </Grid>
                                 )
@@ -267,14 +288,14 @@ export default function CartCard() {
                                     </Grid>
                                     <Grid item>
                                         <Typography color="text.quaternary">
-                                            <b>RP {totalHarga}</b>
+                                            <b>{MyCartCheckout.totalHarga.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</b>
                                         </Typography>
                                     </Grid>
                                 </Grid>
                             </Grid>
                             <Grid item>
                                 <Grid container justifyContent="center">
-                                    <Button variant="contained" color="secondary" size="large" onClick={() => router.push(`/cart/pay`)} disabled={totalHarga == 0}>
+                                    <Button variant="contained" color="secondary" size="large" onClick={() => router.push(`/cart/pay`)} disabled={MyCartCheckout.totalHarga == 0}>
                                         Bayar
                                     </Button>
                                 </Grid>

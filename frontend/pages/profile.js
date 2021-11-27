@@ -9,8 +9,10 @@ import { userLogout } from "../utils/redux/slice/user"
 import { useSelector } from "react-redux"
 import { useRouter } from "next/router"
 import { useEffect } from "react"
+// import { cartGetData } from "../utils/redux/slice/cart"
 
 const onLogout = () => {
+    // dispatch(cartGetData());
     dispatch(userLogout());
 };
 

@@ -78,11 +78,11 @@ export const userLogin = createAsyncThunk(
                 // dispatch(alertError(err.message));
                 console.log(err);
             })
-        // .finally(() => {
-        //     dispatch(loadingSet(false));
-        //     dispatch(userGetData(data.username));
-        //     console.log('finnaly');
-        // });
+            .finally(() => {
+                // dispatch(loadingSet(false));
+                dispatch(userGetData());
+                // console.log('finnaly');
+            });
     }
 );
 
@@ -120,7 +120,7 @@ export const userLogout = createAsyncThunk(
 
 export const userGetData = createAsyncThunk(
     "user/userGetData",
-    async (username, { dispatch }) => {
+    async (_, { dispatch }) => {
         //   dispatch(loadingSet(true));
         return baseApi
             .get("/rest-auth/detailCustomer")
