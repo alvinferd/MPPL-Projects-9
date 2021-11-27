@@ -16,7 +16,9 @@ from rest_framework import status
 from .serializers import *
 from .models import *
 import json
-
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication, SessionAuthentication
+from rest_framework.decorators import authentication_classes
 
 def all_Carts(request):
     req = request.body
@@ -24,6 +26,21 @@ def all_Carts(request):
     serializer = CartSerializer(Carts, many=True)
     return JsonResponse({'Carts': serializer.data}, safe=False, status=status.HTTP_200_OK)
 
+@api_view(["GET"])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def user_Carts_centang(request):
+    user = request.user.id
+    Carts = Cart.objects.filter(user=user, checkout=True)
+    serializer = CartSerializer(Carts, many=True)
+    totalHarga = 0
+    for i in serializer.data:
+        totalHarga += i["totalPrice"]
+    return JsonResponse({'Carts': serializer.data, 'totalHarga': totalHarga}, safe=False, status=status.HTTP_200_OK)
+
+@api_view(["GET"])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def user_Carts(request):
     user = request.user.id
     Carts = Cart.objects.filter(user=user)
@@ -31,21 +48,28 @@ def user_Carts(request):
     return JsonResponse({'Carts': serializer.data}, safe=False, status=status.HTTP_200_OK)
 
 @api_view(["POST"])
-@csrf_exempt
+@authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def add_Cart(request, *args, **kwargs):
     parser_classes = (MultiPartParser, FormParser)
 
-    # Get harga produk
+    # Get produk fields
     Products = Product.objects.filter(id=request.data['item'])
     serializer = ProductSerializer(Products, many=True)
     harga = serializer.data[0]['harga']
-
+    pemilik = serializer.data[0]['added_by']
+    pemiliknya = Seller.objects.filter(user=pemilik)
+    serializerUser = SellerSerializer(pemiliknya, many=True)
+    toko = serializerUser.data[0]['namaToko']
+    #print(serializerUser.data[0])
+    #request.data._mutable = True
+    request.data["namaItem"] = serializer.data[0]['title']
+    request.data["namaToko"] =  toko
+    request.data["imageUrl"] = serializer.data[0]['image']
     jumlah = request.data['quantity']
-    request.data._mutable = True
     request.data['totalPrice'] = int(harga)*int(jumlah)
     request.data['user'] = request.user.id
-    request.data._mutable = False
+    #request.data._mutable = False
 
     Cart_serializer = CartSerializer(data=request.data)
     if Cart_serializer.is_valid():
@@ -55,7 +79,7 @@ def add_Cart(request, *args, **kwargs):
       return Response(Cart_serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
 
 @api_view(["POST"])
-@csrf_exempt
+@authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def checkout_true(request,  cart_id):
     user = request.user.id
@@ -67,7 +91,7 @@ def checkout_true(request,  cart_id):
     return Response(Cart_serializer.data, status=status.HTTP_200_OK)
 
 @api_view(["POST"])
-@csrf_exempt
+@authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def checkout_false(request,  cart_id):
     user = request.user.id
@@ -79,7 +103,7 @@ def checkout_false(request,  cart_id):
     return Response(Cart_serializer.data, status=status.HTTP_200_OK)
 
 @api_view(["DELETE"])
-@csrf_exempt
+@authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def delete_Cart(request, Cart_id):
     user = request.user.id
