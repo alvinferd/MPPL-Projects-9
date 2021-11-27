@@ -12,6 +12,8 @@ import Image from 'next/image'
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined'
 import ApiURL from "../../utils/constant"
 import ProductLainDiToko from '../../components/productLaindiToko'
+import { dispatch } from '../../utils/redux/store'
+import { cartAddProduct } from '../../utils/redux/slice/cart'
 
 export default function ProductDetail({ product, listImages, productLainToko, productLain }) {
     // console.log(product);
@@ -38,6 +40,10 @@ export default function ProductDetail({ product, listImages, productLainToko, pr
 
     const addToCart = () => {
         console.log(product, jumlahBarang);
+        dispatch(cartAddProduct({
+            "item": product.id,
+            "quantity": jumlahBarang
+        }));
     }
 
     const LongDesc = () => {

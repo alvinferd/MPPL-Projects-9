@@ -15,7 +15,7 @@ import { useRouter } from "next/router"
 import { useSelector } from "react-redux";
 import ApiURL from '../utils/constant'
 import { dispatch } from '../utils/redux/store';
-import { cartCentangCheckout, cartGetData, cartGetDataCheck, cartSet, cartUnCentangCheckout } from '../utils/redux/slice/cart';
+import { cartCentangCheckout, cartGetData, cartGetDataCheck, cartDeleteProduct, cartUnCentangCheckout } from '../utils/redux/slice/cart';
 
 const useStyles = makeStyles({
     root: {
@@ -24,6 +24,8 @@ const useStyles = makeStyles({
 });
 
 const label = { inputProps: { 'aria-label': 'Checkbox Keranjang' } };
+
+
 
 export default function CartCard() {
     const dataCart = useSelector((state) => state.cart.data);
@@ -84,7 +86,7 @@ export default function CartCard() {
     const [checkedArray, setCheckedArray] = React.useState({});
     // const data = useSelector((state) => state.cart.data)
 
-    const toggleCheckbox = (e, id, price, index, data = { dataCart }) => {
+    const toggleCheckbox = (e, id) => {
         const ch = e.target.checked;
         if (id == 'allcheck') {
             if (ch) {
@@ -135,6 +137,13 @@ export default function CartCard() {
         
     }
 
+    const onDelete = (id) => {
+        // console.log(data);
+        dispatch(cartDeleteProduct(id));
+        dispatch(cartGetDataCheck());
+        dispatch(cartGetData());
+    };
+
     // OBJEK TOTAL HARGA
     const [totalHarga, setTotalHarga] = React.useState(0);
 
@@ -176,7 +185,7 @@ export default function CartCard() {
                                                             id={product.id}
                                                             checked={product.checkout}
                                                             onChange={(e) => {
-                                                                toggleCheckbox(e, product.id, product.totalPrice, index);
+                                                                toggleCheckbox(e, product.id);
                                                             }}
                                                             className={styles.cb} />
                                                     </Grid>
@@ -215,13 +224,13 @@ export default function CartCard() {
                                                                         onClick={(e) => {
                                                                             dec(e, product.id, product.totalPrice);
                                                                         }}
-                                                                        disabled={jumlahBarang[product.id] <= 1}>
+                                                                        disabled={product.quantity <= 1}>
                                                                         <RemoveCircleIcon />
                                                                     </IconButton>
                                                                 </Grid>
                                                                 <Grid item>
                                                                     <Box sx={{ width: 70, maxWidth: '100%' }}>
-                                                                        <TextField id="product-count" type="number" variant="outlined" size="small" color="secondary" fullWidth value={jumlahBarang[product.id]}
+                                                                        <TextField id="product-count" type="number" variant="outlined" size="small" color="secondary" fullWidth value={product.quantity}
                                                                             onChange={(e) => {
                                                                                 handleChange(e, product.id, product.totalPrice);
                                                                             }}
@@ -244,7 +253,7 @@ export default function CartCard() {
                                                     </Grid>
                                                 </Grid>
                                                 <Grid item xs={1.25} lg={1}>
-                                                    <IconButton aria-label="remove from cart" color='error' sx={{ paddingTop: 0 }}>
+                                                    <IconButton aria-label="remove from cart" color='error' sx={{ paddingTop: 0 }} onClick={() => {}}>
                                                         <CancelIcon />
                                                     </IconButton>
                                                 </Grid>

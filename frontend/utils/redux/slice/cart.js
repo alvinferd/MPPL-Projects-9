@@ -138,9 +138,9 @@ export const cartUnCentangCheckout = createAsyncThunk(
 
 export const cartDeleteProduct = createAsyncThunk(
     'cart/cartDeleteProduct',
-    async (data, { dispatch }) => {
+    async (id, { dispatch }) => {
         return baseApi
-            .delete("/api/v1/cart/deleteCart/", data)
+            .delete("/api/v1/cart/deleteCart/" + id)
             .then((res) => {
                 // dispatch(userLoggedIn(res.key));
                 console.log(res);

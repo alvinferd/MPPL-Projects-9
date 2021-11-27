@@ -1,5 +1,5 @@
 import { ThemeProvider } from "@emotion/react"
-import { Container, Typography } from '@mui/material'
+import { Container, Grid, Typography } from '@mui/material'
 import Layout from "../../layout/default"
 import theme from "../../themes/default"
 import Head from 'next/head'
@@ -38,9 +38,19 @@ export default function Cart() {
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
                 <Container maxWidth="1920" id="list-product" sx={{ width: '85vw', marginX: { xs: 1, md: 2, lg: 4 }, marginY: 4 }}>
-                    <Typography variant="h6" marginY={3}>
-                        <b>Keranjang</b>
-                    </Typography>
+                    <Grid container columnSpacing={2} alignItems='center'>
+                        <Grid item>
+                            <Typography variant="h6" marginY={3}>
+                                <b>Keranjang</b>
+                            </Typography>
+                        </Grid>
+                        <Grid item>
+                            <Typography variant="body1" marginY={3}>
+                                (jika produk yang anda centang tidak muncul pada bagian checkout, silahkan refresh halaman ini)
+                            </Typography>
+                        </Grid>
+                    </Grid>
+
                     <CartCard />
                 </Container>
             </Layout>
