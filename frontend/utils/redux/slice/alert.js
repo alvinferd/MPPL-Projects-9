@@ -23,6 +23,5 @@ const alertSlice = createSlice({
   },
 });
 
-export const { alertSetError, alertSetSuccess, alertSetMessage } =
-  alertSlice.actions;
+export const { alertSetError, alertSetSuccess, alertSetMessage } = alertSlice.actions;
 export default alertSlice.reducer;

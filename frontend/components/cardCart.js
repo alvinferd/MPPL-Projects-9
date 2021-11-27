@@ -28,15 +28,9 @@ const label = { inputProps: { 'aria-label': 'Checkbox Keranjang' } };
 
 
 export default function CartCard() {
-    const deleteProduct = (id) => {
-        // console.log(data);
-        dispatch(cartDeleteProduct(id));
-    };
-
-    const dataCart = useSelector((state) => state.cart.data);
     const MyCart = useSelector((state) => state.cart.data.Carts);
     const MyCartCheckout = useSelector((state) => state.cart.dataCheck);
-    console.log(MyCartCheckout);
+    // console.log(MyCartCheckout);
 
     // OBJEK JUMLAH BARANG
     const firstJumlahBarang = {};
@@ -121,7 +115,7 @@ export default function CartCard() {
         } else {
             if (ch) {
                 dispatch(cartCentangCheckout(id));
-                dispatch(cartGetDataCheck());
+                // dispatch(cartGetDataCheck());
                 // let newCheckedArray = { ...checkedArray };
                 // newCheckedArray[id] = true;
                 // setCheckedArray(newCheckedArray);
@@ -129,8 +123,7 @@ export default function CartCard() {
                 // console.log(checkedArray);
             } else {
                 dispatch(cartUnCentangCheckout(id));
-                dispatch(cartGetDataCheck());
-
+                // dispatch(cartGetDataCheck());
                 // let newCheckedArray = { ...checkedArray };
                 // newCheckedArray[id] = false;
                 // setCheckedArray(newCheckedArray);
@@ -138,9 +131,13 @@ export default function CartCard() {
                 // console.log(checkedArray);
             }
         }
-        dispatch(cartGetData());
-
+        // dispatch(cartGetData());
     }
+
+    const deleteProduct = (id) => {
+        // console.log(data);
+        dispatch(cartDeleteProduct(id));
+    };
 
     // OBJEK TOTAL HARGA
     const [totalHarga, setTotalHarga] = React.useState(0);

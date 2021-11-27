@@ -12,8 +12,6 @@ import { dispatch } from '../../utils/redux/store'
 import { cartGetData, cartGetDataCheck } from "../../utils/redux/slice/cart"
 
 export default function Cart() {
-    dispatch(cartGetData());
-    dispatch(cartGetDataCheck());
     const router = useRouter();
     // CHECK AUTH
     const authenticated = useSelector((state) => state.user.authenticated)
@@ -22,7 +20,8 @@ export default function Cart() {
 
     useEffect(() => {
         if (authenticated) {
-            // dispatch(cartGetData());
+            dispatch(cartGetData());
+            dispatch(cartGetDataCheck());
             if (isSeller) router.replace("/seller");
         } else {
             router.replace('/login');
