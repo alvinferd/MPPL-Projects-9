@@ -2,14 +2,11 @@ import { Box, Container, Grid, Typography, ThemeProvider, TextField, Button, Lin
 import { useForm, Controller } from "react-hook-form";
 import Head from 'next/head'
 import Image from 'next/image'
-import imgLogin from '../public/images/bg login.png'
+import imgLogin from '../../public/images/bg login.png'
 import { makeStyles } from '@mui/styles'
-import theme from '../themes/default'
+import theme from '../../themes/default'
 import Link from 'next/link'
-import LogoPoncolapak from '../public/PoncolapakLogo.svg'
-
-import { dispatch } from '../utils/redux/store'
-import { userRegister } from '../utils/redux/slice/user'
+import LogoPoncolapak from '../../public/PoncolapakLogo.svg'
 
 const useStyles = makeStyles((theme) => ({
     dimensi: {
@@ -18,18 +15,18 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const onRegister = (data) => {
+const onSubmit = (data) => {
     console.log(data);
-    dispatch(userRegister(data));
+    // dispatch(userLogin(data));
 };
 
-export default function SignUp() {
+export default function SignUpSeller() {
     const classes = useStyles();
     const { control, handleSubmit } = useForm();
     return (
         <ThemeProvider theme={theme}>
             <Head>
-                <title>SignUp | Poncolapak</title>
+                <title>Seller SignUp | Poncolapak</title>
                 <meta name="viewport" content="initial-scale=1, width=device-width" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
@@ -57,18 +54,18 @@ export default function SignUp() {
                                     variant="h6"
                                     noWrap
                                     component="div">
-                                    Poncolapak
+                                    Poncolapak Seller
                                 </Typography>
                             </Box>
                         </Grid>
                         <Grid item >
-                            <form onSubmit={handleSubmit(onRegister)} style={{ width: "100%", alignItems: "center" }}>
+                            <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%", alignItems: "center" }}>
                                 <Typography variant="body1" color="text.primary" style={{ marginTop: theme.spacing(4) }}>
-                                    Nama Lengkap
+                                    Nama Toko
                                 </Typography>
                                 <Grid style={{ marginTop: theme.spacing(1) }}>
                                     <Controller
-                                        name="namaLengkap"
+                                        name="nama_toko"
                                         control={control}
                                         defaultValue=""
                                         render={({ field: { onChange, value } }) => (
@@ -77,7 +74,7 @@ export default function SignUp() {
                                                 required
                                                 color="secondary"
                                                 type="text"
-                                                placeholder="Nama Lengkap"
+                                                placeholder="Nama Toko"
                                                 value={value}
                                                 onChange={onChange}
                                             />
@@ -152,7 +149,7 @@ export default function SignUp() {
                                 </Typography>
                                 <Grid style={{ marginTop: theme.spacing(1) }}>
                                     <Controller
-                                        name="password2"
+                                        name="confirm_password"
                                         control={control}
                                         defaultValue=""
                                         render={({ field: { onChange, value } }) => (
@@ -180,7 +177,7 @@ export default function SignUp() {
                                 <Typography variant="body1" style={{ marginRight: theme.spacing(1) }}>
                                     Sudah punya akun?
                                 </Typography>
-                                <Link href="/login" passHref >
+                                <Link href="/seller/login" passHref >
                                     <MUILink variant="body1" color="text.tertiary" underline="none">
                                         Masuk Disini!
                                     </MUILink>
@@ -189,9 +186,9 @@ export default function SignUp() {
                         </Grid>
                         <Grid item >
                             <Container style={{ marginTop: theme.spacing(1), marginBottom: theme.spacing(2), display: "flex", justifyContent: 'center' }}>
-                                <Link href="/seller/login" passHref >
+                                <Link href="/login" passHref >
                                     <MUILink variant="body1" color="text.tertiary" underline="none">
-                                        Masuk sebagai penjual?
+                                        Masuk sebagai pembeli?
                                     </MUILink>
                                 </Link>
                             </Container>

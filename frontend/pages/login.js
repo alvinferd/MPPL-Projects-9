@@ -7,6 +7,12 @@ import { makeStyles } from '@mui/styles'
 import theme from '../themes/default'
 import Link from 'next/link'
 import LogoPoncolapak from '../public/PoncolapakLogo.svg'
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+
+import { useSelector } from "react-redux";
+import { dispatch } from '../utils/redux/store';
+import { userLogin } from '../utils/redux/slice/user';
 
 const useStyles = makeStyles((theme) => ({
     dimensi: {
@@ -16,13 +22,27 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const onSubmit = (data) => {
-    console.log(data);
-    // dispatch(userLogin(data));
+    // console.log(data);
+    dispatch(userLogin(data));
 };
 
 export default function Login() {
     const classes = useStyles();
     const { control, handleSubmit } = useForm();
+    const router = useRouter();
+
+    const authenticated = useSelector((state) => state.user.authenticated)
+    const isUser = useSelector((state) => state.user.current.is_user)
+    const isSeller = useSelector((state) => state.user.current.is_seller)
+
+    useEffect(() => {
+        if (authenticated) {
+          if (isUser) router.replace("/");
+          if (isSeller) router.replace("/seller");
+        }
+      }, [authenticated, isUser, isSeller]);
+
+    // console.log(authenticated, isUser, isSeller);
     return (
         <ThemeProvider theme={theme}>
             <Head>
@@ -62,7 +82,7 @@ export default function Login() {
                         <Grid item >
                             <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%", alignItems: "center" }}>
                                 <Typography variant="body1" color="text.primary" style={{ marginTop: theme.spacing(4) }}>
-                                    Email
+                                    Username
                                 </Typography>
                                 <Grid style={{ marginTop: theme.spacing(1) }}>
                                     <Controller
@@ -75,7 +95,7 @@ export default function Login() {
                                                 required
                                                 color="secondary"
                                                 type="text"
-                                                placeholder="Email"
+                                                placeholder="Username"
                                                 value={value}
                                                 onChange={onChange}
                                             />
@@ -113,7 +133,7 @@ export default function Login() {
                         <Grid item >
                             <Container style={{ marginTop: theme.spacing(2), marginBottom: theme.spacing(2), display: "flex", flexDirection: "row", justifyContent: 'center' }}>
                                 <Typography variant="body1" style={{ marginRight: theme.spacing(1) }}>
-                                    Belum punya akun
+                                    Belum punya akun?
                                 </Typography>
                                 <Link href="/signup" passHref >
                                     <MUILink variant="body1" color="text.tertiary" underline="none">
@@ -125,6 +145,15 @@ export default function Login() {
                                 <Link href="/forget" passHref >
                                     <MUILink variant="body1" color="text.tertiary" underline="none">
                                         Lupa Password?
+                                    </MUILink>
+                                </Link>
+                            </Container>
+                        </Grid>
+                        <Grid item >
+                            <Container style={{ marginTop: theme.spacing(1), marginBottom: theme.spacing(2), display: "flex", justifyContent: 'center' }}>
+                                <Link href="/seller/login" passHref >
+                                    <MUILink variant="body1" color="text.tertiary" underline="none">
+                                        Masuk sebagai penjual?
                                     </MUILink>
                                 </Link>
                             </Container>
