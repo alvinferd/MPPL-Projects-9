@@ -14,6 +14,7 @@ import ApiURL from "../../utils/constant"
 import ProductLainDiToko from '../../components/productLaindiToko'
 import { dispatch } from '../../utils/redux/store'
 import { cartAddProduct } from '../../utils/redux/slice/cart'
+import { loadingSet } from '../../utils/redux/slice/loading'
 
 export default function ProductDetail({ product, listImages, productLainToko, productLain }) {
     // console.log(product);
@@ -457,12 +458,14 @@ export default function ProductDetail({ product, listImages, productLainToko, pr
 }
 
 export async function getStaticPaths() {
+    dispatch(loadingSet(true));
     const response = await fetch(`http://103.41.205.191:10001/api/v1/product/allNoWisata`);
     const dataProduct = await response.json();
 
     const paths = dataProduct.Products.map((product) => ({
         params: { title: product.title + '' },
     }))
+    dispatch(loadingSet(false));
 
     return {
         paths,
@@ -471,6 +474,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
+    dispatch(loadingSet(true));
     const response = await fetch(`http://103.41.205.191:10001/api/v1/product/allNoWisata`);
     const dataProduct = await response.json();
 
@@ -503,6 +507,7 @@ export async function getStaticProps({ params }) {
         img[4] = { image: product.ProductsDetail[0].image5 }
     }
 
+    dispatch(loadingSet(false));
     return {
         props: {
             product: product.ProductsDetail[0],

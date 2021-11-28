@@ -13,6 +13,7 @@ import { useSelector } from "react-redux"
 import { dispatch } from '../../../utils/redux/store';
 import { cartGetDataCheck } from "../../../utils/redux/slice/cart"
 import { alertSetError, alertSetMessage } from '../../../utils/redux/slice/alert';
+import { makeOrderSet } from '../../../utils/redux/slice/order';
 
 
 
@@ -42,9 +43,10 @@ export default function PayForm() {
             dispatch(alertSetError(true));
             dispatch(alertSetMessage("Silahkan pilih jenis Pengiriman!"));
         } else {
-            console.log(data);
+            // console.log(data);
+            dispatch(makeOrderSet(data));
+            router.push("/cart/pay/confirm");
         }
-        // dispatch(userLogin(data));
     };
 
     const router = useRouter();
@@ -87,7 +89,7 @@ export default function PayForm() {
                                     />
                                 </Grid>
                                 <Typography variant="body1" color="text.primary" style={{ marginTop: theme.spacing(4) }}>
-                                    Nama Handphone Pembeli *
+                                    Nomor Handphone Pembeli *
                                 </Typography>
                                 <Grid style={{ marginTop: theme.spacing(1) }}>
                                     <Controller
@@ -164,7 +166,6 @@ export default function PayForm() {
                                                 fullWidth
                                                 multiline
                                                 rows={4}
-                                                required
                                                 color="secondary"
                                                 type="text"
                                                 placeholder="Cth: apelnya harus manis ya :)"
