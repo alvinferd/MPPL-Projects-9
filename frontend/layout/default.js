@@ -43,7 +43,7 @@ export default function Layout({ children }) {
                         />
                     ) : (
                         <ErrorIcon
-                            color="secondary"
+                            color="error"
                             style={{ fontSize: 50, marginBottom: 12 }}
                         />
                     )

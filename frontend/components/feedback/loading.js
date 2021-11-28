@@ -10,11 +10,11 @@ function SiteLoading({ open }) {
         >
             <Grid
                 container
-                justify="center"
+                justifyContent="center"
                 alignItems="center"
                 style={{ height: 120, width: 120 }}
             >
-                <CircularProgress />
+                <CircularProgress color="secondary" />
             </Grid>
         </Dialog>
     );

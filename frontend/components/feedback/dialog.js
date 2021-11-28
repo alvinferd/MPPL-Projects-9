@@ -48,7 +48,7 @@ export default function SiteDialog({ title, onClose, open, children }) {
           <IconButton
             aria-label="Close"
             onClick={onClose}
-            style={{ color: "#fff" }}
+            style={{ color: "tertiary" }}
           >
             <CloseIcon />
           </IconButton>

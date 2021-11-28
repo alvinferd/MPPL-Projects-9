@@ -8,10 +8,13 @@ import Head from 'next/head'
 import { makeStyles } from '@mui/styles'
 import { useRouter } from "next/router"
 
-const onSubmit = (data) => {
-    console.log(data);
-    // dispatch(userLogin(data));
-};
+import { useEffect } from "react"
+import { useSelector } from "react-redux"
+import { dispatch } from '../../../utils/redux/store';
+import { cartGetDataCheck } from "../../../utils/redux/slice/cart"
+import { alertSetError, alertSetMessage } from '../../../utils/redux/slice/alert';
+
+
 
 const useStyles = makeStyles({
     root: {
@@ -20,10 +23,28 @@ const useStyles = makeStyles({
 });
 
 export default function PayForm() {
-    const [jenisPengiriman, setJenisPengiriman] = React.useState('');
+
+    useEffect(() => {
+        dispatch(cartGetDataCheck());
+    }, []);
+
+    const MyCartCheckout = useSelector((state) => state.cart.dataCheck);
+    const [jenisPengiriman, setJenisPengiriman] = React.useState(0);
 
     const handleChange = (event) => {
+        console.log(event.target.value)
         setJenisPengiriman(event.target.value);
+    };
+
+    const onSubmit = (data) => {
+        data.jenisPengiriman = jenisPengiriman
+        if (data.jenisPengiriman == 0) {
+            dispatch(alertSetError(true));
+            dispatch(alertSetMessage("Silahkan pilih jenis Pengiriman!"));
+        } else {
+            console.log(data);
+        }
+        // dispatch(userLogin(data));
     };
 
     const router = useRouter();
@@ -49,7 +70,7 @@ export default function PayForm() {
                                 </Typography>
                                 <Grid style={{ marginTop: theme.spacing(1) }}>
                                     <Controller
-                                        name="nama-pembeli"
+                                        name="namaPembeli"
                                         control={control}
                                         defaultValue=""
                                         render={({ field: { onChange, value } }) => (
@@ -70,7 +91,7 @@ export default function PayForm() {
                                 </Typography>
                                 <Grid style={{ marginTop: theme.spacing(1) }}>
                                     <Controller
-                                        name="nohp-pembeli"
+                                        name="noHP"
                                         control={control}
                                         defaultValue=""
                                         render={({ field: { onChange, value } }) => (
@@ -91,7 +112,7 @@ export default function PayForm() {
                                 </Typography>
                                 <Grid style={{ marginTop: theme.spacing(1) }}>
                                     <Controller
-                                        name="email-pembeli"
+                                        name="emailPembeli"
                                         control={control}
                                         defaultValue=""
                                         render={({ field: { onChange, value } }) => (
@@ -112,7 +133,7 @@ export default function PayForm() {
                                 </Typography>
                                 <Grid style={{ marginTop: theme.spacing(1) }}>
                                     <Controller
-                                        name="alamat-lengkap-pembeli"
+                                        name="alamat"
                                         control={control}
                                         defaultValue=""
                                         render={({ field: { onChange, value } }) => (
@@ -135,7 +156,7 @@ export default function PayForm() {
                                 </Typography>
                                 <Grid style={{ marginTop: theme.spacing(1) }}>
                                     <Controller
-                                        name="catatan-pembeli"
+                                        name="catatanPenjual"
                                         control={control}
                                         defaultValue=""
                                         render={({ field: { onChange, value } }) => (
@@ -158,7 +179,7 @@ export default function PayForm() {
                                 </Typography>
                                 <Grid style={{ marginTop: theme.spacing(1) }}>
                                     <Controller
-                                        name="jenis-pengiriman"
+                                        name="jenisPengiriman"
                                         control={control}
                                         defaultValue=""
                                         render={({ field: { onChange, value } }) => (
@@ -168,12 +189,13 @@ export default function PayForm() {
                                                 id="demo-simple-select"
                                                 value={jenisPengiriman}
                                                 placeholder="Pilih Disini"
+                                                required
                                                 color="secondary"
                                                 onChange={handleChange}
                                             >
-                                                <MenuItem value={1}>Jenis 1</MenuItem>
-                                                <MenuItem value={2}>Jenis 2</MenuItem>
-                                                <MenuItem value={3}>Jenis 3</MenuItem>
+                                                <MenuItem value={1}>Beda Kota (Rp 15.000)</MenuItem>
+                                                <MenuItem value={2}>Beda Provinsi (Rp 20.000)</MenuItem>
+                                                <MenuItem value={3}>Beda Pulau (Rp 25.000)</MenuItem>
                                             </Select>
                                         )}
                                     />
@@ -189,74 +211,31 @@ export default function PayForm() {
                                                 </Typography>
                                             </Grid>
                                             <Grid item>
-                                                <Grid container spacing={2} direction="row">
-                                                    <Grid item xs={7}>
-                                                        <Typography>
-                                                            Apel Poncokusumo Toko Abdi Makmur Super Manis
-                                                        </Typography>
-                                                    </Grid>
-                                                    <Grid item xs={5}>
-                                                        <Grid container rowSpacing={0} direction="column" alignItems="end">
-                                                            <Grid item>
+                                                {MyCartCheckout.Carts.map((item) => {
+                                                    return (
+                                                        <Grid container key={item.id} spacing={2} direction="row">
+                                                            <Grid item xs={7}>
                                                                 <Typography>
-                                                                    RP 1.000.000
+                                                                    {item.namaItem}
                                                                 </Typography>
                                                             </Grid>
-                                                            <Grid item>
-                                                                <Typography>
-                                                                    X2
-                                                                </Typography>
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
-                                                    <Grid item xs={7}>
-                                                        <Typography>
-                                                            Apel Poncokusumo Toko Abdi Makmur Super Manis
-                                                        </Typography>
-                                                    </Grid>
-                                                    <Grid item xs={5}>
-                                                        <Grid container rowSpacing={0} direction="column" alignItems="end">
-                                                            <Grid item>
-                                                                <Typography>
-                                                                    RP 1.000.000
-                                                                </Typography>
-                                                            </Grid>
-                                                            <Grid item>
-                                                                <Typography>
-                                                                    X2
-                                                                </Typography>
+                                                            <Grid item xs={5}>
+                                                                <Grid container rowSpacing={0} direction="column" alignItems="end">
+                                                                    <Grid item>
+                                                                        <Typography>
+                                                                            {item.totalPrice.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}
+                                                                        </Typography>
+                                                                    </Grid>
+                                                                    <Grid item>
+                                                                        <Typography>
+                                                                            (x{item.quantity})
+                                                                        </Typography>
+                                                                    </Grid>
+                                                                </Grid>
                                                             </Grid>
                                                         </Grid>
-                                                    </Grid>
-                                                    <Grid item xs={7}>
-                                                        <Typography>
-                                                            Biaya Admin
-                                                        </Typography>
-                                                    </Grid>
-                                                    <Grid item xs={5}>
-                                                        <Grid container rowSpacing={0} direction="column" alignItems="end">
-                                                            <Grid item>
-                                                                <Typography>
-                                                                    RP 25.000
-                                                                </Typography>
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
-                                                    <Grid item xs={7}>
-                                                        <Typography>
-                                                            Biaya Pengiriman
-                                                        </Typography>
-                                                    </Grid>
-                                                    <Grid item xs={5}>
-                                                        <Grid container rowSpacing={0} direction="column" alignItems="end">
-                                                            <Grid item>
-                                                                <Typography>
-                                                                    RP 25.000
-                                                                </Typography>
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
-                                                </Grid>
+                                                    )
+                                                })}
                                             </Grid>
 
                                             <Grid item>
@@ -270,7 +249,7 @@ export default function PayForm() {
                                                         <Grid container rowSpacing={0} direction="column" alignItems="end">
                                                             <Grid item>
                                                                 <Typography color="text.quaternary">
-                                                                    <b>RP 1.050.000</b>
+                                                                    <b>{MyCartCheckout.totalHarga.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</b>
                                                                 </Typography>
                                                             </Grid>
                                                         </Grid>
