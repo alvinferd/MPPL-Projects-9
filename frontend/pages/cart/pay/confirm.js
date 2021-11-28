@@ -9,7 +9,7 @@ import { red } from "@mui/material/colors"
 
 import { useSelector } from "react-redux"
 import { dispatch } from '../../../utils/redux/store';
-import { makeOrderSet } from '../../../utils/redux/slice/order';
+import { createNewOrder, makeOrderSet } from '../../../utils/redux/slice/order';
 
 const useStyles = makeStyles({
     root: {
@@ -17,10 +17,16 @@ const useStyles = makeStyles({
     }
 });
 
+
+
 export default function ConfirmPay() {
     const MyCartCheckout = useSelector((state) => state.cart.dataCheck);
     const DetailsOrder = useSelector((state) => state.order.makeOrder);
-    console.log(DetailsOrder);
+    // console.log(DetailsOrder);
+
+    const onConfirm = () => {
+        dispatch(createNewOrder(DetailsOrder));
+    }
 
     const classes = useStyles();
     const router = useRouter();
@@ -174,7 +180,7 @@ export default function ConfirmPay() {
                                 <Grid item>
                                     <Grid container justifyContent="center">
                                         <Button variant="contained" color="secondary" size="large"
-                                            onClick={() => router.push(`/order/pending`)}
+                                            onClick={onConfirm}
                                         >
                                             Konfirmasi
                                         </Button>
