@@ -163,3 +163,47 @@ export const cartDeleteProduct = createAsyncThunk(
             });
     }
 );
+
+export const cartAllCentangCheckout = createAsyncThunk(
+    'cart/cartAllCentangCheckout',
+    async (_, { dispatch }) => {
+        dispatch(loadingSet(true));
+        return baseApi
+            .post("/api/v1/cart/checkoutAllTrue")
+            .then((res) => {
+                dispatch(cartGetDataCheck());
+                dispatch(cartGetData());
+                // console.log(res);
+            })
+            .catch((err) => {
+                dispatch(alertSetError(true));
+                dispatch(alertSetMessage(err.message));
+                // console.log(err);
+            })
+            .finally(() => {
+                dispatch(loadingSet(false));
+            });
+    }
+);
+
+export const cartAllUnCentangCheckout = createAsyncThunk(
+    'cart/cartAllUnCentangCheckout',
+    async (_, { dispatch }) => {
+        dispatch(loadingSet(true));
+        return baseApi
+            .post("/api/v1/cart/checkoutAllFalse")
+            .then((res) => {
+                dispatch(cartGetDataCheck());
+                dispatch(cartGetData());
+                // console.log(res);
+            })
+            .catch((err) => {
+                dispatch(alertSetError(true));
+                dispatch(alertSetMessage(err.message));
+                // console.log(err);
+            })
+            .finally(() => {
+                dispatch(loadingSet(false));
+            });
+    }
+);

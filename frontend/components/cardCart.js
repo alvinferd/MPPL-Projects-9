@@ -15,7 +15,7 @@ import { useRouter } from "next/router"
 import { useSelector } from "react-redux";
 import ApiURL from '../utils/constant'
 import { dispatch } from '../utils/redux/store';
-import { cartCentangCheckout, cartGetData, cartGetDataCheck, cartDeleteProduct, cartUnCentangCheckout } from '../utils/redux/slice/cart';
+import { cartCentangCheckout, cartGetData, cartGetDataCheck, cartDeleteProduct, cartUnCentangCheckout, cartAllCentangCheckout, cartAllUnCentangCheckout } from '../utils/redux/slice/cart';
 
 const useStyles = makeStyles({
     root: {
@@ -89,53 +89,20 @@ export default function CartCard() {
         const ch = e.target.checked;
         if (id == 'allcheck') {
             if (ch) {
-                let newCheckedArray = { ...checkedArray };
-                let newTotalHarga = totalHarga;
-                MyCart.map(item => {
-                    if (newCheckedArray[item.id] != true) {
-                        newTotalHarga += item.price * jumlahBarang[item.id];
-                        newCheckedArray[item.id] = true;
-                    }
-                });
-                setCheckedArray(newCheckedArray);
-                setTotalHarga(newTotalHarga);
-                // console.log(checkedArray);
+                dispatch(cartAllCentangCheckout());
             } else {
-                let newCheckedArray = { ...checkedArray };
-                let newTotalHarga = totalHarga;
-                MyCart.map(item => {
-                    newCheckedArray[item.id] = false;
-                    newTotalHarga -= item.price * jumlahBarang[item.id];
-                });
-                setCheckedArray(newCheckedArray);
-                setTotalHarga(newTotalHarga);
-                // console.log(checkedArray);
-
+                dispatch(cartAllUnCentangCheckout());
             }
         } else {
             if (ch) {
                 dispatch(cartCentangCheckout(id));
-                // dispatch(cartGetDataCheck());
-                // let newCheckedArray = { ...checkedArray };
-                // newCheckedArray[id] = true;
-                // setCheckedArray(newCheckedArray);
-                // setTotalHarga(totalHarga + price * jumlahBarang[id]);
-                // console.log(checkedArray);
             } else {
                 dispatch(cartUnCentangCheckout(id));
-                // dispatch(cartGetDataCheck());
-                // let newCheckedArray = { ...checkedArray };
-                // newCheckedArray[id] = false;
-                // setCheckedArray(newCheckedArray);
-                // setTotalHarga(totalHarga - price * jumlahBarang[id]);
-                // console.log(checkedArray);
             }
         }
-        // dispatch(cartGetData());
     }
 
     const deleteProduct = (id) => {
-        // console.log(data);
         dispatch(cartDeleteProduct(id));
     };
 
