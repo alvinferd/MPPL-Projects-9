@@ -13,7 +13,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"
 import { Carousel } from 'react-responsive-carousel'
 import styles from '../styles/Home.module.css'
 
-export default function Home({ dataProducts, dataWisata }) {
+export default function Home({ dataProducts, dataWisata, dataCategory }) {
   return (
     <ThemeProvider theme={theme}>
       <Layout>
@@ -62,7 +62,7 @@ export default function Home({ dataProducts, dataWisata }) {
           <Typography variant="h5" color="text.primary" gutterBottom>
             Kategori
           </Typography>
-          <GridCategory />
+          <GridCategory dataCategory={dataCategory}/>
         </Container>
         <Container maxWidth="1920" id="list-wisata" sx={{ width: "85vw", marginX: { xs: 1, md: 4 }, marginY: 4 }}>
           <Typography variant="h5" color="text.primary" gutterBottom>
@@ -85,13 +85,16 @@ export default function Home({ dataProducts, dataWisata }) {
 export async function getServerSideProps() {
   const response = await fetch(`http://103.41.205.191:10001/api/v1/product/allNoWisata`);
   const response2 = await fetch(`http://103.41.205.191:10001/api/v1/product/categoryProduct/1`);
+  const response3 = await fetch(`http://103.41.205.191:10001/api/v1/category/allCategorys`);
   const jsonProducts = await response.json();
   const jsonWisata = await response2.json();
+  const jsonCategory = await response3.json();
 
   return {
     props: {
       dataProducts: jsonProducts.Products,
       dataWisata: jsonWisata.Products,
+      dataCategory: jsonCategory.Categorys,
     },
   };
 }
