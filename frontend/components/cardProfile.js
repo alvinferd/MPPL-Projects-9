@@ -10,6 +10,9 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 import Link from 'next/link'
 import { red } from "@mui/material/colors"
 import CloseIcon from '@mui/icons-material/Close';
+import ApiURL from '../utils/constant'
+
+import { useSelector } from "react-redux"
 
 const useStyles = makeStyles({
     root: {
@@ -64,6 +67,11 @@ const onSubmitAlamat = (data) => {
 };
 
 export default function CardProfile() {
+    const generalData = useSelector((state) => state.user.generalData)
+    const detailedData = useSelector((state) => state.user.detailedData.Profile[0])
+    console.log(generalData)
+    console.log(detailedData)
+    
     const [value, setValue] = React.useState(0);
     const [isEdited, setIsEdited] = React.useState(false);
     const [openNewAddress, setOpenNewAddress] = React.useState(false);
@@ -382,8 +390,8 @@ export default function CardProfile() {
                                 <Grid container rowSpacing={2} direction="column">
                                     <Grid item>
                                         <Image
-                                            src={User.photo}
-                                            alt={User.nama}
+                                            src={ApiURL + detailedData.fotoProfile}
+                                            alt={detailedData.namaLengkap}
                                             // layout='fill'
                                             height={100}
                                             width={100}
@@ -410,7 +418,7 @@ export default function CardProfile() {
                                     </Grid>
                                     <Grid item xs={8}>
                                         <Typography>
-                                            {User.nama}
+                                            {detailedData.namaLengkap}
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={4}>
@@ -420,7 +428,7 @@ export default function CardProfile() {
                                     </Grid>
                                     <Grid item xs={8}>
                                         <Typography>
-                                            {User.tanggal_lahir}
+                                            {detailedData.ttl}
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={4}>
@@ -430,7 +438,7 @@ export default function CardProfile() {
                                     </Grid>
                                     <Grid item xs={8}>
                                         <Typography>
-                                            {jenisKelamin}
+                                            {detailedData.gender}
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={4}>
@@ -440,7 +448,7 @@ export default function CardProfile() {
                                     </Grid>
                                     <Grid item xs={8}>
                                         <Typography>
-                                            {User.email}
+                                            {generalData.email}
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={4}>
@@ -450,7 +458,7 @@ export default function CardProfile() {
                                     </Grid>
                                     <Grid item xs={8}>
                                         <Typography>
-                                            {User.no_hp}
+                                            (+62) {detailedData.handphone}
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={12}>
@@ -470,8 +478,8 @@ export default function CardProfile() {
                                 <Grid container rowSpacing={2} direction="column">
                                     <Grid item>
                                         <Image
-                                            src={User.photo}
-                                            alt={User.nama}
+                                            src={ApiURL + detailedData.fotoProfile}
+                                            alt={detailedData.namaLengkap}
                                             // layout='fill'
                                             height={100}
                                             width={100}
@@ -501,7 +509,7 @@ export default function CardProfile() {
                                             <Controller
                                                 name="nama"
                                                 control={control}
-                                                defaultValue={User.nama}
+                                                defaultValue={detailedData.namaLengkap}
                                                 render={({ field: { onChange, value } }) => (
                                                     <TextField
                                                         fullWidth
@@ -524,7 +532,7 @@ export default function CardProfile() {
                                             <Controller
                                                 name="tanggal_lahir"
                                                 control={control}
-                                                defaultValue={User.tanggal_lahir}
+                                                defaultValue={detailedData.ttl}
                                                 render={({ field: { onChange, value } }) => (
                                                     <TextField
                                                         fullWidth
@@ -547,7 +555,7 @@ export default function CardProfile() {
                                             <Controller
                                                 name="jenis-kelamin"
                                                 control={control}
-                                                defaultValue={User.jenis_kelamin}
+                                                defaultValue={detailedData.gender}
                                                 render={({ field: { onChange, value } }) => (
                                                     <Select
                                                         fullWidth
@@ -574,7 +582,7 @@ export default function CardProfile() {
                                             <Controller
                                                 name="email"
                                                 control={control}
-                                                defaultValue={User.email}
+                                                defaultValue={generalData.email}
                                                 render={({ field: { onChange, value } }) => (
                                                     <TextField
                                                         fullWidth
@@ -597,7 +605,7 @@ export default function CardProfile() {
                                             <Controller
                                                 name="no_hp"
                                                 control={control}
-                                                defaultValue={User.no_hp}
+                                                defaultValue={detailedData.handphone}
                                                 render={({ field: { onChange, value } }) => (
                                                     <TextField
                                                         fullWidth
@@ -883,8 +891,8 @@ export default function CardProfile() {
                                 <Grid container rowSpacing={2} direction="column">
                                     <Grid item>
                                         <Image
-                                            src={User.photo}
-                                            alt={User.nama}
+                                            src={ApiURL + detailedData.fotoProfile}
+                                            alt={detailedData.namaLengkap}
                                             // layout='fill'
                                             height={100}
                                             width={100}
@@ -911,7 +919,7 @@ export default function CardProfile() {
                                     </Grid>
                                     <Grid item xs={8}>
                                         <Typography>
-                                            {User.nama}
+                                            {detailedData.namaLengkap}
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={4}>
@@ -921,7 +929,7 @@ export default function CardProfile() {
                                     </Grid>
                                     <Grid item xs={8}>
                                         <Typography>
-                                            {User.tanggal_lahir}
+                                            {detailedData.ttl}
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={4}>
@@ -931,7 +939,7 @@ export default function CardProfile() {
                                     </Grid>
                                     <Grid item xs={8}>
                                         <Typography>
-                                            {jenisKelamin}
+                                            {detailedData.gender}
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={4}>
@@ -941,7 +949,7 @@ export default function CardProfile() {
                                     </Grid>
                                     <Grid item xs={8}>
                                         <Typography>
-                                            {User.email}
+                                            {generalData.email}
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={4}>
@@ -951,7 +959,7 @@ export default function CardProfile() {
                                     </Grid>
                                     <Grid item xs={8}>
                                         <Typography>
-                                            {User.no_hp}
+                                            (+62) {detailedData.handphone}
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={12}>
@@ -966,13 +974,13 @@ export default function CardProfile() {
                         </Grid>
 
                         {/* SEDANG DIEDIT */}
-                        <Grid container spacing={4} display={isEdited ? 'flex' : 'none'}>
+                        <Grid container spacing={4} display={isEdited ? 'flex' : 'none'} marginTop={1}>
                             <Grid item xs={4}>
                                 <Grid container rowSpacing={2} direction="column">
                                     <Grid item>
                                         <Image
-                                            src={User.photo}
-                                            alt={User.nama}
+                                            src={ApiURL + detailedData.fotoProfile}
+                                            alt={detailedData.namaLengkap}
                                             // layout='fill'
                                             height={100}
                                             width={100}
@@ -1002,7 +1010,7 @@ export default function CardProfile() {
                                             <Controller
                                                 name="nama"
                                                 control={control}
-                                                defaultValue={User.nama}
+                                                defaultValue={detailedData.namaLengkap}
                                                 render={({ field: { onChange, value } }) => (
                                                     <TextField
                                                         fullWidth
@@ -1025,7 +1033,7 @@ export default function CardProfile() {
                                             <Controller
                                                 name="tanggal_lahir"
                                                 control={control}
-                                                defaultValue={User.tanggal_lahir}
+                                                defaultValue={detailedData.ttl}
                                                 render={({ field: { onChange, value } }) => (
                                                     <TextField
                                                         fullWidth
@@ -1048,7 +1056,7 @@ export default function CardProfile() {
                                             <Controller
                                                 name="jenis-kelamin"
                                                 control={control}
-                                                defaultValue={User.jenis_kelamin}
+                                                defaultValue={detailedData.gender}
                                                 render={({ field: { onChange, value } }) => (
                                                     <Select
                                                         fullWidth
@@ -1075,7 +1083,7 @@ export default function CardProfile() {
                                             <Controller
                                                 name="email"
                                                 control={control}
-                                                defaultValue={User.email}
+                                                defaultValue={generalData.email}
                                                 render={({ field: { onChange, value } }) => (
                                                     <TextField
                                                         fullWidth
@@ -1098,7 +1106,7 @@ export default function CardProfile() {
                                             <Controller
                                                 name="no_hp"
                                                 control={control}
-                                                defaultValue={User.no_hp}
+                                                defaultValue={detailedData.handphone}
                                                 render={({ field: { onChange, value } }) => (
                                                     <TextField
                                                         fullWidth

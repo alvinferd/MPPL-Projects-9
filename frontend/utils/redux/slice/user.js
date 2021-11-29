@@ -9,10 +9,11 @@ const userSlice = createSlice({
     initialState: {
         authenticated: false,
         current: {
-            id: null,
             is_user: false,
             is_seller: false,
         },
+        generalData: [],
+        detailedData: [],
     },
     reducers: {
         userLoggedIn: (state, action) => {
@@ -21,7 +22,6 @@ const userSlice = createSlice({
                 ...state,
                 authenticated: true,
                 current: {
-                    id: null,
                     is_user: true,
                     is_seller: false,
                 },
@@ -33,15 +33,18 @@ const userSlice = createSlice({
                 ...state,
                 authenticated: false,
                 current: {
-                    id: null,
                     is_user: false,
                     is_seller: false,
                 },
             };
         },
-        userCurrent: (state, action) => ({
+        userGeneralDataSet: (state, action) => ({
             ...state,
-            current: action.payload ?? {},
+            generalData: action.payload ?? [],
+        }),
+        userDetailedDataSet: (state, action) => ({
+            ...state,
+            detailedData: action.payload ?? [],
         }),
         sellerLoggedIn: (state, action) => {
             Cookies.set(TOKEN_KEY, action.payload);
@@ -49,16 +52,17 @@ const userSlice = createSlice({
                 ...state,
                 authenticated: true,
                 current: {
-                    id: null,
                     is_user: false,
                     is_seller: true,
                 },
+                generalData: [],
+                detailedData: [],
             };
         },
     }
 });
 
-export const { userLoggedIn, userLoggedOut, userCurrent, sellerLoggedIn } = userSlice.actions;
+export const { userLoggedIn, userLoggedOut, userGeneralDataSet, userDetailedDataSet, sellerLoggedIn } = userSlice.actions;
 export default userSlice.reducer;
 
 export const userLogin = createAsyncThunk(
@@ -78,7 +82,8 @@ export const userLogin = createAsyncThunk(
             })
             .finally(() => {
                 dispatch(loadingSet(false));
-                dispatch(userGetData());
+                dispatch(userGetGeneralData());
+                dispatch(userGetDetailedData());
             });
     }
 );
@@ -113,16 +118,33 @@ export const userLogout = createAsyncThunk(
     }
 );
 
-export const userGetData = createAsyncThunk(
+export const userGetDetailedData = createAsyncThunk(
     "user/userGetData",
     async (_, { dispatch }) => {
         dispatch(loadingSet(true));
         return baseApi
             .get("/rest-auth/detailCustomer")
             .then((res) => {
-                  dispatch(
-                    userCurrent(res.filter((item) => item.id === id)[0])
-                  );
+                dispatch(userDetailedDataSet(res));
+                console.log(res);
+            })
+            .catch((err) => {
+                dispatch(alertSetError(true));
+                dispatch(alertSetMessage(err.message));
+            })
+            .finally(() => dispatch(loadingSet(false)));
+    }
+);
+
+
+export const userGetGeneralData = createAsyncThunk(
+    "user/userGetData",
+    async (_, { dispatch }) => {
+        dispatch(loadingSet(true));
+        return baseApi
+            .get("/auth/user/")
+            .then((res) => {
+                dispatch(userGeneralDataSet(res));
                 console.log(res);
             })
             .catch((err) => {
@@ -149,8 +171,8 @@ export const userRegister = createAsyncThunk(
                 dispatch(alertSetMessage(err.message));
                 console.log(err);
             })
-        .finally(() => {
-            dispatch(loadingSet(false));
-        });
+            .finally(() => {
+                dispatch(loadingSet(false));
+            });
     }
 );
