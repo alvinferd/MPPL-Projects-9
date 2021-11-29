@@ -15,7 +15,7 @@ import { useRouter } from "next/router"
 import { useSelector } from "react-redux";
 import ApiURL from '../utils/constant'
 import { dispatch } from '../utils/redux/store';
-import { cartCentangCheckout, cartGetData, cartGetDataCheck, cartDeleteProduct, cartUnCentangCheckout, cartAllCentangCheckout, cartAllUnCentangCheckout } from '../utils/redux/slice/cart';
+import { cartCentangCheckout, cartGetData, cartGetDataCheck, cartDeleteProduct, cartUnCentangCheckout, cartAllCentangCheckout, cartAllUnCentangCheckout, cartUpdateQuantity } from '../utils/redux/slice/cart';
 
 const useStyles = makeStyles({
     root: {
@@ -30,42 +30,42 @@ const label = { inputProps: { 'aria-label': 'Checkbox Keranjang' } };
 export default function CartCard() {
     const MyCart = useSelector((state) => state.cart.data.Carts);
     const MyCartCheckout = useSelector((state) => state.cart.dataCheck);
-    // console.log(MyCartCheckout);
 
     // OBJEK JUMLAH BARANG
     const firstJumlahBarang = {};
     MyCart.map(item => {
-        firstJumlahBarang[item.id] = 1;
+        firstJumlahBarang[item.id] = item.quantity;
     });
-    // console.log(firstJumlahBarang)
 
     const [jumlahBarang, setJumlahBarang] = React.useState(firstJumlahBarang);
+    console.log(jumlahBarang);
 
-    const inc = (event, id, price) => {
+    const inc = (event, id) => {
         let newJumlahBarang = { ...jumlahBarang };
         newJumlahBarang[id] += 1;
-        setJumlahBarang(newJumlahBarang);
 
-        if (checkedArray[id] == true) {
-            setTotalHarga(totalHarga + price)
+        const data = {
+            "quantity": newJumlahBarang[id]
         }
-        // console.log(newJumlahBarang);
+        setJumlahBarang(newJumlahBarang);
+        dispatch(cartUpdateQuantity({ data, id }));
     }
 
-    const dec = (event, id, price) => {
+    const dec = (event, id) => {
         let newJumlahBarang = { ...jumlahBarang };
         if (jumlahBarang[id] > 1) {
             newJumlahBarang[id] -= 1;
         }
 
-        if (checkedArray[id] == true) {
-            setTotalHarga(totalHarga - price)
+        const data = {
+            "quantity": newJumlahBarang[id]
         }
         setJumlahBarang(newJumlahBarang);
+        dispatch(cartUpdateQuantity({ data, id }));
         // console.log(newJumlahBarang);
     }
 
-    const handleChange = (event, id, price) => {
+    const handleChange = (event, id) => {
         let newJumlahBarang = { ...jumlahBarang };
 
         if (Number(event.target.value) < 1) {
@@ -75,15 +75,11 @@ export default function CartCard() {
         }
         setJumlahBarang(newJumlahBarang);
 
-        if (checkedArray[id] == true) {
-            setTotalHarga(totalHarga - price * (jumlahBarang[id] - Number(event.target.value)))
+        const data = {
+            "quantity": newJumlahBarang[id]
         }
-        // console.log(newJumlahBarang);
+        dispatch(cartUpdateQuantity({ data, id }))
     }
-
-    // OBJEK CHECKBOX BARANG
-    const [checkedArray, setCheckedArray] = React.useState({});
-    // const data = useSelector((state) => state.cart.data)
 
     const toggleCheckbox = (e, id) => {
         const ch = e.target.checked;
@@ -105,9 +101,6 @@ export default function CartCard() {
     const deleteProduct = (id) => {
         dispatch(cartDeleteProduct(id));
     };
-
-    // OBJEK TOTAL HARGA
-    const [totalHarga, setTotalHarga] = React.useState(0);
 
     const router = useRouter();
     const classes = useStyles();
@@ -184,7 +177,7 @@ export default function CartCard() {
                                                                 <Grid item>
                                                                     <IconButton aria-label="add" color="success"
                                                                         onClick={(e) => {
-                                                                            dec(e, product.id, product.totalPrice);
+                                                                            dec(e, product.id);
                                                                         }}
                                                                         disabled={product.quantity <= 1}>
                                                                         <RemoveCircleIcon />
@@ -194,7 +187,7 @@ export default function CartCard() {
                                                                     <Box sx={{ width: 70, maxWidth: '100%' }}>
                                                                         <TextField id="product-count" type="number" variant="outlined" size="small" color="secondary" fullWidth value={product.quantity}
                                                                             onChange={(e) => {
-                                                                                handleChange(e, product.id, product.totalPrice);
+                                                                                handleChange(e, product.id);
                                                                             }}
                                                                             // inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
                                                                             InputLabelProps={{
@@ -205,7 +198,7 @@ export default function CartCard() {
                                                                 <Grid item>
                                                                     <IconButton aria-label="add" color="success"
                                                                         onClick={(e) => {
-                                                                            inc(e, product.id, product.totalPrice);
+                                                                            inc(e, product.id);
                                                                         }}>
                                                                         <AddCircleIcon />
                                                                     </IconButton>

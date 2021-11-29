@@ -207,3 +207,25 @@ export const cartAllUnCentangCheckout = createAsyncThunk(
             });
     }
 );
+
+export const cartUpdateQuantity = createAsyncThunk(
+    'cart/cartUpdateQuantitiy',
+    async ({ data, id }, { dispatch }) => {
+        dispatch(loadingSet(true));
+        return baseApi
+            .put("/api/v1/cart/updateQuantity/" + id, data)
+            .then((res) => {
+                dispatch(cartGetDataCheck());
+                dispatch(cartGetData());
+                // console.log(res);
+            })
+            .catch((err) => {
+                dispatch(alertSetError(true));
+                dispatch(alertSetMessage(err.message));
+                // console.log(err);
+            })
+            .finally(() => {
+                dispatch(loadingSet(false));
+            });
+    }
+);
