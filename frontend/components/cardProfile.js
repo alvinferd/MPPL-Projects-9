@@ -69,8 +69,8 @@ const onSubmitAlamat = (data) => {
 export default function CardProfile() {
     const generalData = useSelector((state) => state.user.generalData)
     const detailedData = useSelector((state) => state.user.detailedData.Profile[0])
-    console.log(generalData)
-    console.log(detailedData)
+    // console.log(generalData)
+    // console.log(detailedData)
     
     const [value, setValue] = React.useState(0);
     const [isEdited, setIsEdited] = React.useState(false);

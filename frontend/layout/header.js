@@ -9,16 +9,25 @@ import OrderLogo from '../public/Receipt.svg'
 import ShoppingCartLogo from '../public/ShoppingCartLogo.svg'
 import theme from '../themes/default'
 import { makeStyles } from '@mui/styles'
+import { useForm, Controller } from "react-hook-form";
+import { getSearchResult } from '../utils/redux/slice/search'
+import { dispatch } from '../utils/redux/store'
 
 const useStyles = makeStyles({
     root: {
-       [`& fieldset`]: {
-             borderRadius: '5px 0px 0px 5px',
-       },
+        [`& fieldset`]: {
+            borderRadius: '5px 0px 0px 5px',
+        },
     },
- });
+});
+
+const search = (data) => {
+    console.log(data.search);
+    dispatch(getSearchResult(data.search));
+};
 
 export default function Header() {
+    const { control, handleSubmit } = useForm();
     const classes = useStyles();
     return (
         <Box sx={{ flexGrow: 6 }}>
@@ -45,20 +54,32 @@ export default function Header() {
                         </Link>
                     </Box>
                     <Box sx={{ flexGrow: 3, justifyContent: 'center', display: { xs: 'none', sm: 'flex' }, flexDirection: 'row', padding: theme.spacing(1, 1, 1, 1) }}>
-                        <Box sx={{ flexGrow: 2.5, padding: theme.spacing(1, 0, 1, 0) }}>
-                            <TextField
-                                id="search" className={classes.root} label="Search" variant="outlined" fullWidth color="common" size="small"
-                                InputLabelProps={{
-                                    style: { color: '#000000' },
-                                }}
-                            />
-                        </Box>
-                        <Box sx={{padding: theme.spacing(1, 0, 1, 0) }}>
-                            <Button aria-label='search' color='secondary' variant='contained' size='large' sx={{borderRadius: "0px 5px 5px 0px"}}>
-                                <SearchIcon />
-                            </Button>
-                        </Box>
-                        
+                        <form onSubmit={handleSubmit(search)} style={{ width: "100%", alignItems: "center" }}>
+                            <Box sx={{ flexGrow: 3, justifyContent: 'center', display: 'flex', flexDirection: 'row', padding: theme.spacing(1, 1, 1, 1) }}>
+                                <Box sx={{ flexGrow: 2.5, padding: theme.spacing(1, 0, 1, 0) }}>
+                                    <Controller
+                                        name="search"
+                                        control={control}
+                                        defaultValue=""
+                                        render={({ field: { onChange, value } }) => (
+                                            <TextField
+                                                id="search" className={classes.root} placeholder="Cari barang disini..." variant="outlined" fullWidth color="common" size="small" required
+                                                InputLabelProps={{
+                                                    style: { color: '#000000' },
+                                                }}
+                                                value={value}
+                                                onChange={onChange}
+                                            />
+                                        )}
+                                    />
+                                </Box>
+                                <Box sx={{ padding: theme.spacing(1, 0, 1, 0) }}>
+                                    <Button type='submit' aria-label='search' color='secondary' variant='contained' size='large' sx={{ borderRadius: "0px 5px 5px 0px" }}>
+                                        <SearchIcon />
+                                    </Button>
+                                </Box>
+                            </Box>
+                        </form>
                     </Box>
                     <Box sx={{ flexGrow: 2, justifyContent: 'space-evenly', alignItems: 'center', display: { xs: 'none', sm: 'flex' }, flexDirection: 'row' }}>
                         <Link href="/cart" passHref>

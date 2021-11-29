@@ -7,7 +7,7 @@ export const TOKEN_KEY = "dG9rZW5TaW1hbGFi";
 function handleRequestSend(config) {
   const token = Cookies.get(TOKEN_KEY);
   if (!!token) config.headers.Authorization = `Token ${token}`;
-  console.dir(config);
+  console.log(config);
   return config;
 }
 
