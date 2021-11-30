@@ -1,7 +1,7 @@
 import CardProduct from './cardProduct'
 import { Grid } from '@mui/material'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import ApiURL from "../utils/constant"
+import { ApiURL } from "../utils/constant"
 
 export default function ListCardProduct({ dataProducts }) {
     var count = 0;

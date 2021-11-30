@@ -4,7 +4,7 @@ import Layout from "../layout/default"
 import theme from "../themes/default"
 import Head from 'next/head'
 import CardProduct from "../components/cardProduct"
-import ApiURL from "../utils/constant"
+import { ApiURL } from "../utils/constant"
 import { useSelector } from "react-redux"
 
 export default function SearchResult() {

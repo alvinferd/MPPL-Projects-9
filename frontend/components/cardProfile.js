@@ -10,7 +10,7 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 import Link from 'next/link'
 import { red } from "@mui/material/colors"
 import CloseIcon from '@mui/icons-material/Close';
-import ApiURL from '../utils/constant'
+import { ApiURL } from '../utils/constant'
 
 import { useSelector } from "react-redux"
 
@@ -71,7 +71,7 @@ export default function CardProfile() {
     const detailedData = useSelector((state) => state.user.detailedData.Profile[0])
     // console.log(generalData)
     // console.log(detailedData)
-    
+
     const [value, setValue] = React.useState(0);
     const [isEdited, setIsEdited] = React.useState(false);
     const [openNewAddress, setOpenNewAddress] = React.useState(false);

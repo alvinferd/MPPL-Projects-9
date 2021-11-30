@@ -5,7 +5,7 @@ import theme from "../../themes/default"
 import Head from 'next/head'
 import ListCardProduct from "../../components/listCardProducts"
 import CardProduct from "../../components/cardProduct"
-import ApiURL from "../../utils/constant"
+import { ApiURL } from "../../utils/constant"
 
 export default function AllProductPage({ dataProducts }) {
     console.log(dataProducts);

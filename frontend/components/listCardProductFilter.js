@@ -3,7 +3,7 @@ import { Grid } from '@mui/material'
 import { ListProducts } from '../utils/dummy/ListProduct';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-export default function ListCardProductFilter() {
+export default function ListCardProductFilter({ dataProducts }) {
     var count = 0;
 
     if (useMediaQuery('(min-width:0px)')) {
@@ -23,8 +23,8 @@ export default function ListCardProductFilter() {
         <Grid container spacing={{ md: 4, xs: 3 }} alignItems="stretch" sx={{ xs: {margin: 0}, md: { p: 1 } }}>
             {ListProducts.slice(0, count).map(product => {
                 return (
-                    <Grid item key={product.id} style={{ display: 'flex' }} columns={60} xs={30} lg={15} xl={12}>
-                        <CardProduct id={product.id} images={product.images[0].image} name={product.name} description={product.description.short} price={product.price} rating={product.rating} />
+                    <Grid item key={product.id} columns={60} xs={30} lg={15} xl={12}>
+                        <CardProduct id={product.id} images={ApiURL + product.image} name={product.title} description={product.description} price={product.harga} rating={product.rating} />
                     </Grid>
                 )
             })}

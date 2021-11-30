@@ -1,5 +1,5 @@
 import { Grid, Link, Typography } from "@mui/material"
-import ApiURL from "../utils/constant"
+import { ApiURL } from "../utils/constant"
 import Image from 'next/image'
 
 export default function ProductLainDiToko({ productToko }) {

@@ -10,7 +10,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"
 import { Carousel } from 'react-responsive-carousel'
 import Image from 'next/image'
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined'
-import ApiURL from "../../utils/constant"
+import { ApiURL } from "../../utils/constant"
 import ProductLainDiToko from '../../components/productLaindiToko'
 import { dispatch } from '../../utils/redux/store'
 import { cartAddProduct } from '../../utils/redux/slice/cart'

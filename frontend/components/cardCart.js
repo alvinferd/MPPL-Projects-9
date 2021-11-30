@@ -13,7 +13,7 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 
 import { useRouter } from "next/router"
 import { useSelector } from "react-redux";
-import ApiURL from '../utils/constant'
+import { ApiURL } from '../utils/constant'
 import { dispatch } from '../utils/redux/store';
 import { cartCentangCheckout, cartGetData, cartGetDataCheck, cartDeleteProduct, cartUnCentangCheckout, cartAllCentangCheckout, cartAllUnCentangCheckout, cartUpdateQuantity } from '../utils/redux/slice/cart';
 
