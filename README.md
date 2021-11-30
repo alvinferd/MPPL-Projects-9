@@ -19,6 +19,13 @@ __Tech Stack__
 ---
 
 ## 🙋 User Research and Analysis
+**Discover* 
+
+**Explore** 
+
+**Test** 
+
+**Listen** 
 
 ---
 
