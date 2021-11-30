@@ -19,7 +19,7 @@ __Tech Stack__
 ---
 
 ## 🙋 User Research and Analysis
-**Discover* 
+**Discover**
 
 **Explore** 
 
