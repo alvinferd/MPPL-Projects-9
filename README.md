@@ -25,8 +25,10 @@ Requierement Gathering
 
 **Explore** 
 
-User Persona
+User Persona 
 ![User Persona 1](https://user-images.githubusercontent.com/61318031/144021037-429e383f-47f2-4005-ba79-f799350b5d5d.png)
+
+![User Persona 2](https://user-images.githubusercontent.com/61318031/144026019-27740c9c-42b4-4fd2-8a1c-47b95044d104.png)
 
 **Test** 
 
