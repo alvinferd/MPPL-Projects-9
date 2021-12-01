@@ -5,8 +5,20 @@ import theme from "../../themes/default"
 import Head from 'next/head'
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import MyProductsTable from "../../components/seller/myProductsTable"
+import { dispatch } from "../../utils/redux/store"
+import { readMyProduct } from "../../utils/redux/slice/product"
+import { useEffect } from "react"
+import { useSelector } from "react-redux"
 
 export default function MyProducts() {
+
+    useEffect(() => {
+        dispatch(readMyProduct());
+    }, []);
+
+    const myProductData = useSelector((state) => state.product.myProduct);
+    // console.log(myProduct);
+
     return (
         <ThemeProvider theme={theme}>
             <LayoutSeller>
@@ -27,12 +39,12 @@ export default function MyProducts() {
                     <Grid container spacing={2} alignItems='center'>
                         <Grid item>
                             <Typography>
-                                5 Produk
+                                {myProductData.length} Produk
                             </Typography>
                         </Grid>
                         <Grid item>
                             <Button variant="outlined" color='secondary'>
-                                5 / 50
+                                {myProductData.length} / 50
                             </Button>
                         </Grid>
                         <Grid item>
@@ -43,7 +55,7 @@ export default function MyProducts() {
                     </Grid>
                 </Container>
                 <Container maxWidth="1920" id="br-product-seller" sx={{ width: '95vw', marginX: { xs: 1, md: 2, lg: 4 }, marginY: 4 }}>
-                    <MyProductsTable />
+                    <MyProductsTable myProducts={myProductData} />
                 </Container>
             </LayoutSeller>
         </ThemeProvider>

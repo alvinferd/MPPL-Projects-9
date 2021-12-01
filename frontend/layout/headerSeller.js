@@ -25,7 +25,7 @@ export default function HeaderSeller() {
             <AppBar position="fixed">
                 <Toolbar>
                     <Box sx={{ flexGrow: 1 }}>
-                        <Link href="/seller" passHref >
+                        <Link href="/seller/Home" passHref >
                             <MUILink variant="body1" underline="none" color="inherit">
                                 <Box sx={{ display: 'flex', flexDirection: 'row' }}>
                                     <Image

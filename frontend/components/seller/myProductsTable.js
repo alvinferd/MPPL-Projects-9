@@ -10,6 +10,7 @@ import TableRow from '@mui/material/TableRow';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import { Grid, IconButton, Typography } from '@mui/material';
 import Image from 'next/image';
+import { ApiURL } from '../../utils/constant';
 
 const columns = [
     {
@@ -58,20 +59,20 @@ function createData(produk, deskripsi, harga, stok, penjualan, pengaturan) {
     return { produk, deskripsi, harga, stok, penjualan, pengaturan };
 }
 
-const SettingButton = () => {
+const SettingButton = (id) => {
     return (
-        <IconButton size='small' sx={{padding: 0}}>
+        <IconButton size='small' sx={{ padding: 0 }} onClick={() => console.log(id)}>
             <SettingsOutlinedIcon color='secondary' />
         </IconButton>
     )
 }
 
-const GridProduk = ({ produk }) => {
+const GridProduk = ({ produk, images }) => {
     return (
         <Grid container spacing={2}>
             <Grid item xs={5} sx={{ position: 'relative' }}>
                 <Image
-                    src="/images/ojolali banner.png"
+                    src={ApiURL + images}
                     alt={produk}
                     height={150}
                     width={150}
@@ -88,24 +89,18 @@ const GridProduk = ({ produk }) => {
     )
 }
 
-const rows = [
-    createData(<GridProduk produk="Apel Merah Khas Poncokusumo" />, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc consequat, amet lorem nibh adipiscing nunc ac. Vitae libero, cras at nulla tortor velit. Commodo quis cursus diam urna pharetra, bibendum. Consectetur cursus cursus tincidunt orci, in. Ut nibh porttitor varius sit diam orci sed sed ultricies', 1324171354, 3287263, 12, <SettingButton />),
-    createData(<GridProduk produk="Apel Merah Khas Poncokusumo" />, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc consequat, amet lorem nibh adipiscing nunc ac. Vitae libero, cras at nulla tortor velit. Commodo quis cursus diam urna pharetra, bibendum. Consectetur cursus cursus tincidunt orci, in. Ut nibh porttitor varius sit diam orci sed sed ultricies', 1324171354, 3287263, 12, <SettingButton />),
-    createData(<GridProduk produk="Apel Merah Khas Poncokusumo" />, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc consequat, amet lorem nibh adipiscing nunc ac. Vitae libero, cras at nulla tortor velit. Commodo quis cursus diam urna pharetra, bibendum. Consectetur cursus cursus tincidunt orci, in. Ut nibh porttitor varius sit diam orci sed sed ultricies', 1324171354, 3287263, 12, <SettingButton />),
-    createData(<GridProduk produk="Apel Merah Khas Poncokusumo" />, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc consequat, amet lorem nibh adipiscing nunc ac. Vitae libero, cras at nulla tortor velit. Commodo quis cursus diam urna pharetra, bibendum. Consectetur cursus cursus tincidunt orci, in. Ut nibh porttitor varius sit diam orci sed sed ultricies', 1324171354, 3287263, 12, <SettingButton />),
-    createData(<GridProduk produk="Apel Merah Khas Poncokusumo" />, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc consequat, amet lorem nibh adipiscing nunc ac. Vitae libero, cras at nulla tortor velit. Commodo quis cursus diam urna pharetra, bibendum. Consectetur cursus cursus tincidunt orci, in. Ut nibh porttitor varius sit diam orci sed sed ultricies', 1324171354, 3287263, 12, <SettingButton />),
-    createData(<GridProduk produk="Apel Merah Khas Poncokusumo" />, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc consequat, amet lorem nibh adipiscing nunc ac. Vitae libero, cras at nulla tortor velit. Commodo quis cursus diam urna pharetra, bibendum. Consectetur cursus cursus tincidunt orci, in. Ut nibh porttitor varius sit diam orci sed sed ultricies', 1324171354, 3287263, 12, <SettingButton />),
-    createData(<GridProduk produk="Apel Merah Khas Poncokusumo" />, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc consequat, amet lorem nibh adipiscing nunc ac. Vitae libero, cras at nulla tortor velit. Commodo quis cursus diam urna pharetra, bibendum. Consectetur cursus cursus tincidunt orci, in. Ut nibh porttitor varius sit diam orci sed sed ultricies', 1324171354, 3287263, 12, <SettingButton />),
-    createData(<GridProduk produk="Apel Merah Khas Poncokusumo" />, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc consequat, amet lorem nibh adipiscing nunc ac. Vitae libero, cras at nulla tortor velit. Commodo quis cursus diam urna pharetra, bibendum. Consectetur cursus cursus tincidunt orci, in. Ut nibh porttitor varius sit diam orci sed sed ultricies', 1324171354, 3287263, 12, <SettingButton />),
-    createData(<GridProduk produk="Apel Merah Khas Poncokusumo" />, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc consequat, amet lorem nibh adipiscing nunc ac. Vitae libero, cras at nulla tortor velit. Commodo quis cursus diam urna pharetra, bibendum. Consectetur cursus cursus tincidunt orci, in. Ut nibh porttitor varius sit diam orci sed sed ultricies', 1324171354, 3287263, 12, <SettingButton />),
-    createData(<GridProduk produk="Apel Merah Khas Poncokusumo" />, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc consequat, amet lorem nibh adipiscing nunc ac. Vitae libero, cras at nulla tortor velit. Commodo quis cursus diam urna pharetra, bibendum. Consectetur cursus cursus tincidunt orci, in. Ut nibh porttitor varius sit diam orci sed sed ultricies', 1324171354, 3287263, 12, <SettingButton />),
-    createData(<GridProduk produk="Apel Merah Khas Poncokusumo" />, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc consequat, amet lorem nibh adipiscing nunc ac. Vitae libero, cras at nulla tortor velit. Commodo quis cursus diam urna pharetra, bibendum. Consectetur cursus cursus tincidunt orci, in. Ut nibh porttitor varius sit diam orci sed sed ultricies', 1324171354, 3287263, 12, <SettingButton />),
-    createData(<GridProduk produk="Apel Merah Khas Poncokusumo" />, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc consequat, amet lorem nibh adipiscing nunc ac. Vitae libero, cras at nulla tortor velit. Commodo quis cursus diam urna pharetra, bibendum. Consectetur cursus cursus tincidunt orci, in. Ut nibh porttitor varius sit diam orci sed sed ultricies', 1324171354, 3287263, 12, <SettingButton />),
-    createData(<GridProduk produk="Apel Merah Khas Poncokusumo" />, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc consequat, amet lorem nibh adipiscing nunc ac. Vitae libero, cras at nulla tortor velit. Commodo quis cursus diam urna pharetra, bibendum. Consectetur cursus cursus tincidunt orci, in. Ut nibh porttitor varius sit diam orci sed sed ultricies', 1324171354, 3287263, 12, <SettingButton />),
-    createData(<GridProduk produk="Apel Merah Khas Poncokusumo" />, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc consequat, amet lorem nibh adipiscing nunc ac. Vitae libero, cras at nulla tortor velit. Commodo quis cursus diam urna pharetra, bibendum. Consectetur cursus cursus tincidunt orci, in. Ut nibh porttitor varius sit diam orci sed sed ultricies', 1324171354, 3287263, 12, <SettingButton />),
-];
+const rows = [];
+
+const extractDatatoRows = ({ myProducts }) => {
+    for (let i = 0; i < myProducts.length; i++) {
+        rows[i] = createData(<GridProduk produk={myProducts[i].title} images={myProducts[i].image} />, myProducts[i].description, myProducts[i].harga, myProducts[i].stock, myProducts[i].terjual, <SettingButton id={myProducts[i].id} />)
+    };
+}
 
 export default function MyProductsTable({ myProducts }) {
+    extractDatatoRows({myProducts});
+
+    // console.log(rows);
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -117,8 +112,6 @@ export default function MyProductsTable({ myProducts }) {
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
-
-    console.log(myProducts);
 
     return (
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
@@ -170,15 +163,4 @@ export default function MyProductsTable({ myProducts }) {
             />
         </Paper>
     )
-}
-
-export async function getServerSideProps() {
-    const response = await fetch(`http://103.41.205.191:10001/api/v1/product/getProducts`);
-    const myProducts = await response.json();
-
-    return {
-        props: {
-            myProducts,
-        },
-    };
 }

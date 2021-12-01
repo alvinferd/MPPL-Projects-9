@@ -14,6 +14,7 @@ import { useEffect } from "react"
 import router from "next/router"
 import { dispatch } from "../../utils/redux/store"
 import { useSelector } from "react-redux"
+import { ApiURL } from "../../utils/constant"
 
 const useStyles = makeStyles({
     root: {
@@ -25,6 +26,7 @@ export default function Home() {
     const authenticated = useSelector((state) => state.user.authenticated)
     const isUser = useSelector((state) => state.user.current.is_user)
     const isSeller = useSelector((state) => state.user.current.is_seller)
+    const detailedData = useSelector((state) => state.user.detailedData)
 
     useEffect(() => {
         if (authenticated) {
@@ -44,7 +46,9 @@ export default function Home() {
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
                 <Grid container spacing={4} mt={1}>
-                    <CardTokoSeller id={Toko.id} nama={Toko.nama} displayPicture={Toko.displayPicture} lokasi={Toko.lokasi} contact={Toko.contact} terjual={Toko.terjual} rating={Toko.rating} />
+                    {/* <Grid item xs={4}> */}
+                    <CardTokoSeller id={detailedData.user} nama={detailedData.namaToko} displayPicture={ApiURL + detailedData.fotoProfile} deskripsi={detailedData.DeskripsiToko} lokasi={Toko.lokasi} contact={Toko.contact} terjual={Toko.terjual} rating={Toko.rating} />
+                    {/* </Grid> */}
                     <Grid item xs={8}>
                         <Typography variant="h6">
                             <b> Fitur </b>

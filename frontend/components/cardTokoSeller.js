@@ -17,7 +17,7 @@ const onLogout = () => {
     dispatch(userLogout());
 };
 
-export default function CardTokoSeller({ id, nama, lokasi, displayPicture, terjual, rating, contact }) {
+export default function CardTokoSeller({ id, nama, lokasi, displayPicture, deskripsi, terjual, rating, contact }) {
     const router = useRouter();
     const classes = useStyles();
     return (
@@ -39,6 +39,9 @@ export default function CardTokoSeller({ id, nama, lokasi, displayPicture, terju
                         </Typography>
                     </Grid>
                 </Grid>
+                {/* <Typography variant="body1" gutterBottom>
+                    {deskripsi}
+                </Typography> */}
                 <Typography variant="body1" gutterBottom>
                     Lokasi: {lokasi}
                 </Typography>
@@ -67,20 +70,18 @@ export default function CardTokoSeller({ id, nama, lokasi, displayPicture, terju
                         </Box>
                     </Grid>
                 </Grid>
-                {/* <Link href="/seller/pengaturantoko" passHref > */}
-                    <Grid spacing={2} container direction="row" justifyContent="center">
-                        <Grid item>
-                            <Button variant="contained" color="secondary" onClick={() => router.push(`pengaturantoko/`)}>
-                                Pengaturan Toko
-                            </Button>
-                        </Grid>
-                        <Grid item>
-                            <Button variant='contained' color='secondary' onClick={onLogout}>
-                                Logout
-                            </Button>
-                        </Grid>
+                <Grid spacing={2} container direction="row" justifyContent="center">
+                    <Grid item>
+                        <Button variant="contained" color="secondary" onClick={() => router.push(`pengaturantoko/`)}>
+                            Pengaturan Toko
+                        </Button>
                     </Grid>
-                {/* </Link> */}
+                    <Grid item>
+                        <Button variant='contained' color='secondary' onClick={onLogout}>
+                            Logout
+                        </Button>
+                    </Grid>
+                </Grid>
             </CardContent>
         </Card>
     )

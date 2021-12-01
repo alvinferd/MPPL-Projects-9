@@ -105,7 +105,7 @@ export const sellerLogin = createAsyncThunk(
             })
             .finally(() => {
                 dispatch(userGetGeneralData());
-                dispatch(userGetDetailedData());
+                dispatch(sellerGetDetailedData());
             });
     }
 );
@@ -125,6 +125,24 @@ export const userGetDetailedData = createAsyncThunk(
         dispatch(loadingSet(true));
         return baseApi
             .get("/rest-auth/detailCustomer")
+            .then((res) => {
+                dispatch(userDetailedDataSet(res.Profile[0]));
+                // console.log(res);
+            })
+            .catch((err) => {
+                dispatch(alertSetError(true));
+                dispatch(alertSetMessage(err.message));
+            })
+            .finally(() => dispatch(loadingSet(false)));
+    }
+);
+
+export const sellerGetDetailedData = createAsyncThunk(
+    "seller/sellerGetData",
+    async (_, { dispatch }) => {
+        dispatch(loadingSet(true));
+        return baseApi
+            .get("/rest-auth/detailSeller")
             .then((res) => {
                 dispatch(userDetailedDataSet(res.Profile[0]));
                 // console.log(res);
