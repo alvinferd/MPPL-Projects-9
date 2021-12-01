@@ -30,6 +30,10 @@ User Persona
 
 ![User Persona 2](https://user-images.githubusercontent.com/61318031/144026019-27740c9c-42b4-4fd2-8a1c-47b95044d104.png)
 
+![User Persona 3](https://user-images.githubusercontent.com/61318031/144218183-3174a509-00dc-4a4c-8ca0-ecf2ccd2db61.png)
+
+![User Persona 4](https://user-images.githubusercontent.com/61318031/144218238-e1699dab-77c1-4d26-8c8a-1ae845ec59ed.png)
+
 **Test** 
 
 **Listen** 
