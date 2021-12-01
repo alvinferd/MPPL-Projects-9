@@ -5,7 +5,7 @@ import theme from '../themes/default'
 import { Button, Container, Grid, Typography } from "@mui/material"
 import CardProfile from "../components/cardProfile"
 import { dispatch } from "../utils/redux/store"
-import { userLogout } from "../utils/redux/slice/user"
+import { userGetDetailedData, userGetGeneralData, userLogout } from "../utils/redux/slice/user"
 import { useSelector } from "react-redux"
 import { useRouter } from "next/router"
 import { useEffect } from "react"
@@ -26,6 +26,8 @@ export default function Profile() {
     useEffect(() => {
         if (authenticated) {
             // if (isSeller) router.replace("/seller");
+            dispatch(userGetGeneralData())
+            dispatch(userGetDetailedData())
         } else {
             router.replace('/login');
         }

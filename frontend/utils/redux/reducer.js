@@ -1,16 +1,14 @@
 import { combineReducers } from "@reduxjs/toolkit"
-import user from './slice/user'
+import alert from "./slice/alert";
 import cart from "./slice/cart";
 import loading from "./slice/loading";
-import alert from "./slice/alert";
 import order from "./slice/order";
 import search from "./slice/search";
-import category from "./slice/category";
+import user from './slice/user'
 
 const rootReducer = combineReducers({
     alert,
     cart,
-    category,
     loading,
     order,
     search,

@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import baseApi, { TOKEN_KEY } from '../../api';
 import Cookies from 'js-cookie'
 import { loadingSet } from './loading';
-import { alertSetError } from './alert';
+import { alertSetError, alertSetMessage, alertSetSuccess } from './alert';
 
 const userSlice = createSlice({
     name: 'user',
@@ -82,8 +82,8 @@ export const userLogin = createAsyncThunk(
             })
             .finally(() => {
                 dispatch(loadingSet(false));
-                dispatch(userGetGeneralData());
-                dispatch(userGetDetailedData());
+                // dispatch(userGetGeneralData());
+                // dispatch(userGetDetailedData());
             });
     }
 );
@@ -125,8 +125,8 @@ export const userGetDetailedData = createAsyncThunk(
         return baseApi
             .get("/rest-auth/detailCustomer")
             .then((res) => {
-                dispatch(userDetailedDataSet(res));
-                console.log(res);
+                dispatch(userDetailedDataSet(res.Profile[0]));
+                // console.log(res);
             })
             .catch((err) => {
                 dispatch(alertSetError(true));
@@ -165,6 +165,29 @@ export const userRegister = createAsyncThunk(
                 dispatch(alertSetSuccess(true));
                 dispatch(alertSetMessage("Register berhasil, silahkan login!"));
                 console.log(res);
+            })
+            .catch((err) => {
+                dispatch(alertSetError(true));
+                dispatch(alertSetMessage(err.message));
+                console.log(err);
+            })
+            .finally(() => {
+                dispatch(loadingSet(false));
+            });
+    }
+);
+
+export const updateDetailedData = createAsyncThunk(
+    'user/updateDetailedData',
+    async (data, { dispatch }) => {
+        dispatch(loadingSet(true));
+        return baseApi
+            .put("/rest-auth/updateCustomer", data)
+            .then((res) => {
+                dispatch(userDetailedDataSet(res.Customer));
+                dispatch(alertSetSuccess(true));
+                dispatch(alertSetMessage("Data Berhasil Diperbaharui!"));
+                // console.log(res);
             })
             .catch((err) => {
                 dispatch(alertSetError(true));
