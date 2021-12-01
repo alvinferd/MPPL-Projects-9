@@ -38,7 +38,7 @@ export default function Login() {
     useEffect(() => {
         if (authenticated) {
           if (isUser) router.replace("/");
-          if (isSeller) router.replace("/seller");
+          if (isSeller) router.replace("/seller/Home");
         }
       }, [authenticated, isUser, isSeller]);
 

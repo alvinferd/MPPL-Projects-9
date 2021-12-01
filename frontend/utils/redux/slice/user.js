@@ -96,7 +96,7 @@ export const sellerLogin = createAsyncThunk(
             .post("/auth/login/", data)
             .then((res) => {
                 dispatch(sellerLoggedIn(res.key));
-                // console.log(res);
+                console.log(res);
             })
             .catch((err) => {
                 dispatch(alertSetError(true));
@@ -104,7 +104,8 @@ export const sellerLogin = createAsyncThunk(
                 // console.log(err);
             })
             .finally(() => {
-                dispatch(loadingSet(false));
+                dispatch(userGetGeneralData());
+                dispatch(userGetDetailedData());
             });
     }
 );

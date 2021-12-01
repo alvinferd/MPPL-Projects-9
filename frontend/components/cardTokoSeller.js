@@ -1,7 +1,10 @@
-import { Box, Card, CardActionArea, CardMedia, CardContent, Grid, Typography, Button, Link} from '@mui/material'
+import { Box, Card, CardActionArea, CardMedia, CardContent, Grid, Typography, Button, Link } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import Image from 'next/image'
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined'
+import { dispatch } from '../utils/redux/store';
+import { userLogout } from '../utils/redux/slice/user';
+import { useRouter } from "next/router"
 
 const useStyles = makeStyles({
     root: {
@@ -9,7 +12,13 @@ const useStyles = makeStyles({
     }
 });
 
-export default function CardToko({ id, nama, lokasi, displayPicture, terjual, rating, contact }) {
+const onLogout = () => {
+    // dispatch(cartGetData());
+    dispatch(userLogout());
+};
+
+export default function CardTokoSeller({ id, nama, lokasi, displayPicture, terjual, rating, contact }) {
+    const router = useRouter();
     const classes = useStyles();
     return (
         <Card className={classes.root} sx={{ maxWidth: 488, maxHeight: 541 }} style={{ height: '100%', boxShadow: 3 }} >
@@ -58,13 +67,20 @@ export default function CardToko({ id, nama, lokasi, displayPicture, terjual, ra
                         </Box>
                     </Grid>
                 </Grid>
-                <Link href="/seller/pengaturantoko" passHref >  
-                <Grid container direction="row" justifyContent="center"> 
-                        <Button variant="contained" color="secondary" sx={{ width: '60%' }}>
-                            Pengaturan Toko
-                        </Button>
-                </Grid>
-                </Link>
+                {/* <Link href="/seller/pengaturantoko" passHref > */}
+                    <Grid spacing={2} container direction="row" justifyContent="center">
+                        <Grid item>
+                            <Button variant="contained" color="secondary" onClick={() => router.push(`pengaturantoko/`)}>
+                                Pengaturan Toko
+                            </Button>
+                        </Grid>
+                        <Grid item>
+                            <Button variant='contained' color='secondary' onClick={onLogout}>
+                                Logout
+                            </Button>
+                        </Grid>
+                    </Grid>
+                {/* </Link> */}
             </CardContent>
         </Card>
     )
