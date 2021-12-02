@@ -25,7 +25,7 @@ export default function Profile() {
 
     useEffect(() => {
         if (authenticated) {
-            if (isSeller) router.replace("/seller");
+            if (isSeller) router.replace("/seller/Home");
             dispatch(userGetGeneralData())
             dispatch(userGetDetailedData())
         } else {

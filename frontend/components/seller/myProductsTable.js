@@ -72,7 +72,7 @@ const GridProduk = ({ produk, images }) => {
         <Grid container spacing={2}>
             <Grid item xs={5} sx={{ position: 'relative' }}>
                 <Image
-                    src={ApiURL + images}
+                    src={(images) ? ApiURL + images : "/images/dp toko pak makmur.png"}
                     alt={produk}
                     height={150}
                     width={150}

@@ -3,24 +3,43 @@ import Head from 'next/head'
 import { ThemeProvider } from '@emotion/react'
 import theme from '../../themes/default'
 import SellerLayout from '../../layout/defaultSeller'
-import { Container, Typography, Breadcrumbs, Box, Button, Link as MUILink, Grid, TextField, InputLabel, FormControl, InputAdornment, SliderUnstyledComponentsPropsOverrides, MenuItem, Select} from '@mui/material'
+import { Container, Typography, Breadcrumbs, Box, Button, Link as MUILink, Grid, TextField, InputLabel, FormControl, InputAdornment, SliderUnstyledComponentsPropsOverrides, MenuItem, Select } from '@mui/material'
 import { spacing } from '@mui/system'
 import Toko from "../../utils/dummy/Toko"
 import Image from 'next/image'
+import { useRouter } from 'next/router'
+import { useForm, Controller } from "react-hook-form";
+import { useEffect } from "react"
+import { addNewProduct } from '../../utils/redux/slice/product'
+import { dispatch } from '../../utils/redux/store'
 
-export default function ProductSettings() {
+export default function ProductSettings({ dataCategory }) {
+    const router = useRouter();
+    const { control, handleSubmit } = useForm();
 
     const [kategori, setKategori] = React.useState('');
-
+    // console.log(kategori);
     const handleChange = (event) => {
-      setKategori(event.target.value);
+        setKategori(event.target.value);
     };
-  
+
+    const addProduct = (data) => {
+        // var bodyFormData = new FormData();
+        data.category = kategori;
+        // bodyFormData.append('title', data.title);
+        // bodyFormData.append('description', data.description);
+        // bodyFormData.append('harga', data.harga);
+        // bodyFormData.append('rating', (data.rating) ? data.rating : 0);
+        // bodyFormData.append('category', data.category);
+        // console.dir(bodyFormData);
+        dispatch(addNewProduct(data));
+        router.push("/seller/products")
+    };
     return (
         <ThemeProvider theme={theme}>
             <SellerLayout>
                 <Head>
-                    <title> Nama Toko | Poncolapak</title>
+                    <title>Tambah Produk | Poncolapak</title>
                     <meta name="viewport" content="initial-scale=1, width=device-width" />
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
@@ -32,152 +51,212 @@ export default function ProductSettings() {
                         <MUILink
                             underline="hover"
                             color="text.primary"
-                            // href={`/category/${product.category_name}`}
+                        // href={`/category/${product.category_name}`}
                         >
                             {/* {product.category_name} */}
                         </MUILink>
                         <Typography color="text.quaternary">Pengaturan Produk</Typography>
                     </Breadcrumbs>
                 </Container>
-                <Grid container mb={3} ml={7}>
-                    <Grid item xs={4}>
-                        <Typography variant = "h6">
-                         <b>   Informasi Produk </b>
-                        </Typography>
-                    </Grid>
-                    <Grid container spacing={1} ml={4} mt={2}>
-                        <Grid item xs={2}>
-                            <Typography>
-                                Foto Produk
+                <form onSubmit={handleSubmit(addProduct)} style={{ width: "100%", alignItems: "center" }}>
+                    <Grid container mb={3} ml={7}>
+                        <Grid item xs={4}>
+                            <Typography variant="h6">
+                                <b>   Informasi Produk </b>
                             </Typography>
                         </Grid>
-                        <Grid item xs={3}>
-                            <Typography>
-                                <Image
-                                    src={Toko.displayPicture}
-                                    alt={Toko.nama}
-                                    height={110}
-                                    width={110}
+                        <Grid container spacing={1} ml={4} mt={2}>
+                            <Grid item xs={2}>
+                                <Typography>
+                                    Foto Produk
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={3}>
+                                <Typography>
+                                    <Image
+                                        src={Toko.displayPicture}
+                                        alt={Toko.nama}
+                                        height={110}
+                                        width={110}
+                                    />
+                                </Typography>
+                            </Grid>
+                        </Grid>
+                        <Grid container spacing={1} ml={4} mt={2}>
+                            <Grid item xs={2}>
+                                <Typography>
+                                    Nama Produk *
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={9}>
+                                <Controller
+                                    name="title"
+                                    control={control}
+                                    defaultValue=""
+                                    render={({ field: { onChange, value } }) => (
+                                        <TextField
+                                            fullWidth
+                                            required
+                                            color="secondary"
+                                            type="text"
+                                            value={value}
+                                            onChange={onChange}
+                                        />
+                                    )}
                                 />
-                            </Typography>
+                            </Grid>
+                        </Grid>
+                        <Grid container spacing={1} ml={4} mt={2}>
+                            <Grid item xs={2}>
+                                <Typography>
+                                    Deskripsi Produk *
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={9}>
+                                <Controller
+                                    name="description"
+                                    control={control}
+                                    defaultValue=""
+                                    render={({ field: { onChange, value } }) => (
+                                        <TextField
+                                            multiline
+                                            rows={4}
+                                            fullWidth
+                                            required
+                                            color="secondary"
+                                            type="text"
+                                            value={value}
+                                            onChange={onChange}
+                                        />
+                                    )}
+                                />
+                            </Grid>
                         </Grid>
                     </Grid>
-                    <Grid container spacing={1} ml={4} mt={2}>
-                        <Grid item xs={2}>
-                            <Typography>
-                                Nama Produk *
+                    <Grid container ml={7}>
+                        <Grid item xs={4}>
+                            <Typography variant="h6">
+                                <b>    Informasi Penjualan </b>
                             </Typography>
                         </Grid>
-                        <Grid item xs={9}>
-                            <TextField
-                                fullWidth
-                                required
-                                color="secondary"
-                                type="text"
-                            />
+                        <Grid container spacing={1} ml={4} mt={2}>
+                            <Grid item xs={2}>
+                                <Typography>
+                                    Harga
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={3}>
+                                <Controller
+                                    name="harga"
+                                    control={control}
+                                    defaultValue=""
+                                    render={({ field: { onChange, value } }) => (
+                                        <TextField
+                                            fullWidth
+                                            required
+                                            color="secondary"
+                                            type="number"
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start">Rp</InputAdornment>,
+                                            }}
+                                            value={value}
+                                            onChange={onChange}
+                                        />
+                                    )}
+                                />
+                            </Grid>
                         </Grid>
-                    </Grid>
-                    <Grid container spacing={1} ml={4} mt={2}>
-                        <Grid item xs={2}>
-                            <Typography>
-                                Deskripsi Produk *
-                            </Typography>
+                        <Grid container spacing={1} ml={4} mt={2}>
+                            <Grid item xs={2}>
+                                <Typography>
+                                    Stok *
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={3}>
+                                <Controller
+                                    name="stock"
+                                    control={control}
+                                    defaultValue=""
+                                    render={({ field: { onChange, value } }) => (
+                                        <TextField
+                                            fullWidth
+                                            required
+                                            color="secondary"
+                                            type="number"
+                                            value={value}
+                                            onChange={onChange}
+                                        />
+                                    )}
+                                />
+                            </Grid>
                         </Grid>
-                        <Grid item xs={9}>
-                            <TextField
-                                multiline
-                                rows={4}
-                                fullWidth
-                                required
-                                color="secondary"
-                                type="text"
-                            />
+                        <Grid container spacing={1} ml={4} mt={2} mb={4}>
+                            <Grid item xs={2}>
+                                <Typography>
+                                    Jenis Produk *
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={3}>
+                                <FormControl fullWidth>
+                                    <Controller
+                                        name="category"
+                                        control={control}
+                                        defaultValue=""
+                                        render={({ field: { onChange, value } }) => (
+                                            <Select
+                                                fullWidth
+                                                labelId="demo-simple-select-label"
+                                                id="demo-simple-select"
+                                                label="Pilih Kategori"
+                                                value={kategori}
+                                                placeholder="Pilih Disini"
+                                                required
+                                                color="secondary"
+                                                onChange={handleChange}
+                                            >
+                                                {dataCategory.map(kategori => {
+                                                    return (
+                                                        <MenuItem key={kategori.id} value={kategori.id}>{kategori.title}</MenuItem>
+                                                    )
+                                                })}
+                                            </Select>
+                                        )}
+                                    />
+                                    <InputLabel>Pilih Kategori</InputLabel>
+                                </FormControl>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </Grid>
-                <Grid container ml={7}>
-                    <Grid item xs={4}>
-                        <Typography variant = "h6">
-                        <b>    Informasi Penjualan </b>
-                        </Typography>
-                    </Grid>
-                    <Grid container spacing={1} ml={4} mt={2}>
-                        <Grid item xs={2}>
-                            <Typography>
-                                Harga
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={3}>
-                            <TextField
-                                fullWidth
-                                required
-                                color="secondary"
-                                type="text"
-                                InputProps={{
-                                    startAdornment: <InputAdornment position="start">Rp</InputAdornment>,
-                                  }}
-                            />
-                        </Grid>
-                    </Grid>
-                    <Grid container spacing={1} ml={4} mt={2}>
-                        <Grid item xs={2}>
-                            <Typography>
-                                Stok *
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={3}>
-                            <TextField
-                                fullWidth
-                                required
-                                color="secondary"
-                                type="number"
-                            />
-                        </Grid>
-                    </Grid>
-                    <Grid container spacing={1} ml={4} mt={2} mb={4}>
-                        <Grid item xs={2}>
-                            <Typography>
-                                Jenis Produk *
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={3}>
-                        <FormControl fullWidth>
-                            <InputLabel>Pilih Kategori</InputLabel>
-                                <Select
-                                    value={kategori}
-                                    onChange={handleChange}
-                                    label="Pilih Kategori"
+                        <Grid container justifyContent="center" spacing={2}>
+                            <Grid item>
+                                <Button variant="contained" color="primary" size="large"
+                                    onClick={() => router.push(`/seller/products`)}
                                 >
-                                    <MenuItem value={1}>Anyaman</MenuItem>
-                                    <MenuItem value={2}>Kerajinan Tangan</MenuItem>
-                                    <MenuItem value={3}>Makanan</MenuItem>
-                                    <MenuItem value={4}>Minuman</MenuItem>
-                                    <MenuItem value={5}>Baju</MenuItem>
-                                    <MenuItem value={6}>Perabotan</MenuItem>
-                                    <MenuItem value={7}>Celana</MenuItem>
-                                    <MenuItem value={8}>Wisata</MenuItem>
-                                </Select>
-                        </FormControl>
+                                    Buang Perubahan
+                                </Button>
+                            </Grid>
+                            <Grid item>
+                                <Button variant="contained" color="secondary" size="large"
+                                type="submit"
+                                // onClick={() => router.push(`/order/pending`)}
+                                >
+                                    Simpan
+                                </Button>
+                            </Grid>
                         </Grid>
                     </Grid>
-                    <Grid container justifyContent="center" spacing={2}>
-                        <Grid item>
-                            <Button variant="contained" color="primary" size="large"
-                            // onClick={() => router.push(`/order/pending`)}
-                            >
-                                Buang Perubahan
-                            </Button>
-                        </Grid>
-                        <Grid item>
-                            <Button variant="contained" color="secondary" size="large"
-                            // onClick={() => router.push(`/order/pending`)}
-                            >
-                                Simpan
-                            </Button>
-                        </Grid>
-                    </Grid>
-                </Grid>
+                </form>
             </SellerLayout>
         </ThemeProvider>
     )
+}
+
+export async function getServerSideProps() {
+    const response3 = await fetch(`http://103.41.205.191:10001/api/v1/category/allCategorys`);
+    const jsonCategory = await response3.json();
+
+    return {
+        props: {
+            dataCategory: jsonCategory.Categorys,
+        },
+    };
 }

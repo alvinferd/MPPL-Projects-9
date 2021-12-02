@@ -9,13 +9,14 @@ import { dispatch } from "../../utils/redux/store"
 import { readMyProduct } from "../../utils/redux/slice/product"
 import { useEffect } from "react"
 import { useSelector } from "react-redux"
+import { useRouter } from "next/router"
 
 export default function MyProducts() {
-
+    const router = useRouter();
     useEffect(() => {
         dispatch(readMyProduct());
     }, []);
-
+    // dispatch(readMyProduct());
     const myProductData = useSelector((state) => state.product.myProduct);
     // console.log(myProduct);
 
@@ -48,7 +49,7 @@ export default function MyProducts() {
                             </Button>
                         </Grid>
                         <Grid item>
-                            <Button variant="contained" color='secondary' startIcon={<ControlPointIcon />}>
+                            <Button variant="contained" color='secondary' startIcon={<ControlPointIcon />} onClick={() => router.push("productset") }>
                                 Tambah produk baru
                             </Button>
                         </Grid>
