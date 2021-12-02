@@ -147,7 +147,8 @@ export default function CartCard() {
                                                 </Grid>
                                                 <Grid item xs={3} lg={2.5} xl={1.75} sx={{ position: 'relative' }}>
                                                     <Image
-                                                        src={ApiURL + product.imageUrl}
+                                                        // src={ApiURL + product.imageUrl}
+                                                        src={(product.imageUrl) ? ApiURL + product.imageUrl : "/images/dp toko pak makmur.png"}
                                                         alt={product.namaItem}
                                                         // height={175}
                                                         // width={175}

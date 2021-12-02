@@ -33,7 +33,7 @@ export default function SearchResult() {
                             result.map(product => {
                                 return (
                                     <Grid item key={product.id} columns={60} xs={30} md={20} lg={15} xl={12}>
-                                        <CardProduct id={product.id} images={ApiURL + product.image} name={product.title} description={product.description} price={product.harga} rating={product.rating} />
+                                        <CardProduct id={product.id} images={product.image} name={product.title} description={product.description} price={product.harga} rating={product.rating} />
                                     </Grid>
                                 )
                             })

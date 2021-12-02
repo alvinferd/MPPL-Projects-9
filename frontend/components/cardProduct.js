@@ -3,6 +3,7 @@ import { Card, CardContent, CardMedia, Typography, CardActionArea, Box } from '@
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined'
 import { useRouter } from "next/router"
 import { makeStyles } from '@mui/styles'
+import { ApiURL } from '../utils/constant'
 
 const useStyles = makeStyles({
     root: {
@@ -18,7 +19,7 @@ export default function CardProduct({ id, images, name, description, price, rati
             <CardActionArea sx={{ height: "inherit", display: 'flex', justifyContent: 'flex-start', flexDirection: 'column', }}>
                 <CardMedia
                     component="img"
-                    image={images}
+                    image={(images) ? ApiURL + images : "/images/dp toko pak makmur.png"}
                     alt={name}
                     height={182}
                 />

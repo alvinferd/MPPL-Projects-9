@@ -10,7 +10,7 @@ const useStyles = makeStyles({
     }
 });
 
-export default function CardProduct({ id, images, name, description, price, rating }) {
+export default function CardProductSeller({ id, images, name, description, price, rating }) {
     const router = useRouter();
     const classes = useStyles();
     return (

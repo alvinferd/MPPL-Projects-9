@@ -117,17 +117,26 @@ export default function ProductDetail({ product, listImages, productLainToko, pr
                         <Grid item xs={12} md={5} lg={4} xl={4}>
                             <Grid container spacing={2} direction="column">
                                 <Grid item width="100%">
-                                    {listImages.length == 1 ?
-                                        <Carousel showStatus={false} showArrows={false} swipeable={true} dynamicHeight showIndicators={false} showThumbs={false} >
-                                            {listImages.map(item => {
-                                                return (
-                                                    <div key={item.id}
-                                                        style={{ position: 'relative', borderRadius: '10px', overflow: 'hidden' }}>
-                                                        <img src={ApiURL + item.image} alt={product.name} />
-                                                    </div>
-                                                )
-                                            })}
-                                        </Carousel>
+                                    {listImages.length <= 1 ?
+                                        listImages.length == 0 ?
+                                            <Carousel showStatus={false} showArrows={false} swipeable={true} dynamicHeight showIndicators={false} showThumbs={false} >
+                                                <div
+                                                    style={{ position: 'relative', borderRadius: '10px', overflow: 'hidden' }}>
+                                                    <img src="/images/dp toko pak makmur.png" alt={product.name} />
+                                                </div>
+
+                                            </Carousel>
+                                            :
+                                            <Carousel showStatus={false} showArrows={false} swipeable={true} dynamicHeight showIndicators={false} showThumbs={false} >
+                                                {listImages.map(item => {
+                                                    return (
+                                                        <div key={item.id}
+                                                            style={{ position: 'relative', borderRadius: '10px', overflow: 'hidden' }}>
+                                                            <img src={item.image} alt={product.name} />
+                                                        </div>
+                                                    )
+                                                })}
+                                            </Carousel>
                                         :
                                         <Carousel showStatus={false} showArrows={false} swipeable={true} dynamicHeight >
                                             {listImages.map(item => {

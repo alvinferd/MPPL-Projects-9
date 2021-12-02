@@ -26,6 +26,8 @@ export default function ProductSettings({ dataCategory }) {
     const addProduct = (data) => {
         // var bodyFormData = new FormData();
         data.category = kategori;
+        data.rating = 5;
+        data.terjual = 0;
         // bodyFormData.append('title', data.title);
         // bodyFormData.append('description', data.description);
         // bodyFormData.append('harga', data.harga);
