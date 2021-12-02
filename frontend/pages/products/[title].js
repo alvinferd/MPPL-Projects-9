@@ -124,7 +124,6 @@ export default function ProductDetail({ product, listImages, productLainToko, pr
                                                     style={{ position: 'relative', borderRadius: '10px', overflow: 'hidden' }}>
                                                     <img src="/images/dp toko pak makmur.png" alt={product.name} />
                                                 </div>
-
                                             </Carousel>
                                             :
                                             <Carousel showStatus={false} showArrows={false} swipeable={true} dynamicHeight showIndicators={false} showThumbs={false} >
@@ -132,7 +131,7 @@ export default function ProductDetail({ product, listImages, productLainToko, pr
                                                     return (
                                                         <div key={item.id}
                                                             style={{ position: 'relative', borderRadius: '10px', overflow: 'hidden' }}>
-                                                            <img src={item.image} alt={product.name} />
+                                                            <img src={ApiURL + item.image} alt={product.name} />
                                                         </div>
                                                     )
                                                 })}

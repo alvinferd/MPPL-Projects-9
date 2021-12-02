@@ -15,6 +15,7 @@ import { ApiURL } from '../utils/constant'
 import { useSelector } from "react-redux"
 import { dispatch } from '../utils/redux/store'
 import { updateDetailedData } from '../utils/redux/slice/user'
+import router from 'next/router'
 
 const useStyles = makeStyles({
     root: {
@@ -72,7 +73,8 @@ export default function CardProfile() {
     const generalData = useSelector((state) => state.user.generalData)
     const detailedData = useSelector((state) => state.user.detailedData)
     const myOrderData = useSelector((state) => state.order.allMyOrder)
-    // console.log(myOrderData)
+    const myFinishedOrderData = useSelector((state) => state.order.myFinishedOrder)
+    console.log(myFinishedOrderData)
     // console.log(detailedData)
 
     const [value, setValue] = React.useState(0);
@@ -740,12 +742,12 @@ export default function CardProfile() {
                                                         <Grid container spacing={1}>
                                                             <Grid item xs={12}>
                                                                 <Typography>
-                                                                    {order.namaPembeli} ({order.noHP}) 
+                                                                    {order.namaPembeli} ({order.noHP})
                                                                 </Typography>
                                                             </Grid>
                                                             <Grid item xs={12}>
                                                                 <Typography>
-                                                                    {order.updated_at.slice(0,10)}, {order.updated_at.slice(11,16)} WIB
+                                                                    {order.updated_at.slice(0, 10)}, {order.updated_at.slice(11, 16)} WIB
                                                                 </Typography>
                                                             </Grid>
                                                             <Grid item xs={12}>
@@ -759,10 +761,7 @@ export default function CardProfile() {
                                                         <Grid container>
                                                             <Grid item xs={12}>
                                                                 <label htmlFor="contained-button-file">
-                                                                    <Input accept="image/*" id="contained-button-file" multiple type="file" disabled={order.buktiPembayaran != null} />
-                                                                    {/* <Button variant="contained" component="span">
-                                                                        Upload
-                                                                    </Button> */}
+                                                                    <Input accept="image/*" id="contained-button-file" multiple type="file" disabled={order.buktiPembayaran != null} required />
                                                                 </label>
                                                             </Grid>
                                                             <Grid item xs={12}>
@@ -777,7 +776,7 @@ export default function CardProfile() {
                                                     <Button type="submit" variant="contained" color="secondary" size="large" disabled={order.buktiPembayaran != null}
                                                     // onClick={() => router.push(`/cart/pay/confirm`)}
                                                     >
-                                                      {order.buktiPembayaran == null ? "Konfirmasi" : "Pembayaran Terkonfirmasi"}
+                                                        {order.buktiPembayaran == null ? "Konfirmasi" : "Pembayaran Terkonfirmasi"}
                                                     </Button>
                                                 </Grid>
                                             </CardContent>
@@ -791,47 +790,52 @@ export default function CardProfile() {
                 </TabPanel>
                 <TabPanel value={value} index={3}>
                     <Grid container spacing={2} direction="column" mt={1}>
-                        <Grid item>
-                            <Card className={classes.root} sx={{ maxWidth: 1546 }} style={{ height: 'fit-content', boxShadow: 3 }} >
-                                <CardContent style={{ height: 'fit-content', display: "flex", flexDirection: "column", justifyContent: "space-between", alignContent: "center" }}>
-                                    <Grid container spacing={2} direction="row">
-                                        <Grid item xs={3.5} md={2} lg={1} sx={{ position: 'relative' }}>
-                                            <Image
-                                                src="/images/apel.png"
-                                                alt="Apel"
-                                                height={138}
-                                                width={156}
-                                            // layout='fill'
-                                            // objectFit='fill'
-                                            />
-                                        </Grid>
-                                        <Grid item xs={8.5} md={6} lg={6.5}>
-                                            <Grid container spacing={1}>
-                                                <Grid item xs={12}>
-                                                    <Typography>
-                                                        Apel Poncokusumo Toko Abdi Makmur Super Manis
-                                                    </Typography>
+
+                        {myFinishedOrderData.map((item) => {
+                            return (
+                                <Grid item key={item.id}>
+                                    <Card className={classes.root} sx={{ maxWidth: 1546 }} style={{ height: 'fit-content', boxShadow: 3 }} >
+                                        <CardContent style={{ height: 'fit-content', display: "flex", flexDirection: "column", justifyContent: "space-between", alignContent: "center" }}>
+                                            <Grid container spacing={2} direction="row">
+                                                <Grid item xs={3.5} md={2} lg={1} sx={{ position: 'relative' }}>
+                                                    <Image
+                                                        src={(item.imageUrl) ? ApiURL + item.imageUrl : "/images/dp toko pak makmur.png"}
+                                                        alt="Apel"
+                                                        height={138}
+                                                        width={156}
+                                                    // layout='fill'
+                                                    // objectFit='fill'
+                                                    />
                                                 </Grid>
-                                                <Grid item xs={12}>
-                                                    <Typography>
-                                                        Total Pembayaran : RP 1.050.000
-                                                    </Typography>
+                                                <Grid item xs={8.5} md={6} lg={6.5}>
+                                                    <Grid container spacing={1}>
+                                                        <Grid item xs={12}>
+                                                            <Typography>
+                                                                {item.namaItem}
+                                                            </Typography>
+                                                        </Grid>
+                                                        <Grid item xs={12}>
+                                                            <Typography>
+                                                                Total Pembayaran : {item.totalPrice.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}
+                                                            </Typography>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
+                                                <Grid item xs={12} md={4} lg={4.5}>
+                                                    <Grid container justifyContent='end' alignItems='center' sx={{ height: '100%', paddingRight: 4 }}>
+                                                        <Grid item xs={6}>
+                                                            <Button variant='contained' color='secondary' fullWidth onClick={() => router.push(`/products/${item.namaItem}`)}>
+                                                                Beli Lagi
+                                                            </Button>
+                                                        </Grid>
+                                                    </Grid>
                                                 </Grid>
                                             </Grid>
-                                        </Grid>
-                                        <Grid item xs={12} md={4} lg={4.5}>
-                                            <Grid container justifyContent='end' alignItems='center' sx={{ height: '100%', paddingRight: 4 }}>
-                                                <Grid item xs={6}>
-                                                    <Button variant='contained' color='secondary' fullWidth>
-                                                        Beli Lagi
-                                                    </Button>
-                                                </Grid>
-                                            </Grid>
-                                        </Grid>
-                                    </Grid>
-                                </CardContent>
-                            </Card>
-                        </Grid>
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+                            )
+                        })}
                     </Grid>
                 </TabPanel>
 

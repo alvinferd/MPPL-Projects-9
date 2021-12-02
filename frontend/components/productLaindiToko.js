@@ -8,7 +8,7 @@ export default function ProductLainDiToko({ productToko }) {
             <Grid container style={{ cursor: 'pointer' }} spacing={4} direction="row" alignItems="center" justifyContent="flex-start">
                 <Grid item>
                     <Image
-                        src={ApiURL + productToko.image}
+                        src={(productToko.image) ? ApiURL + productToko.image : "/images/dp toko pak makmur.png"}
                         alt={productToko.title}
                         height={70}
                         width={70}

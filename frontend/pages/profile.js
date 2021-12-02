@@ -9,7 +9,7 @@ import { userGetDetailedData, userGetGeneralData, userLogout } from "../utils/re
 import { useSelector } from "react-redux"
 import { useRouter } from "next/router"
 import { useEffect } from "react"
-import { getAllMyOrder } from "../utils/redux/slice/order"
+import { getAllMyOrder, getMyFinishedOrder } from "../utils/redux/slice/order"
 // import { cartGetData } from "../utils/redux/slice/cart"
 
 const onLogout = () => {
@@ -30,6 +30,7 @@ export default function Profile() {
             dispatch(userGetGeneralData())
             dispatch(userGetDetailedData())
             dispatch(getAllMyOrder())
+            dispatch(getMyFinishedOrder());
         } else {
             router.replace('/login');
         }
