@@ -11,6 +11,7 @@ const orderSlice = createSlice({
         lastConfirmedOrder: [],
         allMyOrder: [],
         myFinishedOrder: [],
+        allMyItemOrder: [],
     },
     reducers: {
         makeOrderSet: (state, action) => ({
@@ -29,10 +30,14 @@ const orderSlice = createSlice({
             ...state,
             myFinishedOrder: action.payload ?? [],
         }),
+        allMyItemOrderSet: (state, action) => ({
+            ...state,
+            allMyItemOrder: action.payload ?? [],
+        }),
     }
 });
 
-export const { makeOrderSet, lastConfirmedOrderSet, allMyOrderSet, myFinishedOrderSet } = orderSlice.actions;
+export const { makeOrderSet, lastConfirmedOrderSet, allMyOrderSet, myFinishedOrderSet, allMyItemOrderSet } = orderSlice.actions;
 export default orderSlice.reducer;
 
 export const createNewOrder = createAsyncThunk(
@@ -86,6 +91,26 @@ export const getMyFinishedOrder = createAsyncThunk(
             .then((res) => {
                 // console.log(res);
                 dispatch(myFinishedOrderSet(res.OrderItems));
+            })
+            .catch((err) => {
+                dispatch(alertSetError(true));
+                dispatch(alertSetMessage(err.message));
+            })
+            .finally(() => {
+                dispatch(loadingSet(false));
+            })
+    }
+)
+
+export const getMyItemOrder = createAsyncThunk(
+    'order/getMyItemOrder',
+    async (_, { dispatch }) => {
+        dispatch(loadingSet(true));
+        return baseApi
+            .get("/api/v1/order/UserOrderItem",)
+            .then((res) => {
+                console.log(res);
+                dispatch(allMyItemOrderSet(res.OrderItems))
             })
             .catch((err) => {
                 dispatch(alertSetError(true));

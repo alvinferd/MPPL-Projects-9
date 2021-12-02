@@ -10,6 +10,10 @@ import { useRouter } from "next/router"
 import { useForm, Controller } from "react-hook-form"
 import { red } from "@mui/material/colors"
 import Link from 'next/link'
+import { useSelector } from 'react-redux';
+import { dispatch } from '../../utils/redux/store';
+import { getMyItemOrder } from '../../utils/redux/slice/order';
+import { ApiURL } from '../../utils/constant';
 
 const useStyles = makeStyles({
     root: {
@@ -23,6 +27,21 @@ const onSubmit = (data) => {
 };
 
 export default function OrderPending() {
+    const authenticated = useSelector((state) => state.user.authenticated)
+    const isUser = useSelector((state) => state.user.current.is_user)
+    const isSeller = useSelector((state) => state.user.current.is_seller)
+    const myItemOrder = useSelector((state) => state.order.allMyItemOrder)
+    console.log(myItemOrder);
+
+    React.useEffect(() => {
+        if (authenticated) {
+            if (isSeller) router.replace("/seller/Home");
+            dispatch(getMyItemOrder());
+        } else {
+            router.replace('/login');
+        }
+    }, [authenticated, isUser, isSeller]);
+
     const { control, handleSubmit } = useForm();
 
     const [openCancelDialog, setOpenCancelDialog] = React.useState(false);
@@ -59,7 +78,7 @@ export default function OrderPending() {
         <ThemeProvider theme={theme}>
             <Layout>
                 <Head>
-                    <title>Selesaikan Pembayaran | Poncolapak</title>
+                    <title>Pesanan Kamu | Poncolapak</title>
                     <meta name="viewport" content="initial-scale=1, width=device-width" />
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
@@ -68,245 +87,137 @@ export default function OrderPending() {
                         <b>Pesanan Anda</b>
                     </Typography>
                     <Grid container spacing={2} direction="column">
-                        <Grid item>
-                            <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%", alignItems: "center" }}>
-                                <Card className={classes.root} sx={{ maxWidth: 1546 }} style={{ height: 'fit-content', boxShadow: 3 }} >
-                                    <CardContent style={{ height: 'fit-content', display: "flex", flexDirection: "column", justifyContent: "space-between", alignContent: "center" }}>
-                                        <Grid container spacing={2} direction="row">
-                                            <Grid item xs={3.5} md={2} lg={1} sx={{ position: 'relative' }}>
-                                                <Image
-                                                    src="/images/apel.png"
-                                                    alt="Apel"
-                                                    height={138}
-                                                    width={156}
-                                                // layout='fill'
-                                                // objectFit='fill'
-                                                />
-                                            </Grid>
-                                            <Grid item xs={8.5} md={7} lg={9}>
-                                                <Grid container spacing={1}>
-                                                    <Grid item xs={12}>
-                                                        <Typography fontWeight='600'>
-                                                            Apel Poncokusumo Toko Abdi Makmur Super Manis
-                                                        </Typography>
+                        {myItemOrder.map((item) => {
+                            return (
+                                <Grid item key={item.id}>
+                                    <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%", alignItems: "center" }}>
+                                        <Card className={classes.root} sx={{ maxWidth: 1546 }} style={{ height: 'fit-content', boxShadow: 3 }} >
+                                            <CardContent style={{ height: 'fit-content', display: "flex", flexDirection: "column", justifyContent: "space-between", alignContent: "center" }}>
+                                                <Grid container spacing={2} direction="row">
+                                                    <Grid item xs={3.5} md={2} lg={1} sx={{ position: 'relative' }}>
+                                                        <Image
+                                                            src={(item.imageUrl) ? ApiURL + item.imageUrl : "/images/dp toko pak makmur.png"}
+                                                            alt={item.namaItem}
+                                                            height={138}
+                                                            width={156}
+                                                        // layout='fill'
+                                                        // objectFit='fill'
+                                                        />
                                                     </Grid>
-                                                    <Grid item xs={12}>
-                                                        <Typography variant="body2">
-                                                            Toko Abdi Makmur
-                                                        </Typography>
-                                                    </Grid>
-                                                    <Grid item xs={12}>
-                                                        <Grid container columnSpacing={1}>
-                                                            <Grid item>
+                                                    <Grid item xs={8.5} md={7} lg={9}>
+                                                        <Grid container spacing={1}>
+                                                            <Grid item xs={12}>
                                                                 <Typography fontWeight='600'>
-                                                                    Total Pembayaran :
+                                                                    {item.namaItem}
                                                                 </Typography>
                                                             </Grid>
-                                                            <Grid item>
-                                                                <Typography color="text.quaternary" fontWeight='600'>
-                                                                    RP 1.050.000
+                                                            <Grid item xs={12}>
+                                                                <Typography variant="body2">
+                                                                    {item.namaToko}
                                                                 </Typography>
+                                                            </Grid>
+                                                            <Grid item xs={12}>
+                                                                <Grid container columnSpacing={1}>
+                                                                    <Grid item>
+                                                                        <Typography fontWeight='600'>
+                                                                            Total Pembayaran :
+                                                                        </Typography>
+                                                                    </Grid>
+                                                                    <Grid item>
+                                                                        <Typography color="text.quaternary" fontWeight='600'>
+                                                                            {item.totalPrice.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}
+                                                                        </Typography>
+                                                                    </Grid>
+                                                                </Grid>
+                                                            </Grid>
+                                                            <Grid item xs={12} display={{ md: 'block', xs: 'none' }}>
+                                                                <Grid container columnSpacing={1}>
+                                                                    <Grid item>
+                                                                        <Typography fontWeight='600'>
+                                                                            Status :
+                                                                        </Typography>
+                                                                    </Grid>
+                                                                    <Grid item marginRight={1}>
+                                                                        <Typography fontWeight='600'>
+                                                                            {(item.status) == 1 ? "Menunggu Pembayaran"
+                                                                                : (item.status) == 2 ? "Telah Dibayar"
+                                                                                    : (item.status) == 3 ? "Sedang Dikirim"
+                                                                                        : "Pesanan Telah Diterima"
+                                                                            }
+                                                                        </Typography>
+                                                                    </Grid>
+                                                                    <Grid item display={item.status == 3 ? 'inherit' : 'none'}>
+                                                                        <Link href={`/tracking`} passHref >
+                                                                            <MUILink variant="body1" underline="none" color="text.tertiary">
+                                                                                <b>Lacak</b>
+                                                                            </MUILink>
+                                                                        </Link>
+                                                                    </Grid>
+                                                                </Grid>
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
-                                                    <Grid item xs={12} display={{ md: 'block', xs: 'none' }}>
-                                                        <Grid container columnSpacing={1}>
-                                                            <Grid item>
-                                                                <Typography fontWeight='600'>
-                                                                    Status :
-                                                                </Typography>
+                                                    <Grid item xs={12} md={3} lg={2}>
+                                                        <Grid container spacing={2} alignItems='center' justifyContent='center'>
+                                                            <Grid item xs={12} display={{ md: 'none', xs: 'block' }}>
+                                                                <Grid container columnSpacing={1}>
+                                                                    <Grid item>
+                                                                        <Typography fontWeight='600'>
+                                                                            Status :
+                                                                        </Typography>
+                                                                    </Grid>
+                                                                    <Grid item marginRight={1}>
+                                                                        <Typography fontWeight='600'>
+                                                                            {(item.status) == 1 ? "Menunggu Pembayaran"
+                                                                                : (item.status) == 2 ? "Telah Dibayar"
+                                                                                    : (item.status) == 3 ? "Sedang Dikirim"
+                                                                                        : "Pesanan Telah Diterima"
+                                                                            }
+                                                                        </Typography>
+                                                                    </Grid>
+                                                                    <Grid item>
+                                                                        <Link href={`/tracking`} passHref >
+                                                                            <MUILink variant="body1" underline="none" color="text.tertiary">
+                                                                                <b>Lacak</b>
+                                                                            </MUILink>
+                                                                        </Link>
+                                                                    </Grid>
+                                                                </Grid>
                                                             </Grid>
-                                                            <Grid item marginRight={1}>
-                                                                <Typography fontWeight='600'>
-                                                                    Pemesanan sudah di konfirmasi oleh penjual
-                                                                </Typography>
-                                                            </Grid>
-                                                            <Grid item>
-                                                                <Link href={`/tracking`} passHref >
-                                                                    <MUILink variant="body1" underline="none" color="text.tertiary">
-                                                                        <b>Lacak</b>
-                                                                    </MUILink>
-                                                                </Link>
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                            <Grid item xs={12} md={3} lg={2}>
-                                                <Grid container spacing={2} alignItems='center' justifyContent='center'>
-                                                    <Grid item xs={12} display={{ md: 'none', xs: 'block' }}>
-                                                        <Grid container columnSpacing={1}>
-                                                            <Grid item>
-                                                                <Typography fontWeight='600'>
-                                                                    Status :
-                                                                </Typography>
-                                                            </Grid>
-                                                            <Grid item marginRight={1}>
-                                                                <Typography fontWeight='600'>
-                                                                    Pemesanan sudah di konfirmasi oleh penjual
-                                                                </Typography>
-                                                            </Grid>
-                                                            <Grid item>
-                                                                <Link href={`/tracking`} passHref >
-                                                                    <MUILink variant="body1" underline="none" color="text.tertiary">
-                                                                        <b>Lacak</b>
-                                                                    </MUILink>
-                                                                </Link>
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
-                                                    <Grid item xs={12} display={{ md: 'block', xs: 'none' }}>
-                                                        <Button variant='contained' color='secondary' onClick={handleOpenDeliv}>
-                                                            Barang Diterima
-                                                        </Button>
-                                                    </Grid>
-                                                    <Grid item xs={12} display={{ md: 'block', xs: 'none' }}>
-                                                        <Button variant='text' color='error' onClick={handleOpenCancel}>
-                                                            Batalkan Pesanan
-                                                        </Button>
-                                                    </Grid>
-                                                    <Grid item xs={12} marginTop={2} display={{ md: 'none', xs: 'block' }}>
-                                                        <Grid container columnSpacing={2} justifyContent='center' sx={{ height: '100%' }}>
-                                                            <Grid item>
-                                                                <Button variant='contained' color='secondary' onClick={handleOpenDeliv}>
+                                                            <Grid item xs={12} display={{ md: 'block', xs: 'none' }}>
+                                                                <Button variant='contained' color='secondary' onClick={handleOpenDeliv} disabled={item.status == 4}>
                                                                     Barang Diterima
                                                                 </Button>
                                                             </Grid>
-                                                            <Grid item>
-                                                                <Button variant='text' color='error' onClick={handleOpenCancel}>
+                                                            <Grid item xs={12} display={{ md: 'block', xs: 'none' }}>
+                                                                <Button variant='text' color='error' onClick={handleOpenCantCancel} disabled={item.status >= 2}>
                                                                     Batalkan Pesanan
                                                                 </Button>
                                                             </Grid>
-                                                        </Grid>
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                        </Grid>
-
-                                    </CardContent>
-                                </Card>
-                            </form>
-                        </Grid>
-                        <Grid item>
-                            <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%", alignItems: "center" }}>
-                                <Card className={classes.root} sx={{ maxWidth: 1546 }} style={{ height: 'fit-content', boxShadow: 3 }} >
-                                    <CardContent style={{ height: 'fit-content', display: "flex", flexDirection: "column", justifyContent: "space-between", alignContent: "center" }}>
-                                        <Grid container spacing={2} direction="row">
-                                            <Grid item xs={3.5} md={2} lg={1} sx={{ position: 'relative' }}>
-                                                <Image
-                                                    src="/images/apel.png"
-                                                    alt="Apel"
-                                                    height={138}
-                                                    width={156}
-                                                // layout='fill'
-                                                // objectFit='fill'
-                                                />
-                                            </Grid>
-                                            <Grid item xs={8.5} md={7} lg={9}>
-                                                <Grid container spacing={1}>
-                                                    <Grid item xs={12}>
-                                                        <Typography fontWeight='600'>
-                                                            Apel Poncokusumo Toko Abdi Makmur Super Manis
-                                                        </Typography>
-                                                    </Grid>
-                                                    <Grid item xs={12}>
-                                                        <Typography variant="body2">
-                                                            Toko Abdi Makmur
-                                                        </Typography>
-                                                    </Grid>
-                                                    <Grid item xs={12}>
-                                                        <Grid container columnSpacing={1}>
-                                                            <Grid item>
-                                                                <Typography fontWeight='600'>
-                                                                    Total Pembayaran :
-                                                                </Typography>
-                                                            </Grid>
-                                                            <Grid item>
-                                                                <Typography color="text.quaternary" fontWeight='600'>
-                                                                    RP 1.050.000
-                                                                </Typography>
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
-                                                    <Grid item xs={12} display={{ md: 'block', xs: 'none' }}>
-                                                        <Grid container columnSpacing={1}>
-                                                            <Grid item>
-                                                                <Typography fontWeight='600'>
-                                                                    Status :
-                                                                </Typography>
-                                                            </Grid>
-                                                            <Grid item marginRight={1}>
-                                                                <Typography fontWeight='600'>
-                                                                    Pemesanan sudah di konfirmasi oleh penjual
-                                                                </Typography>
-                                                            </Grid>
-                                                            <Grid item>
-                                                                <Link href={`/tracking`} passHref >
-                                                                    <MUILink variant="body1" underline="none" color="text.tertiary">
-                                                                        <b>Lacak</b>
-                                                                    </MUILink>
-                                                                </Link>
+                                                            <Grid item xs={12} marginTop={2} display={{ md: 'none', xs: 'block' }}>
+                                                                <Grid container columnSpacing={2} justifyContent='center' sx={{ height: '100%' }}>
+                                                                    <Grid item>
+                                                                        <Button variant='contained' color='secondary' onClick={handleOpenDeliv} disabled={item.status == 4}>
+                                                                            Barang Diterima
+                                                                        </Button>
+                                                                    </Grid>
+                                                                    <Grid item>
+                                                                        <Button variant='text' color='error' onClick={handleOpenCantCancel} disabled={item.status >= 2}>
+                                                                            Batalkan Pesanan
+                                                                        </Button>
+                                                                    </Grid>
+                                                                </Grid>
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
                                                 </Grid>
-                                            </Grid>
-                                            <Grid item xs={12} md={3} lg={2}>
-                                                <Grid container spacing={2} alignItems='center' justifyContent='center'>
-                                                    <Grid item xs={12} display={{ md: 'none', xs: 'block' }}>
-                                                        <Grid container columnSpacing={1}>
-                                                            <Grid item>
-                                                                <Typography fontWeight='600'>
-                                                                    Status :
-                                                                </Typography>
-                                                            </Grid>
-                                                            <Grid item marginRight={1}>
-                                                                <Typography fontWeight='600'>
-                                                                    Pemesanan sudah di konfirmasi oleh penjual
-                                                                </Typography>
-                                                            </Grid>
-                                                            <Grid item>
-                                                                <Link href={`/tracking`} passHref >
-                                                                    <MUILink variant="body1" underline="none" color="text.tertiary">
-                                                                        <b>Lacak</b>
-                                                                    </MUILink>
-                                                                </Link>
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
-                                                    <Grid item xs={12} display={{ md: 'block', xs: 'none' }}>
-                                                        <Button variant='contained' color='secondary' onClick={handleOpenDeliv}>
-                                                            Barang Diterima
-                                                        </Button>
-                                                    </Grid>
-                                                    <Grid item xs={12} display={{ md: 'block', xs: 'none' }}>
-                                                        <Button variant='text' color='error' onClick={handleOpenCantCancel}>
-                                                            Batalkan Pesanan
-                                                        </Button>
-                                                    </Grid>
-                                                    <Grid item xs={12} marginTop={2} display={{ md: 'none', xs: 'block' }}>
-                                                        <Grid container columnSpacing={2} justifyContent='center' sx={{ height: '100%' }}>
-                                                            <Grid item>
-                                                                <Button variant='contained' color='secondary' onClick={handleOpenDeliv}>
-                                                                    Barang Diterima
-                                                                </Button>
-                                                            </Grid>
-                                                            <Grid item>
-                                                                <Button variant='text' color='error' onClick={handleOpenCantCancel}>
-                                                                    Batalkan Pesanan
-                                                                </Button>
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                        </Grid>
 
-                                    </CardContent>
-                                </Card>
-                            </form>
-                        </Grid>
-
+                                            </CardContent>
+                                        </Card>
+                                    </form>
+                                </Grid>
+                            )
+                        })}
 
                     </Grid>
 
