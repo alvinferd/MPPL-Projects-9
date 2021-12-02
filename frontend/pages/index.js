@@ -19,7 +19,7 @@ export default function Home({ dataProducts, dataWisata, dataCategory }) {
       <Layout>
         <Head>
           <title>Poncolapak</title>
-          <meta name="viewport" content="initial-scale=1, width=device-width" />
+          <meta name="viewport" httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests"/>
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Container maxWidth="1788px" id="carousel-images" sx={{ height: { xl: "668px" }, width: { xl: "1788px" }, marginY: 4 }}>
