@@ -8,7 +8,7 @@ import { spacing } from '@mui/system'
 import Toko from "../../utils/dummy/Toko"
 import Image from 'next/image'
 
-export default function ProductSettings() {
+export default function ShipmentSettings() {
 
     const [jenisEkspedisi, setEkspedisi] = React.useState('');
 
@@ -39,59 +39,121 @@ export default function ProductSettings() {
                         <Typography color="text.quaternary">Pengaturan Pengiriman</Typography>
                     </Breadcrumbs>
                 </Container>
-                <Grid container mb={3} ml={7} xs={6}>
-                    <Grid item xs={4}>
-                        <Typography variant = "h6">
-                         <b>   Informasi Produk </b>
-                        </Typography>
-                    </Grid>
-                    <Grid container spacing={1} ml={4} mt={2} alignItems='center' justifyItems='center'>
-                        <Grid item xs={3}>
-                            <Typography>
-                                Jasa Pengiriman *
+                <Grid container mt={1} ml={5}>
+                    <Grid item xs={6}>
+                        <Grid container spacing={1} ml={2} mt={2}>
+                            <Typography variant = "h6">
+                            <b>   Informasi Produk </b>
                             </Typography>
                         </Grid>
-                        <Grid item xs={8}>
-                            <FormControl fullWidth>
-                                <InputLabel>Pilih Ekspedisi</InputLabel>
-                                    <Select
-                                        value={jenisEkspedisi}
-                                        onChange={handleChange}
-                                        label="Pilih Ekspedisi"
-                                    >
-                                        <MenuItem value={1}>JNE YES</MenuItem>
-                                        <MenuItem value={2}>JNE REG</MenuItem>
-                                        <MenuItem value={3}>JNE OKE</MenuItem>
-                                        <MenuItem value={4}>JNT Express</MenuItem>
-                                        <MenuItem value={5}>JNT Reguler</MenuItem>
-                                    </Select>
-                            </FormControl>
+                        <Grid container spacing={1} ml={2} mt={2} alignItems='center' justifyItems='center'>
+                            <Grid item xs={3}>
+                                <Typography>
+                                    Jasa Pengiriman *
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={8}>
+                                <FormControl fullWidth>
+                                    <InputLabel>Pilih Ekspedisi</InputLabel>
+                                        <Select
+                                            value={jenisEkspedisi}
+                                            onChange={handleChange}
+                                            label="Pilih Ekspedisi"
+                                        >
+                                            <MenuItem value={1}>JNE YES</MenuItem>
+                                            <MenuItem value={2}>JNE REG</MenuItem>
+                                            <MenuItem value={3}>JNE OKE</MenuItem>
+                                            <MenuItem value={4}>JNT Express</MenuItem>
+                                            <MenuItem value={5}>JNT Reguler</MenuItem>
+                                        </Select>
+                                </FormControl>
+                            </Grid>
+                        </Grid>
+                        <Grid container spacing={1} ml={2} mt={2} alignItems='center' justifyItems='center'>
+                            <Grid item xs={3}>
+                                <Typography>
+                                    Nomor Resi *
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={8}>
+                                <TextField
+                                    multiline
+                                    rows={4}
+                                    fullWidth
+                                    required
+                                    color="secondary"
+                                    type="text"
+                                />
+                            </Grid>
+                        </Grid>
+                        <Grid container justifyContent="center" spacing={2} mt={1}>
+                            <Grid item>
+                                <Button variant="contained" color="secondary" size="large"
+                                // onClick={() => router.push(`/order/pending`)}
+                                >
+                                    Simpan
+                                </Button>
+                            </Grid>
                         </Grid>
                     </Grid>
-                    <Grid container spacing={1} ml={4} mt={2} alignItems='center' justifyItems='center'>
-                        <Grid item xs={3}>
-                            <Typography>
-                                Nomor Resi *
-                            </Typography>
+                    <Grid item xs={6} mt={9}>
+                        <Grid container ml={5} direction='row' mb={2}>
+                            <Grid item xs={1}>
+                                <Image
+                                    src='/images/MapPin.png'
+                                    alt='MapPin'
+                                    height={30}
+                                    width={30}
+                                />
+                            </Grid>
+                            <Grid item xs={9}>
+                                <Grid container direction='column'>
+                                    <Grid item>
+                                        <Typography variant = "body1">
+                                        <b> Alamat Pengiriman </b>
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item mt={0.5} xs={8}>
+                                        <Typography variant = "body2">
+                                        Kepala Desa, 628222324241
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item mt={0.5}>
+                                        <Typography variant = "body2">
+                                        Jalan Pagedangan, Tambakaji-Ngaliyan, Semarang , KOTA SEMARANG, NGALIYAN, JAWA TENGAH, ID, 50185
+                                        </Typography>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
                         </Grid>
-                        <Grid item xs={8}>
-                            <TextField
-                                multiline
-                                rows={4}
-                                fullWidth
-                                required
-                                color="secondary"
-                                type="text"
-                            />
-                        </Grid>
-                    </Grid>
-                    <Grid container justifyContent="center" spacing={2} mt={1}>
-                        <Grid item>
-                            <Button variant="contained" color="secondary" size="large"
-                            // onClick={() => router.push(`/order/pending`)}
-                            >
-                                Simpan
-                            </Button>
+                        <Grid container ml={5} direction='row'>
+                            <Grid item xs={1}>
+                                <Image
+                                    src='/images/Storefront.png'
+                                    alt='Toko'
+                                    height={30}
+                                    width={30}
+                                />
+                            </Grid>
+                            <Grid item xs={9}>
+                                <Grid container direction='column'>
+                                    <Grid item>
+                                        <Typography variant = "body1">
+                                        <b> Alamat Toko </b>
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item mt={0.5}>
+                                        <Typography variant = "body2">
+                                        {Toko.nama}, {Toko.contact}
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item mt={0.5}>
+                                        <Typography variant = "body2">
+                                        {Toko.lokasi}
+                                        </Typography>
+                                    </Grid>
+                                </Grid>
+                            </Grid> 
                         </Grid>
                     </Grid>
                 </Grid>

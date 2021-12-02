@@ -71,6 +71,22 @@ const classes = useStyles();
                                 <Grid container spacing={1} ml={1} mt={1} direction='row' alignItems='center' justifyItems='center'>
                                     <Grid item xs={2}>
                                         <Typography>
+                                            Nomor Telepon *
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={10}>
+                                        <TextField
+                                            fullWidth
+                                            required
+                                            color="secondary"
+                                            type="text"
+                                            value={Toko.contact}
+                                        />
+                                    </Grid>
+                                </Grid>
+                                <Grid container spacing={1} ml={1} mt={1} direction='row' alignItems='center' justifyItems='center'>
+                                    <Grid item xs={2}>
+                                        <Typography>
                                             Lokasi Toko *
                                         </Typography>
                                     </Grid>
