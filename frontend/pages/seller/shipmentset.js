@@ -4,7 +4,6 @@ import { ThemeProvider } from '@emotion/react'
 import theme from '../../themes/default'
 import SellerLayout from '../../layout/defaultSeller'
 import { Container, Typography, Breadcrumbs, Box, Button, Link as MUILink, Grid, TextField, InputLabel, FormControl, InputAdornment, SliderUnstyledComponentsPropsOverrides, MenuItem, Select} from '@mui/material'
-import { spacing } from '@mui/system'
 import Toko from "../../utils/dummy/Toko"
 import Image from 'next/image'
 
@@ -20,7 +19,7 @@ export default function ShipmentSettings() {
         <ThemeProvider theme={theme}>
             <SellerLayout>
                 <Head>
-                    <title> Nama Toko | Poncolapak</title>
+                    <title> Pengaturan Pengiriman | Poncolapak</title>
                     <meta name="viewport" content="initial-scale=1, width=device-width" />
                     <link rel="icon" href="/favicon.ico" />
                 </Head>

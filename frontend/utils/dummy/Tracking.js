@@ -56,7 +56,19 @@ const TrackingResult = {
             time: '23.00',
             detail: 'Barang sudah sampai dan terkirim ke Pak Sofyan (Jakarta)'
         },
-    ]
+    ],
+    fixPrice: '3.000.000',
+    receivedDate: '19/11/2021',
+    orderNo: '183701203024014',
+    payment: 'Transfer Bank - BCA',
+    deliveryService: 'J&T Express',
+    receiptNo: '#12030292039231',
+    buyer: {
+        name: 'Si Gadis',
+        phoneNumber: '628222324241',
+        email: 'sigadis@email.com',
+        address: 'Jalan Puncaksari, Tambakaji-Ngaliyan, Semarang , KOTA SEMARANG, NGALIYAN, JAWA TENGAH, ID, 50185'
+    }
 }
 
 export default TrackingResult;
