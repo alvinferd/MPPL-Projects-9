@@ -9,6 +9,7 @@ const orderSlice = createSlice({
     initialState: {
         makeOrder: [],
         lastConfirmedOrder: [],
+        allMyOrder: [],
     },
     reducers: {
         makeOrderSet: (state, action) => ({
@@ -19,10 +20,14 @@ const orderSlice = createSlice({
             ...state,
             lastConfirmedOrder: action.payload ?? [],
         }),
+        allMyOrderSet: (state, action) => ({
+            ...state,
+            allMyOrder: action.payload ?? [],
+        }),
     }
 });
 
-export const { makeOrderSet, lastConfirmedOrderSet } = orderSlice.actions;
+export const { makeOrderSet, lastConfirmedOrderSet, allMyOrderSet } = orderSlice.actions;
 export default orderSlice.reducer;
 
 export const createNewOrder = createAsyncThunk(
@@ -36,6 +41,26 @@ export const createNewOrder = createAsyncThunk(
                 router.push("/profile");
                 dispatch(alertSetSuccess(true));
                 dispatch(alertSetMessage("Pemesanan Berhasil, silahkan upload bukti pembayaran pada Laman Profile!"))
+            })
+            .catch((err) => {
+                dispatch(alertSetError(true));
+                dispatch(alertSetMessage(err.message));
+            })
+            .finally(() => {
+                dispatch(loadingSet(false));
+            })
+    }
+)
+
+export const getAllMyOrder = createAsyncThunk(
+    'order/getAllMyOrder',
+    async (_, { dispatch }) => {
+        dispatch(loadingSet(true));
+        return baseApi
+            .get("/api/v1/order/UserOrder",)
+            .then((res) => {
+                // console.log(res);
+                dispatch(allMyOrderSet(res.Orders));
             })
             .catch((err) => {
                 dispatch(alertSetError(true));
