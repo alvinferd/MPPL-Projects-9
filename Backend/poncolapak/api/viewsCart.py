@@ -78,6 +78,26 @@ def add_Cart(request, *args, **kwargs):
     else:
       return Response(Cart_serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
 
+@api_view(["PUT"])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def update_quantity(request, cart_id):
+    user = request.user.id
+    Carts = Cart.objects.filter(user=user, id=cart_id)
+    id_produk = CartSerializer(Carts, many=True).data[0]["item"]
+    harga_produk = ProductSerializer(Product.objects.filter(id=id_produk), many=True).data[0]["harga"]
+    payload = {"quantity": request.data["quantity"], "totalPrice": int(harga_produk)*int(request.data["quantity"])}
+    Carts.update(**payload)
+    CartObj = Cart.objects.get(id=cart_id)
+    Cart_serializer = CartSerializer(CartObj)
+    user = request.user.id
+    Carts = Cart.objects.filter(user=user, checkout=True)
+    serializer = CartSerializer(Carts, many=True)
+    totalHarga = 0
+    for i in serializer.data:
+        totalHarga += i["totalPrice"]
+    return  JsonResponse({'Carts': serializer.data, 'totalHarga': totalHarga}, safe=False, status=status.HTTP_200_OK)
+
 @api_view(["POST"])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
@@ -89,6 +109,31 @@ def checkout_true(request,  cart_id):
     CartObj = Cart.objects.get(id=cart_id)
     Cart_serializer = CartSerializer(CartObj)
     return Response(Cart_serializer.data, status=status.HTTP_200_OK)
+
+@api_view(["POST"])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def checkout_all_false(request):
+    user = request.user.id
+    payload = {"checkout":False}
+    Carts = Cart.objects.filter(user=user)
+    Carts.update(**payload)
+    Carts = Cart.objects.filter(user=user)
+    Cart_serializers = CartSerializer(Carts, many=True)
+    return Response(Cart_serializers.data, status=status.HTTP_200_OK)
+
+
+@api_view(["POST"])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def checkout_all_true(request):
+    user = request.user.id
+    payload = {"checkout":True}
+    Carts = Cart.objects.filter(user=user)
+    Carts.update(**payload)
+    Carts = Cart.objects.filter(user=user)
+    Cart_serializers = CartSerializer(Carts, many=True)
+    return Response(Cart_serializers.data, status=status.HTTP_200_OK)
 
 @api_view(["POST"])
 @authentication_classes([TokenAuthentication])

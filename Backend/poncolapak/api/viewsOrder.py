@@ -55,7 +55,7 @@ def makeOrder(request, *args, **kwargs):
         hasil.append(req)
         if orderitem_serializer.is_valid():
             orderitem_serializer.save()
-
+    Carts.delete()
     return JsonResponse({'Order': order_serializer.data, "OrderItem":hasil}, safe=False, status=status.HTTP_200_OK)
 
 @api_view(["GET"])
@@ -76,3 +76,40 @@ def allUserOrderItem(request, *args, **kwargs):
     serializer = OrderItemSerializer(Orders, many=True)
     return JsonResponse({'OrderItems': serializer.data}, safe=False, status=status.HTTP_200_OK)
 
+@api_view(["GET"])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def allSellerOrderItem(request, *args, **kwargs):
+    user = request.user.id
+    Orders = OrderItem.objects.filter(seller=user)
+    serializer = OrderItemSerializer(Orders, many=True)
+    return JsonResponse({'OrderItems': serializer.data}, safe=False, status=status.HTTP_200_OK)
+
+@api_view(["GET"])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def allUserOrderItemPerOrder(request, Order_id, *args, **kwargs):
+    user = request.user.id
+    Orders = OrderItem.objects.filter(user=user, orderid=Order_id)
+    serializer = OrderItemSerializer(Orders, many=True)
+    return JsonResponse({'OrderItems': serializer.data}, safe=False, status=status.HTTP_200_OK)
+
+@api_view(["GET"])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def allUserOrderItemPerStatus(request, Status_id, *args, **kwargs):
+    user = request.user.id
+    Orders = OrderItem.objects.filter(user=user, status=Status_id)
+    serializer = OrderItemSerializer(Orders, many=True)
+    return JsonResponse({'OrderItems': serializer.data}, safe=False, status=status.HTTP_200_OK)
+
+@api_view(["PUT"])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def UpdateOrderItemStatus(request, OrderItemid, *args, **kwargs):
+    Orders = OrderItem.objects.filter(id=OrderItemid)
+    payload = {"status":request.data["status"]}
+    Orders.update(**payload)
+    Orders = OrderItem.objects.filter(id=OrderItemid)
+    serializer = OrderItemSerializer(Orders, many=True)
+    return JsonResponse({'OrderItems': serializer.data}, safe=False, status=status.HTTP_200_OK)

@@ -28,11 +28,18 @@ urlpatterns = [
   path('cart/userCartCentang', viewsCart.user_Carts_centang),
   path('cart/checkoutFalse/<int:cart_id>', viewsCart.checkout_false),
   path('cart/checkoutTrue/<int:cart_id>', viewsCart.checkout_true),
+  path('cart/updateQuantity/<int:cart_id>', viewsCart.update_quantity),
   path('cart/deleteCart/<int:Cart_id>', viewsCart.delete_Cart),
+  path('cart/checkoutAllTrue', viewsCart.checkout_all_true),
+  path('cart/checkoutAllFalse', viewsCart.checkout_all_false),
 
   path('order/makeOrder', viewsOrder.makeOrder),
   path('order/UserOrder', viewsOrder.allUserOrder),
   path('order/UserOrderItem', viewsOrder.allUserOrderItem),
+  path('order/SellerOrderItem', viewsOrder.allSellerOrderItem),
+  path('order/UserOrderItemPerOrder/<int:Order_id>', viewsOrder.allUserOrderItemPerOrder),
+  path('order/UserOrderItemPerStatus/<int:Status_id>', viewsOrder.allUserOrderItemPerStatus),
+  path('order/UpdateOrderItemStatus/<int:OrderItemid>', viewsOrder.UpdateOrderItemStatus),
 
   path('addCustomer', viewsUser.add_Customer),
   path('addSeller', viewsUser.add_Seller),

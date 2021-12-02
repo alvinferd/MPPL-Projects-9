@@ -56,7 +56,7 @@ class Product(models.Model):
 class Cart(models.Model):
     user = models.ForeignKey(Customer, on_delete=models.CASCADE)
     item = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.IntegerField(null=False)
+    quantity = models.IntegerField(null=False, blank=True)
     totalPrice = models.IntegerField( blank=True, null=True)
     checkout = models.BooleanField(default = 0)
     imageUrl = models.CharField(max_length=200, null=True)
@@ -89,6 +89,7 @@ class Order(models.Model):
     user = models.ForeignKey(Customer, on_delete=models.CASCADE)
     namaPembeli = models.CharField(max_length=100)
     noHP = models.CharField(max_length=100)
+    alamat = models.CharField(max_length=300, null=True, blank=True)
     emailPembeli = models.CharField(max_length=100)
     catatanPenjual = models.CharField(max_length=500, null=True, blank=True)
     totalHarga = models.IntegerField(null=True, blank=True)
