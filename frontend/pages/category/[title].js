@@ -26,7 +26,7 @@ export default function ProductInCategoryPage({ productInCategory, category }) {
                         <Typography color="text.quaternary">{category[0].title}</Typography>
                     </Breadcrumbs>
                 </Container>
-                <Container maxWidth="1920" id="list-product" sx={{ width: "fit-content", marginX: { xs: 1, md: 2, xl: 4 }, marginY: 4 }}>
+                <Container maxWidth="1920" id="list-product" sx={{ width: "85vw", marginX: { xs: 1, md: 2, xl: 4 }, marginY: 4 }}>
                     <Grid container spacing={{ xs: 2, lg: 3, xl: 4 }} direction="row">
                         {/* <Grid item md={4.25} lg={2.5} xl={2}>
                             <Grid container direction="column">
