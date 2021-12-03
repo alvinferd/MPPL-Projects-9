@@ -6,7 +6,7 @@
 ## 💡 Deskripsi Aplikasi
 
 ---
-LapakPonco merupakan aplikasi jual beli online yang menghubungkan pembeli dan pelaku UMKM desa di seluruh Indonesia. LapakPonco tidak menjual atau menyediakan produk, melainkan hanya sebagai perantara. 
+Poncolapak merupakan aplikasi jual beli online yang menghubungkan pembeli dan pelaku UMKM desa di seluruh Indonesia. LapakPonco tidak menjual atau menyediakan produk, melainkan hanya sebagai perantara. 
 
 ## 🚧 Lingkungan Pengembangan
 
