@@ -79,8 +79,8 @@ export default function CartCard() {
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                                {(MyCart.length != 0)
-                                    ? MyCart.map((product) => {
+                                {/* {(MyCart.length != 0) ? */}
+                                 {MyCart.map((product) => {
                                         return (
                                             <Grid item xs={12} key={product.id}>
                                                 {/* <ItemCart id={product.id} images={product.images[0]} name={product.name} price={product.price} seller={product.seller} /> */}
@@ -188,9 +188,7 @@ export default function CartCard() {
                                             </Grid>
                                         )
                                     })
-                                    : <Grid container direction="row" justifyContent="center" alignItems="center" sx={{ width: '100%', paddingTop: 4 }}>
-                                        <Typography>Keranjang Anda Kosong</Typography>
-                                    </Grid>
+                         
 
                                 }
                             </CheckboxGroup>
