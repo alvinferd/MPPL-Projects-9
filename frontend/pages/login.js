@@ -47,7 +47,8 @@ export default function Login() {
         <ThemeProvider theme={theme}>
             <Head>
                 <title>Login | Poncolapak</title>
-                <meta name="viewport" http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"/>
+                {/* <meta name="viewport" http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"/> */}
+                <meta name="viewport" content="initial-scale=1, width=device-width" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Grid container spacing={0} alignItems="center" className={classes.dimensi} justifyContent="center">
