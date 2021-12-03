@@ -28,7 +28,7 @@ export default function ProductInCategoryPage({ productInCategory, category }) {
                 </Container>
                 <Container maxWidth="1920" id="list-product" sx={{ width: "fit-content", marginX: { xs: 1, md: 2, xl: 4 }, marginY: 4 }}>
                     <Grid container spacing={{ xs: 2, lg: 3, xl: 4 }} direction="row">
-                        <Grid item md={4.25} lg={2.5} xl={2}>
+                        {/* <Grid item md={4.25} lg={2.5} xl={2}>
                             <Grid container direction="column">
                                 <Grid item xs={12}>
                                     <Typography variant="h5" paddingLeft={2}>
@@ -39,8 +39,8 @@ export default function ProductInCategoryPage({ productInCategory, category }) {
                                     <FilterCard />
                                 </Grid>
                             </Grid>
-                        </Grid>
-                        <Grid item md={7.75} lg={9.5} xl={10}>
+                        </Grid> */}
+                        <Grid item xs={12}>
                             <Grid container spacing={3} direction="row">
                                 {productInCategory.Products.map(product => {
                                     return (
