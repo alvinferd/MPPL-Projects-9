@@ -18,7 +18,7 @@ export default function Home({ dataProducts, dataWisata, dataCategory }) {
     <ThemeProvider theme={theme}>
       <Layout>
         <Head>
-          <title>Poncolapak</title>
+          <title>Poncolapak | Marketplace Produk dan Wisata Khas Desa Poncokusumo</title>
           {/* <meta name="viewport" httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests"/> */}
           <meta name="viewport" content="initial-scale=1, width=device-width" />
           <link rel="icon" href="/favicon.ico" />
@@ -71,7 +71,7 @@ export default function Home({ dataProducts, dataWisata, dataCategory }) {
           </Typography>
           <ListCardWisata dataWisata={dataWisata} />
           <Box display="flex" flexDirection="row" justifyContent="right" sx={{ paddingTop: 1 }}>
-            <Link href="/wisata" passHref >
+            <Link href="/category/Wisata" passHref >
               <MUILink variant="h6" underline="none" color="text.tertiary">
                 Lihat lebih banyak
               </MUILink>

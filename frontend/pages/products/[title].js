@@ -467,7 +467,7 @@ export default function ProductDetail({ product, listImages, productLainToko, pr
 
 export async function getStaticPaths() {
     dispatch(loadingSet(true));
-    const response = await fetch(`http://103.41.205.191:10001/api/v1/product/allNoWisata`);
+    const response = await fetch(`http://103.41.205.191:10001/api/v1/product/allProducts`);
     const dataProduct = await response.json();
 
     const paths = dataProduct.Products.map((product) => ({
@@ -483,7 +483,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
     dispatch(loadingSet(true));
-    const response = await fetch(`http://103.41.205.191:10001/api/v1/product/allNoWisata`);
+    const response = await fetch(`http://103.41.205.191:10001/api/v1/product/allProducts`);
     const dataProduct = await response.json();
 
     var id = 0;
