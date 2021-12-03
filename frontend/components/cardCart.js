@@ -31,58 +31,6 @@ export default function CartCard() {
     const MyCart = useSelector((state) => state.cart.data.Carts);
     const MyCartCheckout = useSelector((state) => state.cart.dataCheck);
 
-    // OBJEK JUMLAH BARANG
-    const firstJumlahBarang = {};
-    if (MyCart.length != 0) {
-        MyCart.map(item => {
-            firstJumlahBarang[item.id] = item.quantity;
-        });
-    }
-    
-    const [jumlahBarang, setJumlahBarang] = React.useState(firstJumlahBarang);
-    console.log(jumlahBarang);
-
-    const inc = (event, id) => {
-        let newJumlahBarang = { ...jumlahBarang };
-        newJumlahBarang[id] += 1;
-
-        const data = {
-            "quantity": newJumlahBarang[id]
-        }
-        setJumlahBarang(newJumlahBarang);
-        dispatch(cartUpdateQuantity({ data, id }));
-    }
-
-    const dec = (event, id) => {
-        let newJumlahBarang = { ...jumlahBarang };
-        if (jumlahBarang[id] > 1) {
-            newJumlahBarang[id] -= 1;
-        }
-
-        const data = {
-            "quantity": newJumlahBarang[id]
-        }
-        setJumlahBarang(newJumlahBarang);
-        dispatch(cartUpdateQuantity({ data, id }));
-        // console.log(newJumlahBarang);
-    }
-
-    const handleChange = (event, id) => {
-        let newJumlahBarang = { ...jumlahBarang };
-
-        if (Number(event.target.value) < 1) {
-            newJumlahBarang[id] = 1;
-        } else {
-            newJumlahBarang[id] = Number(event.target.value);
-        }
-        setJumlahBarang(newJumlahBarang);
-
-        const data = {
-            "quantity": newJumlahBarang[id]
-        }
-        dispatch(cartUpdateQuantity({ data, id }))
-    }
-
     const toggleCheckbox = (e, id) => {
         const ch = e.target.checked;
         if (id == 'allcheck') {
@@ -179,9 +127,12 @@ export default function CartCard() {
                                                             <Grid item>
                                                                 <Grid container spacing={0} direction="row" alignItems="center">
                                                                     <Grid item>
-                                                                        <IconButton aria-label="add" color="success"
-                                                                            onClick={(e) => {
-                                                                                dec(e, product.id);
+                                                                        <IconButton aria-label="dec" color="success"
+                                                                            onClick={(e, id=product.id) => {
+                                                                                const data = {
+                                                                                    "quantity": product.quantity-1
+                                                                                }
+                                                                                dispatch(cartUpdateQuantity({ data, id }));
                                                                             }}
                                                                             disabled={product.quantity <= 1}>
                                                                             <RemoveCircleIcon />
@@ -190,8 +141,21 @@ export default function CartCard() {
                                                                     <Grid item>
                                                                         <Box sx={{ width: 70, maxWidth: '100%' }}>
                                                                             <TextField id="product-count" type="number" variant="outlined" size="small" color="secondary" fullWidth value={product.quantity}
-                                                                                onChange={(e) => {
-                                                                                    handleChange(e, product.id);
+                                                                                onChange={(event, id=product.id) => {
+                                                                                    // handleChange(e, product.id);
+                                                                                    let newJumlahBarang;
+
+                                                                                    if (Number(event.target.value) < 1) {
+                                                                                        newJumlahBarang = 1;
+                                                                                    } else {
+                                                                                        newJumlahBarang = Number(event.target.value);
+                                                                                    }
+                                                                            
+                                                                                    const data = {
+                                                                                        "quantity": newJumlahBarang
+                                                                                    }
+
+                                                                                    dispatch(cartUpdateQuantity({ data, id }))
                                                                                 }}
                                                                                 // inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
                                                                                 InputLabelProps={{
@@ -201,8 +165,11 @@ export default function CartCard() {
                                                                     </Grid>
                                                                     <Grid item>
                                                                         <IconButton aria-label="add" color="success"
-                                                                            onClick={(e) => {
-                                                                                inc(e, product.id);
+                                                                            onClick={(e, id=product.id) => {
+                                                                                const data = {
+                                                                                    "quantity": product.quantity+1
+                                                                                }
+                                                                                dispatch(cartUpdateQuantity({ data, id }));
                                                                             }}>
                                                                             <AddCircleIcon />
                                                                         </IconButton>
