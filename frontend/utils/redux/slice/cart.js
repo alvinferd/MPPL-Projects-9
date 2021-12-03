@@ -9,8 +9,13 @@ import { alertSetError, alertSetMessage, alertSetSuccess } from './alert';
 const cartSlice = createSlice({
     name: 'cart',
     initialState: {
-        data: [],
-        dataCheck: [],
+        data: {
+            Carts: [],
+        },
+        dataCheck: {
+            Carts: [],
+            totalHarga: 0,
+        },
     },
     reducers: {
         cartSet: (state, action) => ({
@@ -24,8 +29,13 @@ const cartSlice = createSlice({
         cartReset: (state, action) => {
             return {
                 ...state,
-                data: [],
-                dataCheck: [],
+                data: {
+                    Carts: [],
+                },
+                dataCheck: {
+                    Carts: [],
+                    totalHarga: 0,
+                },
             };
         }
     },

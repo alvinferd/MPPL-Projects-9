@@ -28,7 +28,7 @@ const label = { inputProps: { 'aria-label': 'Checkbox Keranjang' } };
 
 
 export default function CartCard() {
-    const MyCart = useSelector((state) => state.cart.data.Carts);
+    const MyCart = useSelector((state) => state.cart.data);
     const MyCartCheckout = useSelector((state) => state.cart.dataCheck);
 
     const toggleCheckbox = (e, id) => {
@@ -80,7 +80,7 @@ export default function CartCard() {
                                     </Grid>
                                 </Grid>
                                 {/* {(MyCart.length != 0) ? */}
-                                 {MyCart.map((product) => {
+                                 {MyCart.Carts.map((product) => {
                                         return (
                                             <Grid item xs={12} key={product.id}>
                                                 {/* <ItemCart id={product.id} images={product.images[0]} name={product.name} price={product.price} seller={product.seller} /> */}
