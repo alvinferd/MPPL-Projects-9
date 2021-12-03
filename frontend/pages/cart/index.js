@@ -22,7 +22,7 @@ export default function Cart() {
         if (authenticated) {
             dispatch(cartGetData());
             dispatch(cartGetDataCheck());
-            if (isSeller) router.replace("/seller");
+            if (isSeller) router.replace("/seller/Home");
         } else {
             router.replace('/login');
         }

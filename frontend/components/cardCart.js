@@ -33,10 +33,12 @@ export default function CartCard() {
 
     // OBJEK JUMLAH BARANG
     const firstJumlahBarang = {};
-    MyCart.map(item => {
-        firstJumlahBarang[item.id] = item.quantity;
-    });
-
+    if (MyCart.length != 0) {
+        MyCart.map(item => {
+            firstJumlahBarang[item.id] = item.quantity;
+        });
+    }
+    
     const [jumlahBarang, setJumlahBarang] = React.useState(firstJumlahBarang);
     console.log(jumlahBarang);
 
@@ -129,95 +131,101 @@ export default function CartCard() {
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                                {MyCart.map((product) => {
-                                    return (
-                                        <Grid item xs={12} key={product.id}>
-                                            {/* <ItemCart id={product.id} images={product.images[0]} name={product.name} price={product.price} seller={product.seller} /> */}
-                                            <Grid container columnSpacing={2} direction="row">
-                                                <Grid item xs={1} >
-                                                    <Grid container spacing={0} alignItems="center" justifyContent="center" sx={{ height: '100%' }}>
-                                                        <GRCheckBox
-                                                            id={product.id}
-                                                            checked={product.checkout}
-                                                            onChange={(e) => {
-                                                                toggleCheckbox(e, product.id);
-                                                            }}
-                                                            className={styles.cb} />
+                                {(MyCart.length != 0)
+                                    ? MyCart.map((product) => {
+                                        return (
+                                            <Grid item xs={12} key={product.id}>
+                                                {/* <ItemCart id={product.id} images={product.images[0]} name={product.name} price={product.price} seller={product.seller} /> */}
+                                                <Grid container columnSpacing={2} direction="row">
+                                                    <Grid item xs={1} >
+                                                        <Grid container spacing={0} alignItems="center" justifyContent="center" sx={{ height: '100%' }}>
+                                                            <GRCheckBox
+                                                                id={product.id}
+                                                                checked={product.checkout}
+                                                                onChange={(e) => {
+                                                                    toggleCheckbox(e, product.id);
+                                                                }}
+                                                                className={styles.cb} />
+                                                        </Grid>
                                                     </Grid>
-                                                </Grid>
-                                                <Grid item xs={3} lg={2.5} xl={1.75} sx={{ position: 'relative' }}>
-                                                    <Image
-                                                        // src={ApiURL + product.imageUrl}
-                                                        src={(product.imageUrl) ? ApiURL + product.imageUrl : "/images/dp toko pak makmur.png"}
-                                                        alt={product.namaItem}
-                                                        // height={175}
-                                                        // width={175}
-                                                        layout='fill'
-                                                        objectFit='fill'
-                                                    />
-                                                </Grid>
-                                                <Grid item xs={6.75} lg={7} xl={8.25}>
-                                                    <Grid container columnSpacing={2} direction="column" >
-                                                        <Grid item>
-                                                            <Typography variant="body1">
-                                                                <b>{product.namaItem}</b>
-                                                            </Typography>
-                                                        </Grid>
-                                                        <Grid item>
-                                                            <Typography variant="body1" gutterBottom>
-                                                                {product.namaToko}
-                                                            </Typography>
-                                                        </Grid>
-                                                        <Grid item>
-                                                            <Typography variant="body1" color="text.quaternary" gutterBottom>
-                                                                {product.totalPrice.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}
-                                                            </Typography>
-                                                        </Grid>
-                                                        <Grid item>
-                                                            <Grid container spacing={0} direction="row" alignItems="center">
-                                                                <Grid item>
-                                                                    <IconButton aria-label="add" color="success"
-                                                                        onClick={(e) => {
-                                                                            dec(e, product.id);
-                                                                        }}
-                                                                        disabled={product.quantity <= 1}>
-                                                                        <RemoveCircleIcon />
-                                                                    </IconButton>
-                                                                </Grid>
-                                                                <Grid item>
-                                                                    <Box sx={{ width: 70, maxWidth: '100%' }}>
-                                                                        <TextField id="product-count" type="number" variant="outlined" size="small" color="secondary" fullWidth value={product.quantity}
-                                                                            onChange={(e) => {
-                                                                                handleChange(e, product.id);
+                                                    <Grid item xs={3} lg={2.5} xl={1.75} sx={{ position: 'relative' }}>
+                                                        <Image
+                                                            // src={ApiURL + product.imageUrl}
+                                                            src={(product.imageUrl) ? ApiURL + product.imageUrl : "/images/dp toko pak makmur.png"}
+                                                            alt={product.namaItem}
+                                                            // height={175}
+                                                            // width={175}
+                                                            layout='fill'
+                                                            objectFit='fill'
+                                                        />
+                                                    </Grid>
+                                                    <Grid item xs={6.75} lg={7} xl={8.25}>
+                                                        <Grid container columnSpacing={2} direction="column" >
+                                                            <Grid item>
+                                                                <Typography variant="body1">
+                                                                    <b>{product.namaItem}</b>
+                                                                </Typography>
+                                                            </Grid>
+                                                            <Grid item>
+                                                                <Typography variant="body1" gutterBottom>
+                                                                    {product.namaToko}
+                                                                </Typography>
+                                                            </Grid>
+                                                            <Grid item>
+                                                                <Typography variant="body1" color="text.quaternary" gutterBottom>
+                                                                    {product.totalPrice.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}
+                                                                </Typography>
+                                                            </Grid>
+                                                            <Grid item>
+                                                                <Grid container spacing={0} direction="row" alignItems="center">
+                                                                    <Grid item>
+                                                                        <IconButton aria-label="add" color="success"
+                                                                            onClick={(e) => {
+                                                                                dec(e, product.id);
                                                                             }}
-                                                                            // inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-                                                                            InputLabelProps={{
-                                                                                style: { color: '#000000' },
-                                                                            }} />
-                                                                    </Box>
-                                                                </Grid>
-                                                                <Grid item>
-                                                                    <IconButton aria-label="add" color="success"
-                                                                        onClick={(e) => {
-                                                                            inc(e, product.id);
-                                                                        }}>
-                                                                        <AddCircleIcon />
-                                                                    </IconButton>
+                                                                            disabled={product.quantity <= 1}>
+                                                                            <RemoveCircleIcon />
+                                                                        </IconButton>
+                                                                    </Grid>
+                                                                    <Grid item>
+                                                                        <Box sx={{ width: 70, maxWidth: '100%' }}>
+                                                                            <TextField id="product-count" type="number" variant="outlined" size="small" color="secondary" fullWidth value={product.quantity}
+                                                                                onChange={(e) => {
+                                                                                    handleChange(e, product.id);
+                                                                                }}
+                                                                                // inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+                                                                                InputLabelProps={{
+                                                                                    style: { color: '#000000' },
+                                                                                }} />
+                                                                        </Box>
+                                                                    </Grid>
+                                                                    <Grid item>
+                                                                        <IconButton aria-label="add" color="success"
+                                                                            onClick={(e) => {
+                                                                                inc(e, product.id);
+                                                                            }}>
+                                                                            <AddCircleIcon />
+                                                                        </IconButton>
+                                                                    </Grid>
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
-                                                </Grid>
-                                                <Grid item xs={1.25} lg={1}>
-                                                    <IconButton aria-label="remove from cart" color='error' sx={{ paddingTop: 0 }}
-                                                        onClick={() => deleteProduct(product.id)}>
-                                                        <CancelIcon />
-                                                    </IconButton>
+                                                    <Grid item xs={1.25} lg={1}>
+                                                        <IconButton aria-label="remove from cart" color='error' sx={{ paddingTop: 0 }}
+                                                            onClick={() => deleteProduct(product.id)}>
+                                                            <CancelIcon />
+                                                        </IconButton>
+                                                    </Grid>
                                                 </Grid>
                                             </Grid>
-                                        </Grid>
-                                    )
-                                })}
+                                        )
+                                    })
+                                    : <Grid container direction="row" justifyContent="center" alignItems="center" sx={{ width: '100%', paddingTop: 4 }}>
+                                        <Typography>Keranjang Anda Kosong</Typography>
+                                    </Grid>
+
+                                }
                             </CheckboxGroup>
                         </Grid>
                     </CardContent>
