@@ -56,8 +56,16 @@ function createData(produk, jmldibayar, jenisbayar, status, jasakirim, aksi) {
 
 const AksiCTA = () => {
     return (
-        <MUILink href='/#' color='secondary'>
+        <MUILink href='/seller/orderdetails' color='secondary'>
             Rincian Pesanan
+        </MUILink>
+    )
+}
+
+const AksiCTA2 = () => {
+    return (
+        <MUILink href='/seller/shipmentset' color='secondary'>
+            Atur Pengiriman
         </MUILink>
     )
 }
@@ -90,22 +98,9 @@ const GridProduk = ({ produk, penjual }) => {
 }
 
 const rows = [
-    createData(<GridProduk produk="Apel Merah Khas Poncokusumo" penjual='si_kepala_desa' />, 1000000, 'Transfer Bank - BCA', 'Perlu Dikirim', 'J&T Express (Reguler)', <AksiCTA />),
-    createData(<GridProduk produk="Apel Merah Khas Poncokusumo" penjual='si_kepala_desa' />, 1000000, 'Transfer Bank - BCA', 'Perlu Dikirim', 'J&T Express (Reguler)', <AksiCTA />),
-    createData(<GridProduk produk="Apel Merah Khas Poncokusumo" penjual='si_kepala_desa' />, 1000000, 'Transfer Bank - BCA', 'Perlu Dikirim', 'J&T Express (Reguler)', <AksiCTA />),
-    createData(<GridProduk produk="Apel Merah Khas Poncokusumo" penjual='si_kepala_desa' />, 1000000, 'Transfer Bank - BCA', 'Perlu Dikirim', 'J&T Express (Reguler)', <AksiCTA />),
-    createData(<GridProduk produk="Apel Merah Khas Poncokusumo" penjual='si_kepala_desa' />, 1000000, 'Transfer Bank - BCA', 'Perlu Dikirim', 'J&T Express (Reguler)', <AksiCTA />),
-    createData(<GridProduk produk="Apel Merah Khas Poncokusumo" penjual='si_kepala_desa' />, 1000000, 'Transfer Bank - BCA', 'Perlu Dikirim', 'J&T Express (Reguler)', <AksiCTA />),
-    createData(<GridProduk produk="Apel Merah Khas Poncokusumo" penjual='si_kepala_desa' />, 1000000, 'Transfer Bank - BCA', 'Perlu Dikirim', 'J&T Express (Reguler)', <AksiCTA />),
-    createData(<GridProduk produk="Apel Merah Khas Poncokusumo" penjual='si_kepala_desa' />, 1000000, 'Transfer Bank - BCA', 'Perlu Dikirim', 'J&T Express (Reguler)', <AksiCTA />),
-    createData(<GridProduk produk="Apel Merah Khas Poncokusumo" penjual='si_kepala_desa' />, 1000000, 'Transfer Bank - BCA', 'Perlu Dikirim', 'J&T Express (Reguler)', <AksiCTA />),
-    createData(<GridProduk produk="Apel Merah Khas Poncokusumo" penjual='si_kepala_desa' />, 1000000, 'Transfer Bank - BCA', 'Perlu Dikirim', 'J&T Express (Reguler)', <AksiCTA />),
-    createData(<GridProduk produk="Apel Merah Khas Poncokusumo" penjual='si_kepala_desa' />, 1000000, 'Transfer Bank - BCA', 'Perlu Dikirim', 'J&T Express (Reguler)', <AksiCTA />),
-    createData(<GridProduk produk="Apel Merah Khas Poncokusumo" penjual='si_kepala_desa' />, 1000000, 'Transfer Bank - BCA', 'Perlu Dikirim', 'J&T Express (Reguler)', <AksiCTA />),
-    createData(<GridProduk produk="Apel Merah Khas Poncokusumo" penjual='si_kepala_desa' />, 1000000, 'Transfer Bank - BCA', 'Perlu Dikirim', 'J&T Express (Reguler)', <AksiCTA />),
-    createData(<GridProduk produk="Apel Merah Khas Poncokusumo" penjual='si_kepala_desa' />, 1000000, 'Transfer Bank - BCA', 'Perlu Dikirim', 'J&T Express (Reguler)', <AksiCTA />),
-    createData(<GridProduk produk="Apel Merah Khas Poncokusumo" penjual='si_kepala_desa' />, 1000000, 'Transfer Bank - BCA', 'Perlu Dikirim', 'J&T Express (Reguler)', <AksiCTA />),
-
+    createData(<GridProduk produk="Apel Merah Khas Poncokusumo" penjual='si_kepala_desa' />, 1000000, 'Transfer Bank - BCA', 'Sudah Dikirim', 'J&T Express (Reguler)', <AksiCTA />),
+    createData(<GridProduk produk="Apel Merah Khas Poncokusumo" penjual='si_kepala_desa' />, 1000000, 'Transfer Bank - BCA', 'Perlu Dikirim', '-', <AksiCTA2 />),
+    createData(<GridProduk produk="Apel Merah Khas Poncokusumo" penjual='si_kepala_desa' />, 1000000, '-', 'Belum Dibayar', '-', <AksiCTA />),
 ];
 
 export default function MyOrdersTable({ myProducts }) {

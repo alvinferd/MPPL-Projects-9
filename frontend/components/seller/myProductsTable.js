@@ -8,9 +8,13 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import { Grid, IconButton, Typography } from '@mui/material';
 import Image from 'next/image';
 import { ApiURL } from '../../utils/constant';
+import router from 'next/router'
+import { dispatch } from '../../utils/redux/store';
+import { deleteProduct } from '../../utils/redux/slice/product';
 
 const columns = [
     {
@@ -59,13 +63,31 @@ function createData(produk, deskripsi, harga, stok, penjualan, pengaturan) {
     return { produk, deskripsi, harga, stok, penjualan, pengaturan };
 }
 
+// const onDelete = (id) => {
+    
+// };
+
 const SettingButton = (id) => {
     return (
-        <IconButton size='small' sx={{ padding: 0 }} onClick={() => console.log(id)}>
-            <SettingsOutlinedIcon color='secondary' />
-        </IconButton>
+        <Grid container spacing={2}>
+            <Grid item>
+                <IconButton size='small' sx={{ padding: 0 }} onClick={() => router.push("/seller/productset")}>
+                    <SettingsOutlinedIcon color='secondary' />
+                </IconButton>
+            </Grid>
+            <Grid item>
+                <IconButton size='small' sx={{ padding: 0 }} >
+                    <DeleteOutlinedIcon color='error' 
+                    onClick={(e) => {
+                        // console.log(id.id);
+                        dispatch(deleteProduct(id.id));
+                    }} />
+                </IconButton>
+            </Grid>
+        </Grid>
     )
 }
+
 
 const GridProduk = ({ produk, images }) => {
     return (
@@ -98,7 +120,7 @@ const extractDatatoRows = ({ myProducts }) => {
 }
 
 export default function MyProductsTable({ myProducts }) {
-    extractDatatoRows({myProducts});
+    extractDatatoRows({ myProducts });
 
     // console.log(rows);
     const [page, setPage] = React.useState(0);

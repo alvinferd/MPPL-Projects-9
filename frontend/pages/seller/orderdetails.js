@@ -33,13 +33,13 @@ export default function OrderDetails() {
                         <MUILink underline="hover" href="/seller/Home" color="text.primary">
                             Home
                         </MUILink>
-                        <MUILink
+                        {/* <MUILink
                             underline="hover"
                             color="text.primary"
-                            // href={`/category/${product.category_name}`}
+                            href={`/category/${product.category_name}`}
                         >
-                            {/* {product.category_name} */}
-                        </MUILink>
+                            {product.category_name}
+                        </MUILink> */}
                         <Typography color="text.quaternary">Rincian Pengiriman</Typography>
                     </Breadcrumbs>
                 </Container>

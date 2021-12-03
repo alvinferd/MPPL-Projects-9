@@ -72,7 +72,7 @@ export default function CardTokoSeller({ id, nama, lokasi, displayPicture, deskr
                 </Grid>
                 <Grid spacing={2} container direction="row" justifyContent="center">
                     <Grid item>
-                        <Button variant="contained" color="secondary" onClick={() => router.push(`pengaturantoko/`)}>
+                        <Button variant="contained" color="secondary" onClick={() => router.push(`shopset/`)}>
                             Pengaturan Toko
                         </Button>
                     </Grid>

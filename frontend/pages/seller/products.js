@@ -30,7 +30,7 @@ export default function MyProducts() {
                 </Head>
                 <Container maxWidth="1920" id="br-product-seller" sx={{ width: '95vw', marginX: { xs: 1, md: 2, lg: 4 }, marginY: 4 }}>
                     <Breadcrumbs separator="›" color="text.primary" aria-label="breadcrumb">
-                        <MUILink underline="hover" href="/seller" color="text.primary">
+                        <MUILink underline="hover" href="/seller/Home" color="text.primary">
                             Home
                         </MUILink>
                         <Typography color="text.quaternary">Produk</Typography>

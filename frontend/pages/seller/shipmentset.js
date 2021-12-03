@@ -3,18 +3,25 @@ import Head from 'next/head'
 import { ThemeProvider } from '@emotion/react'
 import theme from '../../themes/default'
 import SellerLayout from '../../layout/defaultSeller'
-import { Container, Typography, Breadcrumbs, Box, Button, Link as MUILink, Grid, TextField, InputLabel, FormControl, InputAdornment, SliderUnstyledComponentsPropsOverrides, MenuItem, Select} from '@mui/material'
+import { Container, Typography, Breadcrumbs, Box, Button, Link as MUILink, Grid, TextField, InputLabel, FormControl, InputAdornment, SliderUnstyledComponentsPropsOverrides, MenuItem, Select } from '@mui/material'
 import Toko from "../../utils/dummy/Toko"
 import Image from 'next/image'
+import router from 'next/router'
+import { useForm } from 'react-hook-form'
+
+const onSubmit = (data) => {
+    console.log(data);
+    router.push("/seller/orders");
+};
 
 export default function ShipmentSettings() {
 
     const [jenisEkspedisi, setEkspedisi] = React.useState('');
 
     const handleChange = (event) => {
-      setEkspedisi(event.target.value);
+        setEkspedisi(event.target.value);
     };
-  
+    const { control, handleSubmit } = useForm();
     return (
         <ThemeProvider theme={theme}>
             <SellerLayout>
@@ -28,36 +35,38 @@ export default function ShipmentSettings() {
                         <MUILink underline="hover" href="/seller/Home" color="text.primary">
                             Home
                         </MUILink>
-                        <MUILink
+                        {/* <MUILink
                             underline="hover"
                             color="text.primary"
-                            // href={`/category/${product.category_name}`}
+                            href={`/category/${product.category_name}`}
                         >
-                            {/* {product.category_name} */}
-                        </MUILink>
+                            {product.category_name}
+                        </MUILink> */}
                         <Typography color="text.quaternary">Pengaturan Pengiriman</Typography>
                     </Breadcrumbs>
                 </Container>
                 <Grid container mt={1} ml={5}>
                     <Grid item xs={6}>
-                        <Grid container spacing={1} ml={2} mt={2}>
-                            <Typography variant = "h6">
-                            <b>   Informasi Produk </b>
-                            </Typography>
-                        </Grid>
-                        <Grid container spacing={1} ml={2} mt={2} alignItems='center' justifyItems='center'>
-                            <Grid item xs={3}>
-                                <Typography>
-                                    Jasa Pengiriman *
+                        <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%", alignItems: "center" }}>
+                            <Grid container spacing={1} ml={2} mt={2}>
+                                <Typography variant="h6">
+                                    <b>   Informasi Produk </b>
                                 </Typography>
                             </Grid>
-                            <Grid item xs={8}>
-                                <FormControl fullWidth>
-                                    <InputLabel>Pilih Ekspedisi</InputLabel>
+                            <Grid container spacing={1} ml={2} mt={2} alignItems='center' justifyItems='center'>
+                                <Grid item xs={3}>
+                                    <Typography>
+                                        Jasa Pengiriman *
+                                    </Typography>
+                                </Grid>
+                                <Grid item xs={8}>
+                                    <FormControl fullWidth>
+                                        <InputLabel>Pilih Ekspedisi</InputLabel>
                                         <Select
                                             value={jenisEkspedisi}
                                             onChange={handleChange}
                                             label="Pilih Ekspedisi"
+                                            required
                                         >
                                             <MenuItem value={1}>JNE YES</MenuItem>
                                             <MenuItem value={2}>JNE REG</MenuItem>
@@ -65,35 +74,36 @@ export default function ShipmentSettings() {
                                             <MenuItem value={4}>JNT Express</MenuItem>
                                             <MenuItem value={5}>JNT Reguler</MenuItem>
                                         </Select>
-                                </FormControl>
+                                    </FormControl>
+                                </Grid>
                             </Grid>
-                        </Grid>
-                        <Grid container spacing={1} ml={2} mt={2} alignItems='center' justifyItems='center'>
-                            <Grid item xs={3}>
-                                <Typography>
-                                    Nomor Resi *
-                                </Typography>
+                            <Grid container spacing={1} ml={2} mt={2} alignItems='center' justifyItems='center'>
+                                <Grid item xs={3}>
+                                    <Typography>
+                                        Nomor Resi *
+                                    </Typography>
+                                </Grid>
+                                <Grid item xs={8}>
+                                    <TextField
+                                        multiline
+                                        rows={4}
+                                        fullWidth
+                                        required
+                                        color="secondary"
+                                        type="text"
+                                    />
+                                </Grid>
                             </Grid>
-                            <Grid item xs={8}>
-                                <TextField
-                                    multiline
-                                    rows={4}
-                                    fullWidth
-                                    required
-                                    color="secondary"
-                                    type="text"
-                                />
+                            <Grid container justifyContent="center" spacing={2} mt={1}>
+                                <Grid item>
+                                    <Button variant="contained" color="secondary" size="large" type="submit"
+                                    // onClick={() => router.push(`/seller/orders`)}
+                                    >
+                                        Simpan
+                                    </Button>
+                                </Grid>
                             </Grid>
-                        </Grid>
-                        <Grid container justifyContent="center" spacing={2} mt={1}>
-                            <Grid item>
-                                <Button variant="contained" color="secondary" size="large"
-                                // onClick={() => router.push(`/order/pending`)}
-                                >
-                                    Simpan
-                                </Button>
-                            </Grid>
-                        </Grid>
+                        </form>
                     </Grid>
                     <Grid item xs={6} mt={9}>
                         <Grid container ml={5} direction='row' mb={2}>
@@ -108,18 +118,18 @@ export default function ShipmentSettings() {
                             <Grid item xs={9}>
                                 <Grid container direction='column'>
                                     <Grid item>
-                                        <Typography variant = "body1">
-                                        <b> Alamat Pengiriman </b>
+                                        <Typography variant="body1">
+                                            <b> Alamat Pengiriman </b>
                                         </Typography>
                                     </Grid>
                                     <Grid item mt={0.5} xs={8}>
-                                        <Typography variant = "body2">
-                                        Kepala Desa, 628222324241
+                                        <Typography variant="body2">
+                                            Kepala Desa, 628222324241
                                         </Typography>
                                     </Grid>
                                     <Grid item mt={0.5}>
-                                        <Typography variant = "body2">
-                                        Jalan Pagedangan, Tambakaji-Ngaliyan, Semarang , KOTA SEMARANG, NGALIYAN, JAWA TENGAH, ID, 50185
+                                        <Typography variant="body2">
+                                            Jalan Pagedangan, Tambakaji-Ngaliyan, Semarang , KOTA SEMARANG, NGALIYAN, JAWA TENGAH, ID, 50185
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -137,22 +147,22 @@ export default function ShipmentSettings() {
                             <Grid item xs={9}>
                                 <Grid container direction='column'>
                                     <Grid item>
-                                        <Typography variant = "body1">
-                                        <b> Alamat Toko </b>
+                                        <Typography variant="body1">
+                                            <b> Alamat Toko </b>
                                         </Typography>
                                     </Grid>
                                     <Grid item mt={0.5}>
-                                        <Typography variant = "body2">
-                                        {Toko.nama}, {Toko.contact}
+                                        <Typography variant="body2">
+                                            {Toko.nama}, {Toko.contact}
                                         </Typography>
                                     </Grid>
                                     <Grid item mt={0.5}>
-                                        <Typography variant = "body2">
-                                        {Toko.lokasi}
+                                        <Typography variant="body2">
+                                            {Toko.lokasi}
                                         </Typography>
                                     </Grid>
                                 </Grid>
-                            </Grid> 
+                            </Grid>
                         </Grid>
                     </Grid>
                 </Grid>

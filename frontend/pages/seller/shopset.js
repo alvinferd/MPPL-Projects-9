@@ -12,6 +12,7 @@ import image from "../../public/images/box.png"
 import { makeStyles } from '@mui/styles'
 import CardTokoNonButton from "../../components/cardTokoNonButton"
 import Image from 'next/image'
+import router from "next/router"
 
 const useStyles = makeStyles({
     root: {
@@ -104,14 +105,14 @@ const classes = useStyles();
                             <Grid container justifyContent="center" spacing={2} mt={2}>
                                 <Grid item>
                                     <Button variant="contained" color="primary" size="large"
-                                    // onClick={() => router.push(`/order/pending`)}
+                                    onClick={() => router.push(`/seller/Home`)}
                                     >
                                         Buang Perubahan
                                     </Button>
                                 </Grid>
                                 <Grid item>
                                     <Button variant="contained" color="secondary" size="large"
-                                    // onClick={() => router.push(`/order/pending`)}
+                                    onClick={() => router.push(`/seller/Home`)}
                                     >
                                         Simpan
                                     </Button>

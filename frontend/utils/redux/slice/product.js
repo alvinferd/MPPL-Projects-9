@@ -63,6 +63,31 @@ export const addNewProduct = createAsyncThunk(
     }
 )
 
+export const deleteProduct = createAsyncThunk(
+    'product/deleteProduct',
+    async (id, { dispatch }) => {
+        console.log("id", id)
+        dispatch(loadingSet(true));
+        return baseApi
+            .delete("/api/v1/product/deleteProduct/" + id)
+            .then((res) => {
+                // console.log(res);
+                dispatch(readMyProduct());
+                dispatch(alertSetSuccess(true));
+                dispatch(alertSetMessage("Produk berhasil dihapus!"));
+            })
+            .catch((err) => {
+                // console.log(err);
+                dispatch(alertSetError(true));
+                dispatch(alertSetMessage(err.message));
+            })
+            .finally(() => {
+                dispatch(loadingSet(false));
+                router.reload();
+            })
+    }
+)
+
 // export const successAddProduct = createAsyncThunk(
 //     'product/successAddProduct',
 //     async (data, { dispatch }) => {
