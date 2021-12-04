@@ -79,9 +79,13 @@ __Tech Stack__
 ![Activity Diagram drawio (12)](https://user-images.githubusercontent.com/61318031/144691349-e32ca600-3777-4120-ba6f-bdd7e047a660.png)
 
  **Class diagram**
+ 
 ![unnamed](https://user-images.githubusercontent.com/61318031/144692018-49ed08e8-686d-4c19-ae5c-cab7d1220fdd.png)
 
+---
+
  **Arsitektur sistem** 
+ 
  ![unnamed](https://user-images.githubusercontent.com/61318031/144692059-9142ecf7-2180-4ae5-b199-7ca314cd00f7.png)
  
 ---
