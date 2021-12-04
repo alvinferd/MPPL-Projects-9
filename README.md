@@ -248,8 +248,12 @@ Unit Testing
 
 
 ## 🚀 Deployment
-
 ---
+Deployment dilakukan menggunakan komputer/laptop pribadi
+Web Application : http://103.41.205.191:3010/
+API Endpoint : http://103.41.205.191:10001
+
+Publikasi : https://ipb.link/api-poncolapak
 
 ## 💬 Saran dan Kesimpulan
 ---
