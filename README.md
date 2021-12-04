@@ -21,13 +21,13 @@ __Software__
 * Visual Studio Code
 
 __Hardware__
-*80 GB SSD Disk Space
-*4 TB Bandwidth
-*8 Core
-*6 GB Physical RAM
-*1 IP Address v4
-*Virtualizor Panel
-*Ubuntu Linux OS
+* 80 GB SSD Disk Space
+* 4 TB Bandwidth
+* 8 Core
+* 6 GB Physical RAM
+* 1 IP Address v4
+* Virtualizor Panel
+* Ubuntu Linux OS
 
 __Tech Stack__
 * ReactJS
@@ -38,12 +38,11 @@ __Tech Stack__
 
 ## 🙋 User Research and Analysis
 **Discover**
-![MPPL_Kelompok 9 ](https://user-images.githubusercontent.com/61318031/144690481-deb08c4d-e0c4-47c1-ad67-47302d275b0f.png)
 
+![MPPL_Kelompok 9 ](https://user-images.githubusercontent.com/61318031/144690481-deb08c4d-e0c4-47c1-ad67-47302d275b0f.png)
 
 **Explore** 
 
-User Persona 
 ![User Persona 1](https://user-images.githubusercontent.com/61318031/144021037-429e383f-47f2-4005-ba79-f799350b5d5d.png)
 
 ![User Persona 2](https://user-images.githubusercontent.com/61318031/144026019-27740c9c-42b4-4fd2-8a1c-47b95044d104.png)
@@ -61,8 +60,22 @@ User Persona
 
  **Activity diagram** 
 ![Activity Diagram drawio (1)](https://user-images.githubusercontent.com/61318031/144690667-0e5eed3c-493c-4127-92d8-045f35d54887.png)
-)
 
+![Activity Diagram drawio (2)](https://user-images.githubusercontent.com/61318031/144690962-6f11c8af-9ce8-417c-ab70-064af461dd11.png)
+
+![Activity Diagram drawio (5)](https://user-images.githubusercontent.com/61318031/144691154-887c9e8c-62e2-49ff-ac43-4224e9d79928.png)
+
+![Activity Diagram drawio (6)](https://user-images.githubusercontent.com/61318031/144691193-74504ec8-225f-4cee-bd11-19204ef095fb.png)
+
+![Activity Diagram drawio (7)](https://user-images.githubusercontent.com/61318031/144691250-92f5e758-3ea5-4b67-80f2-caeea52298a8.png)
+
+![Activity Diagram drawio (8)](https://user-images.githubusercontent.com/61318031/144691277-49286f3c-fbd3-4564-a1ec-045447be33f4.png)
+
+![Activity Diagram drawio (9)](https://user-images.githubusercontent.com/61318031/144691334-4be41e50-ea25-4bfc-93c8-835a953996cb.png)
+
+![Activity Diagram drawio (11)](https://user-images.githubusercontent.com/61318031/144691344-20517785-d796-4c51-9125-49ed2c46caaf.png)
+
+![Activity Diagram drawio (12)](https://user-images.githubusercontent.com/61318031/144691349-e32ca600-3777-4120-ba6f-bdd7e047a660.png)
 
  **Class diagram**
 
@@ -81,7 +94,7 @@ User Persona
 
 ---
 
-## 💬 Saran
+## 💬 Kesimpulan Saran
 
 ---
 
