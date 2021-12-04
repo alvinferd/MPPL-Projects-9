@@ -92,6 +92,158 @@ __Tech Stack__
 
 ## 👾 Implementation and Unit Testing
 
+
+
+Unit Testing
+
+<table>
+    <thead>
+        <tr>
+            <th>Scenario</th>
+            <th>Test Cases</th>
+            <th>Expected Output</th>
+            <th>Actual Output</th>
+            <th>Notes</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Login User & Seller</td>
+            <td>Username dan password yang terdaftar</td>
+            <td>Berhasil login, diarahkan ke home page</td>
+            <td>Berhasil login, diarahkan ke home page</td>
+            <td>[SUCCESS]</td>
+        </tr>
+        <tr>
+            <td>Login User & Seller</td>
+            <td>Username dan password yang tidak terdaftar</td>
+            <td>Gagal login, tetap di halaman login</td>
+            <td>Gagal login, tetap di halaman login</td>
+            <td>[SUCCESS]</td>
+        </tr>
+        <tr>
+            <td>Register User & Seller</td>
+            <td>Data yang diminta</td>
+            <td>Berhasil register, diarahkan ke laman login</td>
+            <td>Berhasil register, diarahkan ke laman login</td>
+            <td>[FIXING] auto define null password</td>
+        </tr>
+        <tr>
+            <td>Cari Produk</td>
+            <td>Nama produk (exact, case sensitive)</td>
+            <td>Daftar produk dengan nama sesuai input</td>
+            <td>Daftar produk dengan nama sesuai input</td>
+            <td>[SUCCESS]</td>
+        </tr>
+        <tr>
+            <td>Melihat daftar produk pada sebuah kategori</td>
+            <td>-</td>
+            <td>Daftar produk sesuai kategori yang dipilih</td>
+            <td>Daftar produk sesuai kategori yang dipilih</td>
+            <td>[SUCCESS]</td>
+       </tr>
+        <tr>
+            <td>Melihat detail sebuah produk</td>
+            <td>-</td>
+            <td>Tampilan detail mengenai produk yang dipilih</td>
+            <td>Tampilan detail mengenai produk yang dipilih</td>
+            <td>[SUCCESS]</td>
+        </tr>
+        <tr>
+            <td>Menambahkan produk ke keranjang</td>
+            <td>-</td>
+            <td>Produk berhasil ditambahkan dan muncul prompt success</td>
+            <td>Produk berhasil ditambahkan dan muncul prompt success</td>
+            <td>[SUCCESS]</td>
+        </tr>
+        <tr>
+            <td>Pilih produk yang ingin dibeli pada keranjang</td>
+            <td>-</td>
+            <td>Produk tercentang dan tampil di bagian checkout</td>
+            <td>Produk tercentang dan tampil di bagian checkout</td>
+            <td>[SUCCESS]</td>
+        </tr>
+        <tr>
+            <td>Ubah kuantitas produk pada keranjang</td>
+            <td>-</td>
+            <td>Kuantitas produk berubah dan harga terupdate</td>
+            <td>Kuantitas produk berubah dan harga terupdate</td>
+            <td>[SUCCESS]</td>
+        </tr>
+        <tr>
+            <td>Hapus produk pada keranjang</td>
+            <td>-</td>
+            <td>Produk yang dipilih terhapus dan hilang dari keranjang</td>
+            <td>Produk yang dipilih terhapus dan hilang dari keranjang</td>
+            <td>[SUCCESS]</td>
+        </tr>
+        <tr>
+            <td>Checkout Produk</td>
+            <td>Ada produk yang dipilih pada keranjang</td>
+            <td>Pemesanan berhasil dan muncul prompt success</td>
+            <td>Pemesanan berhasil dan muncul prompt success</td>
+            <td>[FIXING] ongkir don’t auto add to price</td>
+        </tr>
+        <tr>
+            <td>Edit Profile</td>
+            <td>Biodata diri diubah.</td>
+            <td>Data berhasil diubah dan muncul prompt success</td>
+            <td>Data berhasil diubah dan muncul prompt success</td>
+            <td>[SUCCESS]</td>
+        </tr>
+        <tr>
+            <td>Lacak Nomor Resi Produk</td>
+            <td>Nomor resi produk</td>
+            <td>Dialihkan ke website cekresi.com dan ditampilkan hasilnya</td>
+            <td>Dialihkan ke website cekresi.com dan ditampilkan hasilnya</td>
+            <td>[SUCCESS]</td>
+        </tr>
+        <tr>
+            <td>Upload Bukti Pembayaran</td>
+            <td>File bukti pembayaran</td>
+            <td>Bukti pembayaran terunggah kedalam database</td>
+            <td>Bukti pembayaran gagal terunggah</td>
+            <td>[FAIL] Unimplemented Feature</td>
+        </tr>
+        <tr>
+            <td>Lihat riwayat pemesanan</td>
+            <td>-</td>
+            <td>Riwayat pemesanan ditampilkan</td>
+            <td>Riwayat pemesanan ditampilkan</td>
+            <td>[SUCCESS]</td>
+        </tr>
+        <tr>
+            <td>Tampilkan Produk Saya</td>
+            <td>-</td>
+            <td>Semua produk pada toko ditampilkan dalam tabel</td>
+            <td>Semua produk pada toko ditampilkan dalam tabel</td>
+            <td>[SUCCESS]</td>
+        </tr>
+        <tr>
+            <td>Add Product</td>
+            <td>Detail produk yang ingin ditambahkan</td>
+            <td>Produk tersimpan dan ditampilkan pada tabel products</td>
+            <td>Produk tersimpan dan ditampilkan pada tabel products</td>
+            <td>[FIXING] image product not saved</td>
+        </tr>
+        <tr>
+            <td>Delete Product</td>
+            <td>Produk yang ingin dihapus</td>
+            <td>Produk terhapus dan hilang dari tabel products</td>
+            <td>Produk terhapus dan hilang dari tabel products</td>
+            <td>[SUCCESS]</td>
+        </tr>
+        <tr>
+            <td>Logout User & Seller</td>
+            <td>-</td>
+            <td>Logout berhasil dan diarahkan ke halaman login</td>
+            <td>Logout berhasil dan diarahkan ke halaman login</td>
+            <td>[SUCCESS]</td>
+        </tr>
+    </tbody>
+</table>
+
+
 ---
 
 
