@@ -59,6 +59,7 @@ __Tech Stack__
 ![Usecase Diagram drawio](https://user-images.githubusercontent.com/61318031/144690634-7b68ff65-cf17-41c4-a981-5d7fa97bb6ad.png)
 
  **Activity diagram** 
+ 
 ![Activity Diagram drawio (1)](https://user-images.githubusercontent.com/61318031/144690667-0e5eed3c-493c-4127-92d8-045f35d54887.png)
 
 ![Activity Diagram drawio (2)](https://user-images.githubusercontent.com/61318031/144690962-6f11c8af-9ce8-417c-ab70-064af461dd11.png)
@@ -94,9 +95,14 @@ __Tech Stack__
 
 ---
 
-## 💬 Kesimpulan Saran
-
+## 💬 Saran dan Kesimpulan
 ---
+Berdasarkan hasil pengujian, aplikasi Poncolapak dapat bekerja sesuai dengan spesifikasi yang telah ditentukan. Namun masih terdapat beberapa fitur yang gagal ketika dilakukan pengujian.
+
+* Perlu ditingkatkan lagi komunikasi antar anggota tim sehingga dapat meminimalisir miskomunikasi yang menyebabkan terhambatnya proyek
+* Manajemen waktu perlu dievaluasi kembali untuk kedepannya
+* Evaluasi yang rutin perlu ditingkatkan sehingga dapat melihat progress proyek secara teratur
+
 
 ## 👨‍👩‍👦‍👦 Developer
 <table>
