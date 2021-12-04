@@ -11,17 +11,35 @@ Poncolapak merupakan aplikasi jual beli online yang menghubungkan pembeli dan pe
 ## 🚧 Lingkungan Pengembangan
 
 __Software__
+* Trello
+* Github
+* Zoom
+* Figma
+* Google Chrome
+* diagrams.net
+* Postman
+* Visual Studio Code
 
 __Hardware__
+*80 GB SSD Disk Space
+*4 TB Bandwidth
+*8 Core
+*6 GB Physical RAM
+*1 IP Address v4
+*Virtualizor Panel
+*Ubuntu Linux OS
 
 __Tech Stack__
-
+* ReactJS
+* NextJS
+* Material ui
+* Django REST framework 
 ---
 
 ## 🙋 User Research and Analysis
 **Discover**
+![MPPL_Kelompok 9 ](https://user-images.githubusercontent.com/61318031/144690481-deb08c4d-e0c4-47c1-ad67-47302d275b0f.png)
 
-Requierement Gathering
 
 **Explore** 
 
@@ -34,17 +52,17 @@ User Persona
 
 ![User Persona 4](https://user-images.githubusercontent.com/61318031/144218238-e1699dab-77c1-4d26-8c8a-1ae845ec59ed.png)
 
-**Test** 
-
-**Listen** 
-
 ---
 
 ## 🌐 Sistem Design
 
 **Use Case Diagram** 
+![Usecase Diagram drawio](https://user-images.githubusercontent.com/61318031/144690634-7b68ff65-cf17-41c4-a981-5d7fa97bb6ad.png)
 
  **Activity diagram** 
+![Activity Diagram drawio (1)](https://user-images.githubusercontent.com/61318031/144690667-0e5eed3c-493c-4127-92d8-045f35d54887.png)
+)
+
 
  **Class diagram**
 
