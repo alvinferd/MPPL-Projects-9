@@ -7,3 +7,4 @@ RUN pip3 install -r requirements.txt
 COPY . /code/
 
 
+FLAG=PROTERGO{welcoming_git_don't_forget_to_restrict}
